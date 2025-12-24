@@ -13,139 +13,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+<section class="hero rimac-bg">
+  <div class="rimac-light"></div>
 
-  <main class="app">
-    <header class="header">
-      <div class="header-left">
-        <img src="https://www.powerfrill.com/wp-content/uploads/2024/05/powerfrill-white-logo-final.png" alt="Logo" class="logo">
-      </div>
-      <div class="header-right">
-        <i class='bx bx-menu bx-md' id="menu-toggle"></i>
-      </div>
-    </header>
+<div class="hero-content">
+  <h1 class="hero-title" id="hero-title"></h1>
+</div>
 
-    <section class="products-section">
-      <div class="products-container">
-        <h1 class="products-title">Welcome to Powerfrill</h1>
-        <h2 class="products-subtitle">OUR PRODUCTS</h2>
-        
-        <div class="products-grid">
-          <div class="product-card">
-            <div class="product-image-container">
-              <img src="images/solarpower.webp" alt="Solar Power Solutions" class="product-image">
-            </div>
-            <div class="product-content">
-              <h3 class="product-title">Solar Power Solutions</h3>
-              <p class="product-description">Advanced photovoltaic systems designed to maximize energy efficiency and provide sustainable power solutions for residential and commercial applications.</p>
-              <a href="product-detail.html?id=solar-power" class="product-button">Learn More</a>
-            </div>
-          </div>
 
-          <div class="product-card">
-            <div class="product-image-container">
-              <img src="images/greenhydrogen.webp" alt="Green Hydrogen Systems" class="product-image">
-            </div>
-            <div class="product-content">
-              <h3 class="product-title">Green Hydrogen Systems</h3>
-              <p class="product-description">Revolutionary hydrogen production technology using renewable energy sources to create clean, sustainable fuel for the future.</p>
-              <a href="product-detail.html?id=green-hydrogen" class="product-button">Learn More</a>
-            </div>
-          </div>
 
-          <div class="product-card">
-            <div class="product-image-container">
-              <img src="images/battery.webp" alt="Batteries & Energy Storage Systems" class="product-image">
-            </div>
-            <div class="product-content">
-              <h3 class="product-title">Batteries & Energy Storage</h3>
-              <p class="product-description">High-capacity energy storage solutions that ensure reliable power supply and optimize energy management for modern applications.</p>
-              <a href="product-detail.html?id=energy-storage" class="product-button">Learn More</a>
-            </div>
-          </div>
-
-          <!-- Product 4: Solar Thermal Generator -->
-          <div class="product-card">
-            <div class="product-image-container">
-              <img src="images/solarthermal.webp" alt="Solar Thermal Generator" class="product-image">
-            </div>
-            <div class="product-content">
-              <h3 class="product-title">Solar Thermal Generator</h3>
-              <p class="product-description">Cutting-edge thermal energy systems that convert solar radiation into usable heat and electricity with maximum efficiency.</p>
-              <a href="product-detail.html?id=thermal-generator" class="product-button">Learn More</a>
-            </div>
-          </div>
-
-          <!-- Product 5: Micro Heliostats -->
-          <div class="product-card">
-            <div class="product-image-container">
-              <img src="images/automatic.webp" alt="Micro Heliostats" class="product-image">
-            </div>
-            <div class="product-content">
-              <h3 class="product-title">Automatic Battery</h3>
-              <p class="product-description">Precision solar tracking mirrors that concentrate sunlight for enhanced energy collection and improved solar system performance.</p>
-              <a href="product-detail.html?id=micro-heliostats" class="product-button">Learn More</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-   
-  </main>
-
- <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <i class='bx bx-x bx-sm' id="close-sidebar"></i>
-    </div>
-    <ul class="sidebar-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="product.html">Products</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact Us</a></li>
-    </ul>
+    <!-- <button class="cta-btn">Read More</button> -->
   </div>
 
-  <div class="overlay-bg" id="overlay-bg"></div>
+ <div class="hero-cards">
+  <div class="card card-left green-border">
+    <img src="../IONORA-Portfolio/images/humanoid-robot-and-ai.webp" />
+  </div>
+
+  <div class="card card-right white-border">
+    <img src="../IONORA-Portfolio/images/coding-late-night.webp" />
+  </div>
+</div>
 
 
-  <script>
-    // Sidebar functionality
-    const menuToggle = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const closeSidebar = document.getElementById('close-sidebar');
-    const overlayBg = document.getElementById('overlay-bg');
+</section>
 
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.add('open');
-      overlayBg.classList.add('active');
-    });
-
-    closeSidebar.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      overlayBg.classList.remove('active');
-    });
-
-    overlayBg.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      overlayBg.classList.remove('active');
-    });
-    // === SIDEBAR ACTIVE LINK HIGHLIGHT ===
-document.addEventListener("DOMContentLoaded", () => {
-  const sidebarLinks = document.querySelectorAll(".sidebar-links a");
-  const currentPage = window.location.pathname.split("/").pop() || "index.html"; // default to index.html if root
-
-  sidebarLinks.forEach(link => {
-    const linkPage = link.getAttribute("href");
-
-    if (linkPage === currentPage) {
-      link.classList.add("active-link");
-    } else {
-      link.classList.remove("active-link");
-    }
-  });
-});
-  </script>
 </body>
   <script src="script.js"></script>
+  <script src="software.js"></script>
 </html>
