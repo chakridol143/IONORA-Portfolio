@@ -156,8 +156,71 @@ html,body{
   color:var(--text-main);
   text-shadow: 1px 1px 6px rgba(0,0,0,0.35);
 }
-.overlay h1:hover{
+/* ===== LEFT SIDE NAV (RIMAC STYLE) ===== */
+
+.side-nav {
+  position: fixed;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
 }
+
+.side-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.side-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.side-nav-item:hover {
+  opacity: 0.8;
+  transform: translateX(6px);
+}
+
+.side-nav-item.active {
+  opacity: 1;
+}
+
+.side-nav-item .num {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.6);
+}
+
+.side-nav-item .label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+/* subtle left indicator */
+.side-nav-item.active::before {
+  content: '';
+  width: 13px;
+  height: 3px;
+  background: #ffffff;
+  margin-right: 6px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .side-nav {
+    left: 20px;
+  }
+}
+
 .overlay p{
   font-family:var(--font-body);
   font-weight:400;
