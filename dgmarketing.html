@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services — Powerfrill</title>
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dgmarketing.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <img src="https://www.powerfrill.com/wp-content/uploads/2024/05/powerfrill-white-logo-final.png" alt="Logo" class="logo">
+      <!--<span class="title">Powerfrill</span>-->
+    </div>
+    <div class="header-right">
+      <i class='bx bx-menu bx-md' id="menu-toggle"></i>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <i class='bx bx-x bx-sm' id="close-sidebar"></i>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Products</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </div>
+
+  <div class="overlay-bg" id="overlay-bg"></div>
+
+  <!-- Main Content -->
+  <main class="services-page">
+
+    <section class="intro-section">
+      <h1>Our Expertise in Clean Energy</h1>
+      <p>Powerfrill delivers high-efficiency solar and renewable energy solutions, engineered for a sustainable tomorrow.</p>
+    </section>
+
+    <section class="services-container">
+      <!-- Cards -->
+      <article class="service-card card-topimg">
+        <div class="card-media">
+          <img src="https://www.powerfrill.com/wp-content/uploads/2018/12/Solarification-770x500.jpg" alt="Solarification">
+        </div>
+        <div class="card-body">
+          <span class="category">Energy</span>
+          <h2 class="card-title">Solarification</h2>
+          <div class="card-hover">
+            <p>Harnessing solar energy for a sustainable future through advanced solar solutions and systems.</p>
+          </div>
+          <a class="more-btn" href="#">More</a>
+        </div>
+      </article>
+
+      <article class="service-card card-topimg">
+        <div class="card-media">
+          <img src="https://www.powerfrill.com/wp-content/uploads/2018/12/Energy-demand-audit-1-770x500.jpeg" alt="Energy Demand Audit">
+        </div>
+        <div class="card-body">
+          <span class="category">Energy</span>
+          <h2 class="card-title">Energy Demand Audit</h2>
+          <div class="card-hover">
+            <p>Comprehensive assessment of energy usage to optimize efficiency and reduce waste.</p>
+          </div>
+          <a class="more-btn" href="#">More</a>
+        </div>
+      </article>
+
+      <article class="service-card card-topimg">
+        <div class="card-media">
+          <img src="https://www.powerfrill.com/wp-content/uploads/2018/10/custom-solution-eng-770x500.jpeg" alt="Custom Solution Engineering">
+        </div>
+        <div class="card-body">
+          <span class="category">Energy</span>
+          <h2 class="card-title">Custom Solution Engineering</h2>
+          <div class="card-hover">
+            <p>Tailored engineering solutions for your specific project or energy requirements.</p>
+          </div>
+          <a class="more-btn" href="#">More</a>
+        </div>
+      </article>
+
+      <article class="service-card card-topimg">
+        <div class="card-media">
+          <img src="https://www.powerfrill.com/wp-content/uploads/2018/10/Energy-farms-facility-management-770x500.jpeg" alt="Energy Farms Facility Management">
+        </div>
+        <div class="card-body">
+          <span class="category">Energy</span>
+          <h2 class="card-title">Energy Farms Facility Management</h2>
+          <div class="card-hover">
+            <p>Efficient management and optimization of large-scale renewable energy production sites.</p>
+          </div>
+          <a class="more-btn" href="#">More</a>
+        </div>
+      </article>
+
+      <article class="service-card card-topimg">
+        <div class="card-media">
+          <img src="https://www.powerfrill.com/wp-content/uploads/2018/10/Solar-Plants-Efficacy-Management-1-770x500.jpeg" alt="Solar Plants Efficacy Management">
+        </div>
+        <div class="card-body">
+          <span class="category">Energy</span>
+          <h2 class="card-title">Solar Plants Efficacy Management</h2>
+          <div class="card-hover">
+            <p>Optimize solar plant performance for maximum energy output and reliability.</p>
+          </div>
+          <a class="more-btn" href="#">More</a>
+        </div>
+      </article>
+    </section>
+  </main>
+  <!-- Service Detail Overlay -->
+<div class="service-detail" id="service-detail">
+  <i class='bx bx-x close-detail' id="close-detail"></i>
+  <div class="service-detail-content">
+    <div class="service-nav">
+      <button data-service="solarification" class="active">Solarification</button>
+      <button data-service="audit">Energy Demand Audit</button>
+      <button data-service="custom">Custom Solution Engineering</button>
+      <button data-service="facility">Energy Farms Facility Management</button>
+      <button data-service="efficacy">Solar Plants Efficacy Management</button>
+    </div>
+    <div class="service-info visible">
+      <!-- Dynamic content will load here -->
+    </div>
+  </div>
+</div>
+
+ <script src="services.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
