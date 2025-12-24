@@ -5,14 +5,11 @@ gsap.registerPlugin(ScrollTrigger);
 ================================ */
 const sections = [
   { src: 'vedios/Home.mp4', title: 'Home', subtitle: 'IONORA the elite market place.', btnExp: 'Explore' },
-  { src: 'vedios/Software2.mp4', title: 'IT Solutions', subtitle: 'IONORA IT Solutions.', btnExp: 'Discover' },
+  { src: 'vedios/software2.mp4', title: 'IT Solutions', subtitle: 'IONORA IT Solutions.', btnExp: 'Discover' },
   { src: 'vedios/Digital-Marketing.mp4', title: 'Digital Marketing', subtitle: 'IONORA Digital Marketing.', btnExp: 'Explore' },
   { src: 'vedios/About.mp4', title: 'About', subtitle: 'IONORA Pvt Ltd.', btnExp: 'Discover' }
 ];
 
-/* ===============================
-   DOM REFERENCES
-================================ */
 const slots = Array.from(document.querySelectorAll('.slot'));
 const titleEl = document.getElementById('title');
 const subtitleEl = document.getElementById('subtitle');
