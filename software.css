@@ -275,3 +275,96 @@
 
 
 
+/* MAIN CONTAINER */
+.split-hero {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* PANELS */
+.panel {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  transition: flex 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* EXPAND ON HOVER */
+.split-hero:hover .panel {
+  flex: 0.35;
+}
+
+.split-hero .panel:hover {
+  flex: 0.65;
+}
+
+/* VIDEO */
+.panel video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(1.25) contrast(1.1) saturate(1.15);
+  transition: transform 6s ease;
+}
+
+/* SUBTLE ZOOM */
+.panel:hover video {
+  transform: scale(1.08);
+}
+
+/* SOFT OVERLAY */
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.5)
+  );
+}
+
+/* TEXT OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  pointer-events: none;
+}
+
+.overlay h2 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* AI GREEN ACCENT */
+.panel.ai .overlay h2 {
+  color: #6cc24a;
+}
+
+/* BUTTON */
+.overlay button {
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+/* SHOW BUTTON ON HOVER */
+.panel:hover .overlay button {
+  opacity: 1;
+  transform: translateY(0);
+}

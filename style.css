@@ -1,11 +1,11 @@
 :root{
-  --bg: #050505;
-  --muted: rgb(255, 255, 255);
-  --glass: rgba(255, 255, 255, 0.13);
-  --text-main: #ffffff;       
-  --accent-color: #19C3C0;    
-  --font-heading: 'Poppins', 'Inter', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --bg: linear-gradient(
+    120deg,
+    #07161d,
+    #0b2a33,
+    #102f3a,
+    #07161d
+  );
 }
 
 *{
@@ -14,12 +14,12 @@
   padding:0;
 }
 
-html,body{
+html, body{
   height:100%;
   width:100%;
-  background:var(--bg);
-  color:var(--text-main);
-  font-family:var(--font-body);
+  background: var(--bg);
+  background-size: 300% 300%;
+  animation: rimacFlow 18s ease-in-out infinite;
 }
 
 .app{
@@ -403,5 +403,29 @@ html,body{
   .nav{bottom:16px}
 }
 
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      900px 600px at 15% 30%,
+      rgba(255,255,255,0.06),
+      transparent 60%
+    );
+  animation: rimacLight 14s ease-in-out infinite;
+  z-index: 0;
+}
 
+@keyframes rimacFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
+@keyframes rimacLight {
+  0%   { transform: translate(-80px, -40px); opacity: 0.35; }
+  50%  { transform: translate(80px, 40px);  opacity: 0.6; }
+  100% { transform: translate(-80px, -40px); opacity: 0.35; }
+}

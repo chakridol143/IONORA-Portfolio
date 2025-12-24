@@ -55,3 +55,72 @@ document.addEventListener("DOMContentLoaded", () => {
   }, slideDelay);
 
 });
+
+
+
+
+document.querySelectorAll(".panel").forEach(panel => {
+  const video = panel.querySelector("video");
+
+  // Ensure autoplay works
+  video.play();
+
+  let isDragging = false;
+  let startX = 0;
+  let startTime = 0;
+
+  // Mouse
+  panel.addEventListener("mousedown", e => {
+    isDragging = true;
+    panel.style.cursor = "grabbing";
+    startX = e.clientX;
+    startTime = video.currentTime;
+    video.pause();
+  });
+
+  panel.addEventListener("mousemove", e => {
+    if (!isDragging) return;
+    const delta = e.clientX - startX;
+    const scrubSpeed = video.duration / panel.offsetWidth;
+    video.currentTime = Math.min(
+      Math.max(startTime + delta * scrubSpeed, 0),
+      video.duration
+    );
+  });
+
+  panel.addEventListener("mouseup", () => {
+    isDragging = false;
+    panel.style.cursor = "grab";
+    video.play();
+  });
+
+  panel.addEventListener("mouseleave", () => {
+    isDragging = false;
+    panel.style.cursor = "grab";
+    video.play();
+  });
+
+  // Touch (mobile)
+  panel.addEventListener("touchstart", e => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    startTime = video.currentTime;
+    video.pause();
+  });
+
+  panel.addEventListener("touchmove", e => {
+    if (!isDragging) return;
+    const delta = e.touches[0].clientX - startX;
+    const scrubSpeed = video.duration / panel.offsetWidth;
+    video.currentTime = Math.min(
+      Math.max(startTime + delta * scrubSpeed, 0),
+      video.duration
+    );
+  });
+
+  panel.addEventListener("touchend", () => {
+    isDragging = false;
+    video.play();
+  });
+});
+
