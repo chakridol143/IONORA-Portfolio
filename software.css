@@ -368,3 +368,85 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ZIGZAG SECTION */
+.zigzag-section {
+  padding: 120px 10%;
+}
+
+/* ROW */
+.zigzag-row {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  margin-bottom: 140px;
+}
+
+.zigzag-row.reverse {
+  flex-direction: row-reverse;
+}
+
+/* TEXT */
+.zigzag-text {
+  flex: 1;
+}
+
+.zigzag-text h2 {
+  font-size: clamp(26px, 4vw, 40px);
+  margin-bottom: 18px;
+  color: white;
+}
+
+.zigzag-text p {
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 560px;
+  color: rgba(255,255,255,0.78);
+}
+
+/* IMAGE – SAME SIZE FOR ALL */
+.zigzag-image {
+  flex: 1;
+  height: 380px;              /* REAL-WORLD CONSISTENT HEIGHT */
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.zigzag-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.explore-link {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #19c3c0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.explore-link:hover {
+  transform: translateX(6px);
+  opacity: 0.9;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .zigzag-row,
+  .zigzag-row.reverse {
+    flex-direction: column;
+  }
+
+  .zigzag-image {
+    height: 260px;
+  }
+
+  .zigzag-row {
+    gap: 40px;
+    margin-bottom: 80px;
+  }
+}

@@ -1,0 +1,114 @@
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: "Georgia", serif;
+  background: radial-gradient(1200px 600px at 20% 10%, #0f3b45, #081f26 70%);
+  color: #e9f3f5;
+}
+
+/* ===== SECTION ===== */
+.zigzag-section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 120px 20px;
+}
+
+/* ===== MAIN CATEGORY HEADINGS ===== */
+.service-heading {
+  font-size: 42px;
+  font-weight: 600;
+  margin: 120px 0 60px;
+  color: #ffffff;
+}
+
+/* ===== ZIGZAG ROW ===== */
+.zigzag-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-bottom: 140px;
+}
+
+/* Reverse layout */
+.zigzag-row.reverse {
+  direction: rtl;
+}
+.zigzag-row.reverse > * {
+  direction: ltr;
+}
+
+/* ===== TEXT ===== */
+.zigzag-text h2 {
+  font-size: 28px;
+  margin-bottom: 18px;
+  color: #ffffff;
+}
+
+.zigzag-text p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #cfdfe3;
+  max-width: 520px;
+}
+
+/* ===== INCLUDES ===== */
+.includes {
+  margin: 22px 0 0;
+  padding-left: 18px;
+}
+
+.includes li {
+  margin-bottom: 10px;
+  color: #b9d7dd;
+}
+
+/* ===== IMAGE ===== */
+.zigzag-image {
+  width: 100%;
+  height: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.zigzag-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.zigzag-row.hidden {
+  opacity: 0;
+  transform: translateX(120px);
+  transition: all 0.9s ease;
+}
+
+.zigzag-row.reverse.hidden {
+  transform: translateX(-120px);
+}
+
+.zigzag-row.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .zigzag-row,
+  .zigzag-row.reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+    gap: 40px;
+  }
+
+  .zigzag-image {
+    height: 260px;
+  }
+
+  .service-heading {
+    font-size: 34px;
+  }
+}

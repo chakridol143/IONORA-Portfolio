@@ -122,4 +122,41 @@ document.querySelectorAll(".panel").forEach(panel => {
     isDragging = false;
     video.play();
   });
+
+});
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray(".zigzag-row").forEach((row) => {
+
+  const text = row.querySelector(".zigzag-text");
+  const image = row.querySelector(".zigzag-image");
+
+  const isReverse = row.classList.contains("reverse");
+
+  gsap.from(text, {
+    scrollTrigger: {
+      trigger: row,
+      start: "top 80%",
+      toggleActions: "play none none none"
+    },
+    x: isReverse ? 80 : -80,
+    opacity: 0,
+    duration: 1,
+    ease: "power3.out"
+  });
+
+  gsap.from(image, {
+    scrollTrigger: {
+      trigger: row,
+      start: "top 80%",
+      toggleActions: "play none none none"
+    },
+    x: isReverse ? -80 : 80,
+    opacity: 0,
+    duration: 1,
+    ease: "power3.out"
+  });
+
 });
