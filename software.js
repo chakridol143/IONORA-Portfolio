@@ -123,4 +123,3 @@ document.querySelectorAll(".panel").forEach(panel => {
     video.play();
   });
 });
-

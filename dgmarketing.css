@@ -29,7 +29,7 @@ body {
   z-index: 100;
   border: none;
 }
-.logo { filter: brightness(0) invert(1); }
+.logo { filter: brightness(1.1) invert(1); }
 .bx-menu { color: white; }
 
 /* ===========================

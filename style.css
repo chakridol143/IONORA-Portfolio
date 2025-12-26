@@ -100,16 +100,16 @@ html, body{
   position: relative;
   display: inline-block;
   padding: 11px 50px;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255,0.7);
+  border: 1.1px solid rgba(255, 255, 255);
   border-left: none;
   border-right: none;
   cursor: pointer;
   overflow: hidden;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   transition: color 0.4s ease,border-color 0.2s ease;
   z-index: 1;
 }
@@ -148,13 +148,21 @@ html, body{
 
 
 .overlay h1{
-  font-family:var(--font-heading);
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight:700;
   font-size:clamp(28px,5vw,56px);
   margin-bottom:10px;
   letter-spacing:1.2px;
   color:white;
   text-shadow: 1px 1px 6px rgba(0,0,0,0.35);
+}
+.overlay p{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight:400;
+  font-size: 22px;
+  color:white;
+  line-height:1.5;
+  text-shadow:1px 1px 4px rgba(0,0,0,0.25);
 }
 /* ===== LEFT SIDE NAV (RIMAC STYLE) ===== */
 
@@ -198,7 +206,7 @@ html, body{
 }
 
 .side-nav-item .label {
-  font-size: 12px;
+  font-size: 15px;
   letter-spacing: 2px;
   font-weight: 400;
   text-transform: uppercase;
@@ -221,26 +229,19 @@ html, body{
   }
 }
 
-.overlay p{
-  font-family:var(--font-body);
-  font-weight:400;
-  font-size:clamp(14px,1.6vw,18px);
-  color:white;
-  line-height:1.5;
-  text-shadow:1px 1px 4px rgba(0,0,0,0.25);
-}
-.header {
-  position: absolute;
+
+.header{
+  position: fixed;
   top: 20px;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  z-index: 100;
-  pointer-events: auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 20px;
+  z-index: 600;
 }
+
 
 .header-left {
   display: flex;
@@ -298,57 +299,47 @@ html, body{
 }
 
 
+/* ===== RIMAC STYLE FULLSCREEN MENU ===== */
+
 .sidebar {
   position: fixed;
-  top: 0;
-  right: -20%;
-  width: 20%;
-  height: 100%;
-  background: #0f141b;
-  backdrop-filter: blur(12px);
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4);
-  color: white;
+  inset: 0; /* full screen */
+  background: #0b1016;
+  backdrop-filter: blur(14px);
   z-index: 200;
-  padding: 30px 20px;
-  transition: right 0.4s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
+  padding: 40px 20rem;
+  padding-top: 0;
+  color: #fff;
 
+  clip-path: circle(0% at 95% 40px);
+  pointer-events: none;
+}
 
 .sidebar.open {
-  right: 0;
+  clip-path: circle(150% at 95% 40px);
+  pointer-events: auto;
 }
 
-/* Sidebar Header */
 .sidebar-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+  justify-content: flex-end;
 }
 
-.sidebar-header i {
-  cursor: pointer;
-  color: #fff;
-}
-
-/* Sidebar Links */
 .sidebar-links {
   list-style: none;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding-left: 10px;
+  gap: 24px;
 }
 
 .sidebar-links a {
   text-decoration: none;
   color: #fff;
-  font-family: var(--font-body);
-  font-size: 1.1rem;
-  transition: color 0.3s ease, transform 0.3s ease;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: translateY(25px);
 }
 
 .sidebar-links a:hover {
@@ -365,17 +356,12 @@ html, body{
   transition: all 0.3s ease;
 }
 
-/* Background Blur Overlay */
 .overlay-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 80%; /* 100% - sidebar width (20%) */
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* stronger black if you want */
+  inset: 0;
+  background: rgba(0,0,0,0.6);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
   z-index: 150;
 }
 
@@ -383,7 +369,6 @@ html, body{
   opacity: 1;
   pointer-events: auto;
 }
-
 
 /* Responsive Sidebar (smaller screens) */
 @media (max-width: 900px) {
@@ -429,3 +414,43 @@ body::before{
   50%  { transform: translate(80px, 40px);  opacity: 0.6; }
   100% { transform: translate(-80px, -40px); opacity: 0.35; }
 }
+/* 🔥 Rimac hamburger icon */
+.menu-icon{
+  width:28px;
+  height:23px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  cursor:pointer;
+  z-index:300;
+}
+
+.menu-icon span{
+  height:1.2px;
+  width:100%;
+  background:#fff;
+  border-radius:6px;
+  transition:transform .45s ease, opacity .3s ease;
+  transform-origin:center;
+}
+
+/* morph → X */
+.menu-icon.active span:nth-child(2){
+  opacity:0;
+  transform:translateX(10px);
+}
+
+.menu-icon.active span:nth-child(1){
+  transform:translateY(11px) rotate(45deg);
+}
+
+.menu-icon.active span:nth-child(3){
+  transform:translateY(-11px) rotate(-45deg);
+}
+
+/* 🔥 Logo inside menu */
+.menu-logo{
+  height:42px;
+}
+
+/* keep your existing sidebar reveal */
