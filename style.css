@@ -37,6 +37,11 @@ html, body{
   align-items:center;
   justify-content:center;
   perspective:1200px;
+
+}
+body.menu-open .viewer{
+  filter: blur(3px) brightness(.7);
+  transition: .4s ease;
 }
 
 .stack{
@@ -301,19 +306,21 @@ html, body{
 
 /* ===== RIMAC STYLE FULLSCREEN MENU ===== */
 
-.sidebar {
-  position: fixed;
-  inset: 0; /* full screen */
-  background: #0b1016;
+.sidebar{
+  position:fixed;
+  inset:0;
+  background: var(--bg);              
+  background-size:300% 300%;          
+  animation: rimacFlow 18s ease-in-out infinite;
   backdrop-filter: blur(14px);
-  z-index: 200;
-  padding: 40px 20rem;
-  padding-top: 0;
-  color: #fff;
-
-  clip-path: circle(0% at 95% 40px);
-  pointer-events: none;
+  z-index:200;
+  padding:40px 20rem;
+  padding-top:0;
+  color:#fff;
+  clip-path:circle(0% at 95% 40px);
+  pointer-events:none;
 }
+
 
 .sidebar.open {
   clip-path: circle(150% at 95% 40px);
@@ -355,7 +362,45 @@ html, body{
   padding-left: 12px;
   transition: all 0.3s ease;
 }
+.menu-bg{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+}
 
+.bg-img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transform:scale(1.2) translateX(-30px);
+  filter:brightness(.8);
+  transition:
+    opacity .45s ease,
+    transform .9s cubic-bezier(.68,-0.55,.27,1.55),
+    filter .4s ease;
+}
+
+.bg-img.active{
+  opacity:1;
+  transform:scale(1.02) translateX(0);
+  filter:brightness(.95);
+}
+
+.menu-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    120deg,
+    rgba(0,0,0,.78),
+    rgba(0,0,0,.45)
+  );
+  pointer-events:none;
+}
 .overlay-bg {
   position: fixed;
   inset: 0;

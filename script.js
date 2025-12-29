@@ -168,4 +168,27 @@ document.addEventListener('DOMContentLoaded',()=>{
   /* ACTIVE LINK */
   const page=location.pathname.split('/').pop()||'index.html';
   links.forEach(a=>a.classList.toggle('active-link',a.getAttribute('href')===page));
+
+  /* 🔥 MENU BG HOVER IMAGE HANDLER (UNCHANGED) */
+  const menuImages = {
+    "Home": document.querySelector(".bg-img.home"),
+    "Software Solutions": document.querySelector(".bg-img.software"),
+    "Digital Marketing": document.querySelector(".bg-img.dg"),
+    "About Us": document.querySelector(".bg-img.about")
+  };
+
+  links.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      document.querySelectorAll(".bg-img").forEach(img => img.classList.remove("active"));
+      const text = link.textContent.trim();
+      if(menuImages[text]){
+        menuImages[text].classList.add("active");
+      }
+    });
+
+    link.addEventListener("mouseleave", () => {
+      document.querySelectorAll(".bg-img").forEach(img => img.classList.remove("active"));
+    });
+  });
+
 });
