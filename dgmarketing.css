@@ -68,6 +68,7 @@ body {
 /* --- HERO CONTENT WRAPPER --- */
 .dashboard-content-wrapper {
   position: relative;
+  padding-left: 70px;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -80,6 +81,7 @@ body {
 /* --- LEFT COLUMN: TEXT --- */
 .dashboard-text-content {
   flex: 1;
+  margin-left: 20px;
   text-align: left;
   max-width: 650px;
 }
@@ -99,7 +101,8 @@ body {
   animation: fadeIn 1s ease forwards 0.5s;
 }
 .blink {
-  width: 8px; height: 8px;
+  margin-left: 8px;
+  width: 9px; height: 9px;
   background: var(--accent);
   border-radius: 50%;
   box-shadow: 0 0 10px var(--accent);
@@ -124,10 +127,14 @@ body {
 
 /* The Outline Text Effect */
 .text-hollow {
+  margin-top: -10px;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(255,255,255,0.8);
+  -webkit-text-stroke: 2.2px rgba(255,255,255,0.75);
   transition: all 0.5s ease;
   cursor: default;
+}
+.hero-text-wrapper {
+  max-width: 560px;
 }
 
 .hero-text-wrapper:hover .text-hollow {
@@ -141,7 +148,7 @@ body {
   font-family: var(--font-tech);
   color: var(--text-muted);
   font-size: 18px;
-  letter-spacing: 8px;
+  letter-spacing: 7px;
   margin-top: 30px;
   opacity: 0;
   animation: fadeIn 1s ease forwards 1.8s;
@@ -149,7 +156,8 @@ body {
 
 /* QUOTE BOX */
 .quote-container {
-  margin-top: 60px;
+  margin-left: 0 px;
+  margin-top: 48px;
   opacity: 0;
   animation: fadeIn 1s ease forwards 2.2s;
   display: flex;
@@ -177,7 +185,7 @@ body {
 }
 
 /* SCROLL INDICATOR */
-.scroll-indicator-left {
+/* .scroll-indicator-left {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -192,7 +200,71 @@ body {
 .scroll-indicator-left i {
   font-size: 24px;
   animation: bounceHorizontal 2s infinite;
+} */
+
+
+ /* ===========================
+   SCROLL INDICATOR (MOUSE)
+=========================== */
+
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 50;
+
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards 1.6s;
 }
+
+.mouse {
+  width: 26px;
+  height: 42px;
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 14px;
+  position: relative;
+}
+
+.wheel {
+  width: 4px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: wheelMove 1.6s ease-in-out infinite;
+}
+
+.scroll-text {
+  font-family: var(--font-tech);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+
+/* Wheel animation */
+@keyframes wheelMove {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+}
+
 
 @keyframes bounceHorizontal {
   0%, 20%, 50%, 80%, 100% {transform: translateX(0);}
@@ -218,6 +290,8 @@ body {
   display: inline-block;
   padding: 0;
   transition: all 0.5s ease;
+  margin-left: 80px;
+
 }
 
 /* The Image Itself */
@@ -235,6 +309,9 @@ body {
   opacity: 0.8;
   filter: grayscale(0%); 
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hero-image:hover {
+  cursor: pointer;
 }
 
 /* --- HOVER EFFECTS: GLOW & COLOR --- */
@@ -400,13 +477,15 @@ body {
     flex-direction: column-reverse; /* Image Top, Text Bottom */
     justify-content: center;
     text-align: center;
-    gap: 30px;
+    gap: 40px;
     height: auto;
+    padding-left: 0;
     padding-top: 60px;
   }
 
   .dashboard-text-content {
     text-align: center;
+    margin-left: 0;
     max-width: 100%;
   }
 
@@ -443,58 +522,400 @@ body {
   .section-header h2 { font-size: 32px; }
 }
 /* ===============================
-   RIMAC STYLE SIDE NAV
+   RIMAC STYLE SIDE NAV/* ===============================
+   RIMAC PREMIUM SIDE NAV
 ================================ */
 
 .rimac-nav {
   position: fixed;
-  left: 40px;
-  top: 50%;
+  left: 32px;
+  top: 35%;
   transform: translateY(-50%);
-  z-index: 500;
+  z-index: 1000;
   font-family: 'Rajdhani', sans-serif;
+
+  /* NEW */
+  opacity: 0;
+  animation: navFadeIn 1s ease forwards 1.2s;
+}
+
+@keyframes navFadeIn {
+  to { opacity: 1; }
 }
 
 .nav-list {
   list-style: none;
-  padding-left: 14px;
+  padding-top: 6px;
+  padding-left: 30px;
   border-left: 1px solid rgba(255,255,255,0.15);
 }
 
 .nav-item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 0;
+  gap: 14px;
+  padding: 14px 0;
   cursor: pointer;
 
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
 
-  color: rgba(255,255,255,0.45);
-  opacity: 0.5;
-
-  transition: all 0.3s ease;
+  color: rgba(255,255,255,0.55);  opacity: 0.6;
+  opacity: 0.75;
+  font-weight: 500;
+  transition: all 0.35s ease;
 }
 
+/* Hover */
 .nav-item:hover {
-  opacity: 0.85;
-  transform: translateX(4px);
-}
-
-.nav-item.active {
+  color: #ffffff;
   opacity: 1;
-  color: var(--accent);
   transform: translateX(6px);
 }
 
+/* Active */
+.nav-item.active {
+  color: #00d1c1;
+  opacity: 1;
+  transform: translateX(10px);
+}
+
+/* Active glow dot */
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: -19px;
+  width: 7px;
+  height: 7px;
+  background: #00d1c1;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0,209,193,0.9);
+}
+
 .nav-num {
-  min-width: 24px;
+  /* opacity: 0.6; */
   font-size: 10px;
-  color: inherit;
+  min-width: 24px;
 }
 
 .nav-text {
-  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* ===========================
+   FULLPAGE SERVICE SECTIONS
+=========================== */
+
+.service-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at center, #0f242b 0%, #050b0e 100%);
+  padding-left: 140px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.215,0.61,0.355,1);
+}
+
+.service-inner {
+  margin-left: 100px;
+  max-width: 1200px;
+
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 80px;
+}
+
+/* .service-index {
+  font-family: var(--font-tech);
+  color: var(--accent);
+  letter-spacing: 4px;
+  font-size: 12px;
+} */
+
+.service-inner h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  margin: 14px 0 20px;
+  text-transform: uppercase;
+}
+
+.service-inner p {
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+.service-section.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   SERVICE LAYOUT (TEXT + IMAGE)
+=========================== */
+
+.service-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  width: 100%;
+}
+
+/* TEXT SIDE */
+.service-text {
+  max-width: 620px;
+}
+
+/* IMAGE SIDE */
+.service-media {
+  flex-shrink: 0;
+  width: 520px;
+  height: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+
+  background: rgba(255,255,255,0.02);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.4),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.service-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  filter: saturate(1.05);
+  transition: transform 0.8s ease, filter 0.6s ease;
+}
+
+/* Subtle hover polish */
+.service-media:hover img {
+  transform: scale(1.05);
+  filter: saturate(1.15);
+}
+
+
+
+
+/* ===========================
+   HERO ANIMATION STATES
+=========================== */
+
+/* Prevent flash */
+.dashboard-hero * {
+  will-change: transform, opacity;
+}
+
+/* SYSTEM ONLINE */
+.status-indicator {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* DIGITAL */
+.animate-text span:first-child {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* MARKETING */
+.animate-text .text-hollow {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Subtext */
+.animate-sub {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Quote */
+.quote-container {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+/* Image */
+.dashboard-image-content {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+/* Side Nav */
+.rimac-nav {
+  opacity: 0;
+  transform: translateY(-50%) translateX(-10px);
+}
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* =====================================================
+   SERVICE SECTIONS – TEXT + IMAGE (ISOLATED STYLES)
+   DOES NOT TOUCH HERO / NAV / GRID
+===================================================== */
+
+.service-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at center, #0f242b 0%, #050b0e 100%);
+}
+
+/* Inner layout */
+.service-inner {
+  margin-left: 240px; /* clears side nav */
+  max-width: 1400px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 100px;
+}
+
+/* TEXT SIDE */
+.service-text {
+  max-width: 620px;
+}
+
+.service-text h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.service-text p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+/* IMAGE SIDE – CLEAN CARD STYLE */
+.service-media {
+  width: 520px;
+  height: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  background: rgba(255,255,255,0.03);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.55),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.service-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  transition: transform 0.8s ease, filter 0.6s ease;
+}
+
+/* Hover polish */
+.service-media:hover img {
+  transform: scale(1.06);
+  filter: saturate(1.15);
+}
+
+/* MOBILE */
+@media (max-width: 968px) {
+  .service-inner {
+    flex-direction: column;
+    margin-left: 0;
+    padding: 0 24px;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .service-media {
+    width: 100%;
+    height: 240px;
+  }
+}
+/* =====================================================
+   SCROLL REVEAL ANIMATIONS – SERVICES
+   (Safe, isolated, no overrides)
+===================================================== */
+
+/* Initial hidden state */
+.service-section {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+/* When section becomes visible */
+.service-section.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TEXT animation */
+.service-text {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.service-section.in-view .service-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* IMAGE animation */
+.service-media {
+  opacity: 0;
+  transform: translateX(40px) scale(0.96);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.service-section.in-view .service-media {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* Optional stagger feel */
+.service-section.in-view .service-media {
+  transition-delay: 0.15s;
+}
+
+/* Mobile tweak */
+@media (max-width: 968px) {
+  .service-text,
+  .service-media {
+    transform: translateY(30px);
+  }
+
+  .service-section.in-view .service-text,
+  .service-section.in-view .service-media {
+    transform: translateY(0);
+  }
 }

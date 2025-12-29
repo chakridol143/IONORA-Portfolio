@@ -1,45 +1,45 @@
 // ================================
 // === HEADER + SIDEBAR CONTROL ===
 // ================================
-
+// RIMAC SIDE NAV — SCROLL + ACTIVE STATE (IMPROVED)
 document.addEventListener("DOMContentLoaded", () => {
-  const menuToggle = document.getElementById("menu-toggle");
-  const sidebar = document.getElementById("sidebar");
-  const closeSidebar = document.getElementById("close-sidebar");
-  const overlayBg = document.getElementById("overlay-bg");
+  const navItems = document.querySelectorAll(".nav-item");
+  const sections = document.querySelectorAll("section[id]");
 
-  if (menuToggle && sidebar && closeSidebar && overlayBg) {
-    // Open Sidebar
-    menuToggle.addEventListener("click", () => {
-      sidebar.classList.add("open");
-      overlayBg.classList.add("active");
+  // CLICK SCROLL
+  navItems.forEach(item => {
+    item.addEventListener("click", () => {
+      const target = document.getElementById(item.dataset.target);
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
     });
-
-    // Close Sidebar (X)
-    closeSidebar.addEventListener("click", () => {
-      sidebar.classList.remove("open");
-      overlayBg.classList.remove("active");
-    });
-
-    // Close Sidebar (Background Click)
-    overlayBg.addEventListener("click", () => {
-      sidebar.classList.remove("open");
-      overlayBg.classList.remove("active");
-    });
-  }
-
-  // Highlight current active sidebar link
-  const sidebarLinks = document.querySelectorAll(".sidebar-links a");
-  const currentPage = window.location.pathname.split("/").pop() || "index.html";
-  sidebarLinks.forEach(link => {
-    const linkPage = link.getAttribute("href");
-    if (linkPage === currentPage) {
-      link.classList.add("active-link");
-    } else {
-      link.classList.remove("active-link");
-    }
   });
+
+  // SCROLL SPY
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navItems.forEach(i => i.classList.remove("active"));
+          const activeItem = document.querySelector(
+            `.nav-item[data-target="${entry.target.id}"]`
+          );
+          if (activeItem) activeItem.classList.add("active");
+        }
+      });
+    },
+    {
+      rootMargin: "-45% 0px -45% 0px"
+    }
+  );
+
+  sections.forEach(section => observer.observe(section));
 });
+
 
 // ================================
 // === SERVICE DETAIL OVERLAY ===
@@ -259,4 +259,75 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   sections.forEach(section => observer.observe(section));
+});
+
+window.addEventListener("load", function () {
+  var status = document.querySelector(".status-indicator");
+  var digital = document.querySelector(".animate-text span:first-child");
+  var marketing = document.querySelector(".animate-text .text-hollow");
+  var sub = document.querySelector(".animate-sub");
+  var quote = document.querySelector(".quote-container");
+  var image = document.querySelector(".dashboard-image-content");
+  var nav = document.querySelector(".rimac-nav");
+
+  if (status) {
+    status.style.animation = "fadeUp 0.6s ease forwards";
+  }
+
+  setTimeout(function () {
+    if (digital) {
+      digital.style.animation =
+        "fadeUp 0.8s cubic-bezier(0.215,0.61,0.355,1) forwards";
+    }
+  }, 150);
+
+  setTimeout(function () {
+    if (marketing) {
+      marketing.style.animation =
+        "fadeUp 0.8s cubic-bezier(0.215,0.61,0.355,1) forwards";
+    }
+  }, 300);
+
+  setTimeout(function () {
+    if (sub) {
+      sub.style.animation = "fadeUp 0.6s ease forwards";
+    }
+  }, 450);
+
+  setTimeout(function () {
+    if (quote) {
+      quote.style.animation = "fadeRight 0.7s ease forwards";
+    }
+  }, 650);
+
+  setTimeout(function () {
+    if (image) {
+      image.style.animation = "fadeScale 0.8s ease forwards";
+    }
+  }, 800);
+
+  setTimeout(function () {
+    if (nav) {
+      nav.style.animation = "fadeRight 0.6s ease forwards";
+    }
+  }, 1000);
+});
+
+const serviceSections = document.querySelectorAll(".service-section");
+
+const serviceObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+      }
+    });
+  },
+  {
+    threshold: 0.35
+  }
+);
+
+serviceSections.forEach(section => {
+  serviceObserver.observe(section);
 });
