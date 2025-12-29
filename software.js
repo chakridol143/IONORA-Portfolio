@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const titles = [
-    `IONORA <br><span class="highlight">IT Solutions</span><br>For Digital Growth`,
+    `Software <br><span class="highlight">Solutions</span><br>For Digital Growth`,
     `Smart <br><span class="highlight">Cloud & AI</span><br>Transformation`
   ];
 
@@ -53,6 +53,28 @@ document.addEventListener("DOMContentLoaded", () => {
     index = (index + 1) % titles.length;
     startTyping();
   }, slideDelay);
+
+  const hero = document.querySelector(".hero");
+
+hero.addEventListener("mousemove", (e) => {
+  const rect = hero.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+  hero.style.setProperty("--mx", `${x}%`);
+  hero.style.setProperty("--my", `${y}%`);
+});
+
+// window.addEventListener("scroll", () => {
+//   const scrollY = window.scrollY;
+//   const heroHeight = hero.offsetHeight;
+
+//   const progress = Math.min(scrollY / heroHeight, 1);
+
+//   hero.style.opacity = `${1 - progress * 0.4}`;
+//   hero.style.transform = `scale(${1 - progress * 0.03})`;
+// });
+
 
 });
 
@@ -159,4 +181,27 @@ gsap.utils.toArray(".zigzag-row").forEach((row) => {
     ease: "power3.out"
   });
 
+});
+
+
+// mouse hover animation
+
+// const hero = document.querySelector(".hero");
+// hero.addEventListener("mousemove", (e) => {
+//   const rect = hero.getBoundingClientRect();
+//   const x = ((e.clientX - rect.left) / rect.width) * 100;
+//   const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+//   hero.style.setProperty("--mx", `${x}%`);
+//   hero.style.setProperty("--my", `${y}%`);
+// });
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const heroHeight = hero.offsetHeight;
+
+  const progress = Math.min(scrollY / heroHeight, 1);
+
+  hero.style.opacity = `${1 - progress * 0.4}`;
+  hero.style.transform = `scale(${1 - progress * 0.03})`;
 });

@@ -432,7 +432,24 @@ body.menu-open .viewer{
   .overlay p{font-size:13px}
   .nav{bottom:16px}
 }
-
+.rimac-light {
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(
+      500px 400px at var(--mx, 50%) var(--my, 50%),
+      rgba(0, 255, 200, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 500px at calc(100% - var(--mx, 50%)) calc(100% - var(--my, 50%)),
+      rgba(80, 140, 255, 0.12),
+      transparent 65%
+    );
+  transition: background-position 0.15s ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
 body::before{
   content: "";
   position: fixed;
