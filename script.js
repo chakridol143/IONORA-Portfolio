@@ -1,14 +1,14 @@
 /* VIDEO DATA */
 const sections = [
-  { src: "vedios/Home.mp4", title: "IONORA", subtitle: "IONORA the elite market place.", btnExp: "Explore" },
-  { src: "vedios/software2.mp4", title: "IT & AI Solutions", subtitle: " AI Automations.", btnExp: "Discover" },
+  { src: "vedios/Home.mp4", title: "IONORA", subtitle: "Transforming Ideas Into Digital Reality.", btnExp: "Explore" },
+  { src: "vedios/software2.mp4", title: "IT & AI Solutions", subtitle: "Building Tomorrow's Technology Today.", btnExp: "Discover" },
   {
     src: "vedios/Digital-Marketing.mp4",
     title: "Digital Marketing",
-    subtitle: "with AI Automations.",
+    subtitle: "Grow Your Brand. Amplify Your Reach.",
     btnExp: "Explore",
   },
-  { src: "vedios/About.mp4", title: "About", subtitle: "IONORA Pvt Ltd.", btnExp: "Discover" },
+  { src: "vedios/About.mp4", title: "About", subtitle: "Driving Success Through Technology.", btnExp: "Discover" },
 ]
 
 const slots = Array.from(document.querySelectorAll(".slot"))
@@ -35,69 +35,69 @@ if (slots.length > 0) {
 
 /* POSITION STATES */
 function getState(rel) {
-  // rel 0 = active (center, large, full size)
-  // rel 1 = above (smaller, positioned above)
-  // rel 2 = far below (smaller, positioned far below)
-  // rel 3 = below (smaller, positioned below active)
+  // rel 0 = active (center, large but not fullscreen)
+  // rel 1 = above (smaller thumbnail)
+  // rel 2 = far above (smaller thumbnail)
+  // rel 3 = below (smaller thumbnail)
 
   if (rel === 0) {
-    // Active video - center, full size, front
+    // Active video - FULLSCREEN
     return {
       xPercent: 0,
       yPercent: 0,
-      scale: 1,
+      scale: 1, // Full size
       opacity: 1,
       zIndex: 40,
       rotateX: 0,
       rotateY: 0,
       rotateZ: 0,
-      z: 50, // Reduced for simpler transforms
+      z: 50,
     }
   }
   if (rel === 1) {
-    // Next video - small thumbnail, positioned above
+    // Next video - positioned above active, small thumbnail
     return {
       xPercent: 0,
-      yPercent: -75,
-      scale: 0.3,
-      opacity: 0.7,
+      yPercent: -120,
+      scale: 0.25, // Small thumbnail
+      opacity: 0.6,
       zIndex: 30,
-      rotateX: 8, // Reduced rotation for performance
+      rotateX: 15,
       rotateY: 0,
       rotateZ: 0,
-      z: -400, // Reduced depth
+      z: -350,
     }
   }
   if (rel === 2) {
-    // Opposite video - small thumbnail, far below
+    // Opposite video - far above, small thumbnail
     return {
       xPercent: 0,
-      yPercent: 105,
-      scale: 0.22,
-      opacity: 0.5,
+      yPercent: -220,
+      scale: 0.2, // Smallest thumbnail
+      opacity: 0.4,
       zIndex: 20,
-      rotateX: -8, // Reduced rotation
+      rotateX: 20,
       rotateY: 0,
       rotateZ: 0,
-      z: -500,
+      z: -550,
     }
   }
   if (rel === 3) {
-    // Previous video - small thumbnail, below active
+    // Previous video - positioned below active, small thumbnail
     return {
       xPercent: 0,
-      yPercent: 75,
-      scale: 0.3,
-      opacity: 0.7,
+      yPercent: 120,
+      scale: 0.25, // Small thumbnail
+      opacity: 0.6,
       zIndex: 30,
-      rotateX: -8,
+      rotateX: -15,
       rotateY: 0,
       rotateZ: 0,
-      z: -400,
+      z: -350,
     }
   }
 
-  return getState(rel % 4) // Fallback
+  return getState(rel % 4)
 }
 
 /* INITIAL - only if we have slots */
@@ -149,19 +149,25 @@ function rotateTo(target) {
   const dir = f <= b ? 1 : -1
   const steps = dir === 1 ? f : b
 
+  const isFarJump = steps === 2 // Jumping to opposite video
+  const baseDuration = isFarJump ? 0.9 : 1.2 // Slower for adjacent (neighbors)
+  const zoomDuration = isFarJump ? 0.5 : 0.7 // Slower zoom for adjacent
+  const expandDuration = isFarJump ? 0.7 : 1.4 // Much slower fade-in for adjacent (was 1.2, now 1.4)
+  const overlayFadeInDuration = isFarJump ? 0.6 : 1.0 // Slower overlay fade for adjacent
+
   isAnimating = true
 
   if (overlay) {
     window.gsap.to(overlay, {
       opacity: 0,
       scale: 0.95,
-      duration: 0.3,
-      ease: "power2.in",
+      duration: 0.5,
+      ease: "power1.in",
     })
   }
 
   const tl = window.gsap.timeline({
-    defaults: { ease: "power2.inOut", duration: 1 }, // Faster, simpler easing
+    defaults: { ease: "power1.inOut", duration: baseDuration },
     onComplete: () => {
       active = target
       updateOverlay()
@@ -173,13 +179,20 @@ function rotateTo(target) {
           {
             opacity: 1,
             scale: 1,
-            duration: 0.8,
-            ease: "power2.out", // Simpler easing
+            duration: 0.5,
+            ease: "power1.out",
           },
         )
       }
       isAnimating = false
     },
+  })
+
+  tl.to(slots, {
+    scale: 0.4,
+    opacity: 0.8,
+    duration: zoomDuration,
+    ease: "power1.out",
   })
 
   for (let s = 1; s <= steps; s++) {
@@ -188,25 +201,42 @@ function rotateTo(target) {
     tl.to(
       slots,
       {
-        duration: 1, // Faster transitions
+        duration: baseDuration,
         xPercent: (i) => getState((i - next + len) % len).xPercent,
         yPercent: (i) => getState((i - next + len) % len).yPercent,
-        scale: (i) => getState((i - next + len) % len).scale,
-        opacity: (i) => getState((i - next + len) % len).opacity,
+        scale: 0.4,
+        opacity: (i) => Math.max(0.5, getState((i - next + len) % len).opacity),
         rotateX: (i) => getState((i - next + len) % len).rotateX,
         rotateY: (i) => getState((i - next + len) % len).rotateY,
         rotateZ: (i) => getState((i - next + len) % len).rotateZ,
         z: (i) => getState((i - next + len) % len).z,
         zIndex: (i) => getState((i - next + len) % len).zIndex,
-        ease: "power2.inOut", // Simpler, more performant easing
+        ease: "power1.inOut",
         stagger: {
-          each: 0.04, // Reduced stagger time
+          each: 0.08,
           ease: "power1.out",
         },
       },
-      s === 1 ? 0 : "-=0.85", // Better overlap timing
+      "-=0.4",
     )
   }
+
+  tl.to(
+    slots,
+    {
+      duration: expandDuration,
+      scale: (i) => {
+        const relPos = (i - target + len) % len
+        return getState(relPos).scale
+      },
+      opacity: (i) => {
+        const relPos = (i - target + len) % len
+        return getState(relPos).opacity
+      },
+      ease: isFarJump ? "power1.inOut" : "power1.out", // Gentler easing for adjacent
+    },
+    "-=0.5",
+  )
 }
 
 /* SIDE NAV CLICK - only if side nav exists */
@@ -225,7 +255,7 @@ if (slots.length > 0) {
       e.preventDefault()
       if (wheelLock) return
       wheelLock = true
-      setTimeout(() => (wheelLock = false), 800)
+      setTimeout(() => (wheelLock = false), 1000)
       e.deltaY > 0 ? rotateTo(active + 1) : rotateTo(active - 1)
     },
     { passive: false },
@@ -328,8 +358,29 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
 
+    link.addEventListener("mousemove", (e) => {
+      const text = link.textContent.trim()
+      const activeImg = menuImages[text]
+
+      if (!activeImg || !activeImg.classList.contains("active")) return
+
+      const rect = link.getBoundingClientRect()
+      const x = e.clientX - rect.left // Mouse X position relative to link
+      const y = e.clientY - rect.top // Mouse Y position relative to link
+
+      // Calculate movement as percentage (-20 to +20 for smooth parallax)
+      const moveX = (x / rect.width - 0.5) * 40 // -20 to +20 range
+      const moveY = (y / rect.height - 0.5) * 40 // -20 to +20 range
+
+      // Apply transform to move background image
+      activeImg.style.transform = `scale(1.05) translate(${moveX}px, ${moveY}px)`
+    })
+
     link.addEventListener("mouseleave", () => {
-      document.querySelectorAll(".bg-img").forEach((img) => img.classList.remove("active"))
+      document.querySelectorAll(".bg-img").forEach((img) => {
+        img.classList.remove("active")
+        img.style.transform = "scale(1.15) translateY(20px)"
+      })
     })
   })
 })
