@@ -442,3 +442,59 @@ body {
   .services-page { padding: 60px 20px; }
   .section-header h2 { font-size: 32px; }
 }
+/* ===============================
+   RIMAC STYLE SIDE NAV
+================================ */
+
+.rimac-nav {
+  position: fixed;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 500;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.nav-list {
+  list-style: none;
+  padding-left: 14px;
+  border-left: 1px solid rgba(255,255,255,0.15);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: rgba(255,255,255,0.45);
+  opacity: 0.5;
+
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  opacity: 0.85;
+  transform: translateX(4px);
+}
+
+.nav-item.active {
+  opacity: 1;
+  color: var(--accent);
+  transform: translateX(6px);
+}
+
+.nav-num {
+  min-width: 24px;
+  font-size: 10px;
+  color: inherit;
+}
+
+.nav-text {
+  font-size: 11px;
+}

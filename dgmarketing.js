@@ -225,3 +225,38 @@ if (closeDetail) {
     document.body.style.overflow = "";
   });
 }
+// RIMAC STYLE SIDE NAV SCROLL + ACTIVE STATE
+document.addEventListener("DOMContentLoaded", () => {
+  const navItems = document.querySelectorAll(".nav-item");
+  const sections = document.querySelectorAll("section");
+
+  // Click → smooth scroll
+  navItems.forEach(item => {
+    item.addEventListener("click", () => {
+      const target = document.getElementById(item.dataset.target);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+
+  // Scroll spy → active state
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navItems.forEach(item => item.classList.remove("active"));
+          const activeItem = document.querySelector(
+            `.nav-item[data-target="${entry.target.id}"]`
+          );
+          if (activeItem) activeItem.classList.add("active");
+        }
+      });
+    },
+    {
+      threshold: 0.55
+    }
+  );
+
+  sections.forEach(section => observer.observe(section));
+});
