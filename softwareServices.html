@@ -7,7 +7,21 @@
   <title>Our Services</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="softwareServices.css">
+ <script src="script.js"></script>
 </head>
+  <header class="header">
+      <div class="header-left">
+        <img src="images/ionora-logo.avif" style="cursor: pointer;" onclick="window.location.reload()" class="logo">
+      </div>
+
+      <div class="header-right">
+        <div class="menu-icon" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </header>
 <section class="zigzag-section">
 
   <!-- ================= SOFTWARE DEVELOPMENT ================= -->
@@ -192,8 +206,25 @@
 
 </section>
 
+  <div class="sidebar" id="sidebar">
+<div class="menu-bg">
+  <img src="images/menu-home.png" class="bg-img home">
+  <img src="images/menu-software.png" class="bg-img software">
+  <img src="images/menu-dg.png" class="bg-img dg">
+  <img src="images/menu-about.png" class="bg-img about">
+</div>
 
+    <div class="sidebar-header">
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="index.html">IONORA</a></li>
+      <li><a href="software.html">Software Solutions</a></li>
+      <li><a href="dgmarketing.html">Digital Marketing</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="c.html">Contact Us</a></li>
+    </ul>
+  </div>
+  <div class="overlay-bg" id="overlay-bg"></div>
 </body>
- <script src="script.js"></script>
   <script src="softwareServices.js"></script>
 </html>

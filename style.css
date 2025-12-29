@@ -1,111 +1,119 @@
-:root{
-  --bg: linear-gradient(
-    120deg,
-    #07161d,
-    #0b2a33,
-    #102f3a,
-    #07161d
-  );
+:root {
+  --bg: linear-gradient(120deg, #07161d, #0b2a33, #102f3a, #07161d);
+  /* Added accent color variable for menu highlights and hover effects */
+  --accent-color: #19c3c0;
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-html, body{
-  height:100%;
-  width:100%;
+html,
+body {
+  height: 100%;
+  width: 100%;
   background: var(--bg);
   background-size: 300% 300%;
   animation: rimacFlow 18s ease-in-out infinite;
 }
 
-.app{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:stretch;
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.viewer{
-  position:relative;
-  height:100vh;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  perspective:1200px;
-
+.viewer {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Reduced perspective for simpler 3D transforms */
+  perspective: 1800px;
+  perspective-origin: 50% 50%;
 }
-body.menu-open .viewer{
-  filter: blur(3px) brightness(.7);
+body.menu-open .viewer {
+  filter: blur(3px) brightness(0.7);
   transition: .4s ease;
 }
 
-.stack{
-  position:relative;
-  width:100%;
-  height:100%;
-  pointer-events:none;
+.stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform-style: preserve-3d; /* Enable 3D transforms for child elements */
 }
 
-.slot{
-  position:absolute;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:0;
-  opacity:0;
-  will-change: transform, opacity, filter;
-  filter:saturate(1.08) contrast(1.03) brightness(1.02);
+.slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  opacity: 1;
+  will-change: transform, opacity;
+  /* Removed expensive filters for better performance */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  /* Simplified shadows for better rendering performance */
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 10px 30px rgba(0, 0, 0, 0.5);
+  /* Updated border for consistency */
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.slot.active{
-  opacity:1;
+.slot.active {
+  opacity: 1;
   transform: scale(1);
-  z-index:50;
+  z-index: 50;
+  /* Removed animation for performance */
 }
 
-.slot.behind{
-  opacity:0.6;
-  z-index:10;
+.slot.behind {
+  opacity: 0.6;
+  z-index: 10;
 }
 
-.overlay{
-  position:absolute;
+.overlay {
+  position: absolute;
   padding: 20px;
   border-radius: 10px;
-  z-index:60;
-  pointer-events: auto;       
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  text-align:center;
-  max-width:86%;
+  z-index: 60;
+  pointer-events: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  max-width: 86%;
 }
 
 .overlay::before {
-  content:'';
-  position:absolute;
-  top:0;
-   left:0; right:0; bottom:0;
-  z-index:-1;
-  border-radius:inherit;
-  pointer-events: none; /* don't intercept events */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .glow-btn {
   margin-top: 15px;
   position: relative;
   display: inline-block;
-  padding: 11px 50px;
-  font-size: 1.1rem;
+  padding: 15px 60px;
+  font-size: 1.3rem;
   font-weight: 600;
   color: #fff;
   background: transparent;
@@ -115,7 +123,7 @@ body.menu-open .viewer{
   cursor: pointer;
   overflow: hidden;
   letter-spacing: 2px;
-  transition: color 0.4s ease,border-color 0.2s ease;
+  transition: color 0.4s ease, border-color 0.2s ease;
   z-index: 1;
 }
 
@@ -134,7 +142,7 @@ body.menu-open .viewer{
 
 .glow-btn:hover {
   color: #000;
-  border-color:  rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
   border-left: none;
   border-right: none;
 }
@@ -151,25 +159,23 @@ body.menu-open .viewer{
   color: #fff;
 }
 
-
-.overlay h1{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-weight:700;
-  font-size:clamp(28px,5vw,56px);
-  margin-bottom:10px;
-  letter-spacing:1.2px;
-  color:white;
-  text-shadow: 1px 1px 6px rgba(0,0,0,0.35);
+.overlay h1 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 5vw, 56px);
+  margin-bottom: 10px;
+  letter-spacing: 1.2px;
+  color: white;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.35);
 }
-.overlay p{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-weight:400;
+.overlay p {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 400;
   font-size: 22px;
-  color:white;
-  line-height:1.5;
-  text-shadow:1px 1px 4px rgba(0,0,0,0.25);
+  color: white;
+  line-height: 1.5;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
 }
-/* ===== LEFT SIDE NAV (RIMAC STYLE) ===== */
 
 .side-nav {
   position: fixed;
@@ -192,22 +198,25 @@ body.menu-open .viewer{
   gap: 14px;
   cursor: pointer;
   opacity: 0.45;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  /* Simplified transition for better performance */
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .side-nav-item:hover {
-  opacity: 0.8;
-  transform: translateX(6px);
+  opacity: 0.95;
+  transform: translateX(8px);
 }
 
 .side-nav-item.active {
   opacity: 1;
+  transform: scale(1.05);
+  /* Removed animation for performance */
 }
 
 .side-nav-item .num {
   font-size: 13px;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .side-nav-item .label {
@@ -218,35 +227,31 @@ body.menu-open .viewer{
   color: #ffffff;
 }
 
-/* subtle left indicator */
 .side-nav-item.active::before {
-  content: '';
+  content: "";
   width: 13px;
   height: 3px;
   background: #ffffff;
   margin-right: 6px;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .side-nav {
     left: 20px;
   }
 }
 
-
-.header{
+.header {
   position: fixed;
-  top: 20px;
+  top: 0;
   left: 0;
   right: 0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
   z-index: 600;
 }
-
 
 .header-left {
   display: flex;
@@ -255,7 +260,7 @@ body.menu-open .viewer{
 }
 
 .logo {
-  height: 40px; 
+  height: 48px;
 }
 
 .title {
@@ -270,60 +275,55 @@ body.menu-open .viewer{
   cursor: pointer;
 }
 
-
-.nav{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:26px;
-  display:flex;
-  gap:12px;
-  z-index:90;
+.nav {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 26px;
+  display: flex;
+  gap: 12px;
+  z-index: 90;
 }
 
-.nav-btn{
-  background:transparent;
-  border:1px solid rgba(255,255,255,0.2);
-  padding:10px 14px;
-  border-radius:999px;
-  color:#fff;
-  cursor:pointer;
-  backdrop-filter:blur(8px);
-  transition:all 0.3s ease;
+.nav-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
 }
 
-.nav-btn:hover{
-  background:var(--glass);
-  border-color:rgba(255,255,255,0.3);
+.nav-btn:hover {
+  background: var(--glass);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-.nav-btn.active{
-  background: rgba(25,195,192,0.15);
+.nav-btn.active {
+  background: rgba(25, 195, 192, 0.15);
   border-color: var(--accent-color);
   color: var(--accent-color);
 }
 
-
-/* ===== RIMAC STYLE FULLSCREEN MENU ===== */
-
-.sidebar{
-  position:fixed;
-  inset:0;
-  background: var(--bg);              
-  background-size:300% 300%;          
+.sidebar {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  background-size: 300% 300%;
   animation: rimacFlow 18s ease-in-out infinite;
   backdrop-filter: blur(14px);
-  z-index:200;
-  padding:40px 20rem;
-  padding-top:0;
-  color:#fff;
-  clip-path:circle(0% at 95% 40px);
-  pointer-events:none;
+  z-index: 200;
+  padding: 40px 20rem;
+  padding-top: 0;
+  color: #fff;
+  clip-path: circle(0% at 98% 20px);
+  pointer-events: none;
 }
 
-
 .sidebar.open {
-  clip-path: circle(150% at 95% 40px);
+  clip-path: circle(150% at 98% 20px);
   pointer-events: auto;
 }
 
@@ -334,7 +334,7 @@ body.menu-open .viewer{
 
 .sidebar-links {
   list-style: none;
-  margin-top: 60px;
+  margin-top: 100px; /* Adjusted top margin for better positioning */
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -347,6 +347,7 @@ body.menu-open .viewer{
   letter-spacing: 2px;
   opacity: 0;
   transform: translateY(25px);
+  transition: all 0.3s ease;
 }
 
 .sidebar-links a:hover {
@@ -355,56 +356,51 @@ body.menu-open .viewer{
 }
 
 .sidebar-links a.active-link {
-  color: var(--accent-color);              
+  color: var(--accent-color);
   font-weight: bold;
   border-left: 4px solid var(--accent-color);
   background: rgba(255, 255, 255, 0.15);
   padding-left: 12px;
   transition: all 0.3s ease;
 }
-.menu-bg{
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  overflow:hidden;
+
+.menu-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
 }
 
-.bg-img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0;
-  transform:scale(1.2) translateX(-30px);
-  filter:brightness(.8);
-  transition:
-    opacity .45s ease,
-    transform .9s cubic-bezier(.68,-0.55,.27,1.55),
-    filter .4s ease;
+.bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.2) translateX(-30px);
+  filter: brightness(0.8);
+  transition: opacity .45s ease, transform .9s cubic-bezier(0.68, -0.55, 0.27, 1.55), filter .4s ease;
 }
 
-.bg-img.active{
-  opacity:1;
-  transform:scale(1.02) translateX(0);
-  filter:brightness(.95);
+.bg-img.active {
+  opacity: 1;
+  transform: scale(1.02) translateX(0);
+  filter: brightness(0.95);
 }
 
-.menu-bg::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    120deg,
-    rgba(0,0,0,.78),
-    rgba(0,0,0,.45)
-  );
-  pointer-events:none;
+.menu-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.45));
+  pointer-events: none;
 }
+
 .overlay-bg {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   opacity: 0;
   pointer-events: none;
   z-index: 150;
@@ -415,7 +411,6 @@ body.menu-open .viewer{
   pointer-events: auto;
 }
 
-/* Responsive Sidebar (smaller screens) */
 @media (max-width: 900px) {
   .sidebar {
     width: 70%;
@@ -426,21 +421,22 @@ body.menu-open .viewer{
   }
 }
 
-/* responsive tweaks */
-@media (max-width:900px){
-  .overlay h1{font-size:22px}
-  .overlay p{font-size:13px}
-  .nav{bottom:16px}
+@media (max-width: 900px) {
+  .overlay h1 {
+    font-size: 22px;
+  }
+  .overlay p {
+    font-size: 13px;
+  }
+  .nav {
+    bottom: 16px;
+  }
 }
+
 .rimac-light {
   position: absolute;
   inset: -30%;
-  background:
-    radial-gradient(
-      500px 400px at var(--mx, 50%) var(--my, 50%),
-      rgba(0, 255, 200, 0.18),
-      transparent 60%
-    ),
+  background: radial-gradient(500px 400px at var(--mx, 50%) var(--my, 50%), rgba(0, 255, 200, 0.18), transparent 60%),
     radial-gradient(
       700px 500px at calc(100% - var(--mx, 50%)) calc(100% - var(--my, 50%)),
       rgba(80, 140, 255, 0.12),
@@ -450,69 +446,76 @@ body.menu-open .viewer{
   pointer-events: none;
   z-index: 1;
 }
-body::before{
+
+body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(
-      900px 600px at 15% 30%,
-      rgba(255,255,255,0.06),
-      transparent 60%
-    );
+  background: radial-gradient(900px 600px at 15% 30%, rgba(255, 255, 255, 0.06), transparent 60%);
   animation: rimacLight 14s ease-in-out infinite;
   z-index: 0;
 }
 
 @keyframes rimacFlow {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes rimacLight {
-  0%   { transform: translate(-80px, -40px); opacity: 0.35; }
-  50%  { transform: translate(80px, 40px);  opacity: 0.6; }
-  100% { transform: translate(-80px, -40px); opacity: 0.35; }
-}
-/* 🔥 Rimac hamburger icon */
-.menu-icon{
-  width:28px;
-  height:23px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  cursor:pointer;
-  z-index:300;
-}
-
-.menu-icon span{
-  height:1.2px;
-  width:100%;
-  background:#fff;
-  border-radius:6px;
-  transition:transform .45s ease, opacity .3s ease;
-  transform-origin:center;
+  0% {
+    transform: translate(-80px, -40px);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate(80px, 40px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-80px, -40px);
+    opacity: 0.35;
+  }
 }
 
-/* morph → X */
-.menu-icon.active span:nth-child(2){
-  opacity:0;
-  transform:translateX(10px);
+.menu-icon {
+  width: 40px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 300;
 }
 
-.menu-icon.active span:nth-child(1){
-  transform:translateY(11px) rotate(45deg);
+.menu-icon span {
+  height: 1.2px;
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  transition: transform .45s ease, opacity .3s ease;
+  transform-origin: center;
 }
 
-.menu-icon.active span:nth-child(3){
-  transform:translateY(-11px) rotate(-45deg);
+.menu-icon.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(10px);
 }
 
-/* 🔥 Logo inside menu */
-.menu-logo{
-  height:42px;
+.menu-icon.active span:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
 }
 
-/* keep your existing sidebar reveal */
+.menu-icon.active span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
+.menu-logo {
+  height: 42px;
+}

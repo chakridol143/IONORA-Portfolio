@@ -34,21 +34,21 @@
         
         <div class="contact-content">
           <div class="contact-info">
-            <h3>Ready to Power Your Future?</h3>
-            <p>Contact us today to learn more about our renewable energy solutions and how we can help you achieve your sustainability goals.</p>
+            <h3>Ready to build Your Future?</h3>
+            <p>Contact us today to know more about our services and how we can help you achieve your sustainability goals.</p>
             
             <div class="contact-details">
               <div class="contact-item">
                 <i class='bx bx-envelope'></i>
-                <span>info@powerfrill.com</span>
+                <span>ionoraitsolutions@gmail.com</span>
               </div>
               <div class="contact-item">
                 <i class='bx bx-phone'></i>
-                <span>+1 (555) 123-4567</span>
+                <span>+91 123-456-7890</span>
               </div>
               <div class="contact-item">
                 <i class='bx bx-map'></i>
-                <span>123 Solar Street, Green City, GC 12345</span>
+                <span>HI-tech City, Hyderabad</span>
               </div>
             </div>
           </div>
@@ -93,41 +93,5 @@
   <div class="overlay-bg" id="overlay-bg"></div>
 
   <script src="script.js"></script>
-  <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const closeSidebar = document.getElementById('close-sidebar');
-    const overlayBg = document.getElementById('overlay-bg');
-
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.add('open');
-      overlayBg.classList.add('active');
-    });
-
-    closeSidebar.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      overlayBg.classList.remove('active');
-    });
-
-    overlayBg.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      overlayBg.classList.remove('active');
-    });
-    // === SIDEBAR ACTIVE LINK HIGHLIGHT ===
-document.addEventListener("DOMContentLoaded", () => {
-  const sidebarLinks = document.querySelectorAll(".sidebar-links a");
-  const currentPage = window.location.pathname.split("/").pop() || "index.html"; // default to index.html if root
-
-  sidebarLinks.forEach(link => {
-    const linkPage = link.getAttribute("href");
-
-    if (linkPage === currentPage) {
-      link.classList.add("active-link");
-    } else {
-      link.classList.remove("active-link");
-    }
-  });
-});
-  </script>
 </body>
 </html>
