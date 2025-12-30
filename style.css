@@ -424,10 +424,10 @@ body.menu-open .viewer {
 
 @media (max-width: 900px) {
   .overlay h1 {
-    font-size: 22px;
+    font-size: 42px;
   }
   .overlay p {
-    font-size: 13px;
+    font-size: 18px;
   }
   .nav {
     bottom: 16px;
@@ -519,4 +519,114 @@ body::before {
 
 .menu-logo {
   height: 42px;
+}
+/* -------- MOBILE EXPERIENCE (300px – 800px) -------- */
+@media (min-width:300px) and (max-width:800px) {
+
+  .viewer{
+    height:100vh;
+    padding:0;
+    perspective:2400px;
+  }
+
+  /* Video should always fill screen */
+  .slot{
+    border-radius:0;
+    box-shadow:none;
+  }
+
+  /* --- Overlay text like Rimac site --- */
+  .overlay{
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+    max-width: 92%;
+    padding: 8px 6px;
+  }
+
+  .overlay h1{
+    font-size: clamp(18px, 6vw, 30px);
+    letter-spacing: 2px;
+    line-height: 1.2;
+  }
+
+  .overlay p{
+    font-size: clamp(12px, 3.6vw, 18px);
+    line-height: 1.45;
+    margin-top: 8px;
+  }
+
+  /* --- Button centred & wide --- */
+  .glow-btn{
+    width: 92%;
+    max-width: 360px;
+    padding: 10px 20px;
+    margin-top: 16px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    border-width: 1px;
+  }
+  .header{
+    padding: 14px;
+  }
+
+  .logo{
+    height: 36px;
+  }
+
+  .menu-icon{
+    width: 35px;
+    height: 22.5px;
+  }
+
+  /* --- Side navigation (bottom list like Rimac) --- */
+  .side-nav{
+    left: 10px;
+    bottom: 18px;
+    top: auto;
+    transform: none;
+    display:flex;
+    justify-content:center;
+  }
+
+  .side-nav ul{
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius:18px;
+    backdrop-filter: blur(10px);
+  }
+
+  .side-nav-item{
+    opacity: 0.7;
+    transform:none !important;
+  }
+
+  .side-nav-item.active{
+    opacity:1;
+  }
+
+  .side-nav-item .label{
+    font-size: 12px;
+    letter-spacing: 1.2px;
+  }
+
+  .side-nav-item .num{
+    font-size: 11px;
+  }
+
+  /* --- Fullscreen menu spacing --- */
+  .sidebar{
+    padding: 90px 40px;
+  }
+
+  .sidebar-links a{
+    font-size: 1.8rem;
+  }
+
+  /* Reduce dramatic perspective for smoother scroll */
+  .stack{
+    transform-style: preserve-3d;
+  }
 }
