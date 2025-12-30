@@ -205,3 +205,71 @@ window.addEventListener("scroll", () => {
   hero.style.opacity = `${1 - progress * 0.4}`;
   hero.style.transform = `scale(${1 - progress * 0.03})`;
 });
+document.addEventListener('DOMContentLoaded',()=>{
+
+  const menuToggle=document.getElementById('menu-toggle');
+  const sidebar=document.getElementById('sidebar');
+  const overlayBg=document.getElementById('overlay-bg');
+  const links=document.querySelectorAll('.sidebar-links a');
+
+  let open=false;
+
+  function openMenu(){
+    open=true;
+    menuToggle.classList.add('active');
+    sidebar.classList.add('open');
+    overlayBg.classList.add('active');
+
+    gsap.fromTo(sidebar,
+      {clipPath:'circle(0% at 95% 40px)'},
+      {clipPath:'circle(150% at 95% 40px)',duration:.8,ease:'power4.inOut'}
+    );
+
+    gsap.to(links,{opacity:1,y:0,stagger:.08,duration:.5,ease:'power3.out'});
+  }
+
+  function closeMenu(){
+    open=false;
+    menuToggle.classList.remove('active');
+    overlayBg.classList.remove('active');
+
+    gsap.to(links,{opacity:0,y:25,duration:.35});
+
+    gsap.to(sidebar,{
+      clipPath:'circle(0% at 95% 40px)',
+      duration:.7,
+      ease:'power4.inOut',
+      onComplete:()=>sidebar.classList.remove('open')
+    });
+  }
+
+  menuToggle.onclick=()=>open?closeMenu():openMenu();
+  overlayBg.onclick=closeMenu;
+
+  /* ACTIVE LINK */
+  const page=location.pathname.split('/').pop()||'index.html';
+  links.forEach(a=>a.classList.toggle('active-link',a.getAttribute('href')===page));
+
+  /* 🔥 MENU BG HOVER IMAGE HANDLER (UNCHANGED) */
+  const menuImages = {
+    "Home": document.querySelector(".bg-img.home"),
+    "Software Solutions": document.querySelector(".bg-img.software"),
+    "Digital Marketing": document.querySelector(".bg-img.dg"),
+    "About Us": document.querySelector(".bg-img.about")
+  };
+
+  links.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      document.querySelectorAll(".bg-img").forEach(img => img.classList.remove("active"));
+      const text = link.textContent.trim();
+      if(menuImages[text]){
+        menuImages[text].classList.add("active");
+      }
+    });
+
+    link.addEventListener("mouseleave", () => {
+      document.querySelectorAll(".bg-img").forEach(img => img.classList.remove("active"));
+    });
+  });
+
+});
