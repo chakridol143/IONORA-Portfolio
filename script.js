@@ -1,14 +1,14 @@
 /* VIDEO DATA */
 const sections = [
-  { src: "vedios/Home.mp4", title: "IONORA", subtitle: "Transforming Ideas Into Digital Reality.", btnExp: "Explore" },
-  { src: "vedios/software2.mp4", title: "IT & AI Solutions", subtitle: "Building Tomorrow's Technology Today.", btnExp: "Discover" },
+  { src: "vedios/Home.mp4", title: "IONORA", subtitle: "IONORA the elite market place.", btnExp: "Explore" },
+  { src: "vedios/software2.mp4", title: "IT & AI Solutions", subtitle: " AI Automations.", btnExp: "Discover" },
   {
     src: "vedios/Digital-Marketing.mp4",
     title: "Digital Marketing",
-    subtitle: "Grow Your Brand. Amplify Your Reach.",
+    subtitle: "with AI Automations.",
     btnExp: "Explore",
   },
-  { src: "vedios/About.mp4", title: "About", subtitle: "Driving Success Through Technology.", btnExp: "Discover" },
+  { src: "vedios/About.mp4", title: "About", subtitle: "IONORA Pvt Ltd.", btnExp: "Discover" },
 ]
 
 const slots = Array.from(document.querySelectorAll(".slot"))
@@ -150,10 +150,14 @@ function rotateTo(target) {
   const steps = dir === 1 ? f : b
 
   const isFarJump = steps === 2 // Jumping to opposite video
-  const baseDuration = isFarJump ? 0.9 : 1.2 // Slower for adjacent (neighbors)
-  const zoomDuration = isFarJump ? 0.5 : 0.7 // Slower zoom for adjacent
-  const expandDuration = isFarJump ? 0.7 : 1.4 // Much slower fade-in for adjacent (was 1.2, now 1.4)
-  const overlayFadeInDuration = isFarJump ? 0.6 : 1.0 // Slower overlay fade for adjacent
+  // ⛔ keep adjacent speed
+const baseDuration = isFarJump ? 0.8 : 0.8
+const zoomDuration = isFarJump ? 0.45 : 0.45
+
+// ✅ make only fullscreen expand slower for FAR JUMP
+const expandDuration = isFarJump ? 1.5 : 1.1
+
+const overlayFadeInDuration = isFarJump ? 1.1 : 0.8
 
   isAnimating = true
 
@@ -179,7 +183,7 @@ function rotateTo(target) {
           {
             opacity: 1,
             scale: 1,
-            duration: 0.5,
+            duration: overlayFadeInDuration,
             ease: "power1.out",
           },
         )
@@ -187,6 +191,8 @@ function rotateTo(target) {
       isAnimating = false
     },
   })
+
+  window.gsap.set(slots[target], { rotateX: 45 })
 
   tl.to(slots, {
     scale: 0.4,
@@ -206,8 +212,9 @@ function rotateTo(target) {
         yPercent: (i) => getState((i - next + len) % len).yPercent,
         scale: 0.4,
         opacity: (i) => Math.max(0.5, getState((i - next + len) % len).opacity),
-        rotateX: (i) => getState((i - next + len) % len).rotateX,
-        rotateY: (i) => getState((i - next + len) % len).rotateY,
+        rotateX: (i) =>
+  i === target ? 45 : getState((i - next + len) % len).rotateX,
+
         rotateZ: (i) => getState((i - next + len) % len).rotateZ,
         z: (i) => getState((i - next + len) % len).z,
         zIndex: (i) => getState((i - next + len) % len).zIndex,
@@ -232,6 +239,10 @@ function rotateTo(target) {
       opacity: (i) => {
         const relPos = (i - target + len) % len
         return getState(relPos).opacity
+      },
+      rotateX: (i) => {
+        const relPos = (i - target + len) % len
+        return getState(relPos).rotateX
       },
       ease: isFarJump ? "power1.inOut" : "power1.out", // Gentler easing for adjacent
     },
