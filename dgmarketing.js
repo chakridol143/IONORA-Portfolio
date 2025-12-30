@@ -1,333 +1,703 @@
 // ================================
-// === HEADER + SIDEBAR CONTROL ===
+// === CAROUSEL SIDE NAV CONTROL ===
 // ================================
-// RIMAC SIDE NAV — SCROLL + ACTIVE STATE (IMPROVED)
 document.addEventListener("DOMContentLoaded", () => {
-  const navItems = document.querySelectorAll(".nav-item");
-  const sections = document.querySelectorAll("section[id]");
+  const navItems = document.querySelectorAll(".nav-item")
+  const sections = document.querySelectorAll("section[id]")
+  const navList = document.querySelector(".nav-list")
+
+  const ITEMS_PER_VIEW = 8 // Show 8 items at a time
+  const TOTAL_ITEMS = 16 // INTRO + 15 services
+  let currentStartIndex = 0
+
+  function updateNavDisplay(activeIndex) {
+    // Determine which items should be visible based on active section
+    const targetStartIndex = Math.max(0, Math.min(activeIndex - 2, TOTAL_ITEMS - ITEMS_PER_VIEW))
+
+    if (targetStartIndex !== currentStartIndex) {
+      currentStartIndex = targetStartIndex
+
+      // Update visibility and numbering
+      navItems.forEach((item, idx) => {
+        const isVisible = idx >= currentStartIndex && idx < currentStartIndex + ITEMS_PER_VIEW
+        item.style.display = isVisible ? "flex" : "none"
+
+        if (isVisible) {
+          const displayNum = idx + 1
+          const numSpan = item.querySelector(".nav-num")
+          if (numSpan) {
+            numSpan.textContent = String(displayNum).padStart(2, "0")
+          }
+        }
+      })
+    }
+  }
 
   // CLICK SCROLL
-  navItems.forEach(item => {
+  navItems.forEach((item) => {
     item.addEventListener("click", () => {
-      const target = document.getElementById(item.dataset.target);
+      const target = document.getElementById(item.dataset.target)
       if (target) {
         target.scrollIntoView({
           behavior: "smooth",
-          block: "start"
-        });
+          block: "start",
+        })
       }
-    });
-  });
+    })
+  })
 
-  // SCROLL SPY
+  // SCROLL SPY with carousel nav update
   const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
+    (entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          navItems.forEach(i => i.classList.remove("active"));
-          const activeItem = document.querySelector(
-            `.nav-item[data-target="${entry.target.id}"]`
-          );
-          if (activeItem) activeItem.classList.add("active");
+          const targetId = entry.target.id
+
+          // Remove active from all
+          navItems.forEach((i) => i.classList.remove("active"))
+
+          // Find and activate the matching nav item
+          const activeItem = document.querySelector(`.nav-item[data-target="${targetId}"]`)
+          if (activeItem) {
+            activeItem.classList.add("active")
+
+            const activeIndex = Number.parseInt(activeItem.dataset.index)
+            updateNavDisplay(activeIndex)
+          }
         }
-      });
+      })
     },
     {
-      rootMargin: "-45% 0px -45% 0px"
-    }
-  );
-
-  sections.forEach(section => observer.observe(section));
-});
-
-
-// ================================
-// === SERVICE DETAIL OVERLAY ===
-// ================================
-
-// Elements
-const detail = document.getElementById("service-detail");
-const closeDetail = document.getElementById("close-detail");
-const moreBtns = document.querySelectorAll(".more-btn");
-const serviceInfo = document.querySelector(".service-info");
-const navButtons = document.querySelectorAll(".service-nav button");
-
-// ================================
-// === SERVICE DATA CONTENT ===
-// ================================
-const servicesData = {
-  solarification: {
-    title: "Solarification",
-    image: "https://www.powerfrill.com/wp-content/uploads/2018/12/Solarification-770x500.jpg",
-    content: `
-      <p>“Solarification” refers to transitioning towards solar energy as a primary power source. This process supports renewable adoption and reduces fossil dependence.</p>
-      <h3>Solarification initiatives include:</h3>
-      <ul>
-        <li><strong>Solar Panel Installation:</strong> Rooftop, field, or solar farm setups to harness sunlight.</li>
-        <li><strong>Policy Support:</strong> Incentives promoting solar energy usage.</li>
-        <li><strong>Public Awareness:</strong> Campaigns to educate about solar benefits.</li>
-        <li><strong>Infrastructure Development:</strong> Better grids and storage systems.</li>
-        <li><strong>Off-grid Solar:</strong> Powering remote areas sustainably.</li>
-      </ul>
-      <p>Solarification is vital for a sustainable renewable energy transition.</p>
-    `,
-  },
-
-  audit: {
-    title: "Energy Demand Audit",
-    image: "https://www.powerfrill.com/wp-content/uploads/2018/12/Energy-demand-audit-1-770x500.jpeg",
-    content: `
-      <p>An energy demand audit identifies inefficiencies and areas to optimize energy usage.</p>
-      <h3>Audit Process:</h3>
-      <ul>
-        <li><strong>Data Collection:</strong> Analyze usage and patterns.</li>
-        <li><strong>Inspection:</strong> Evaluate HVAC, lighting, insulation, etc.</li>
-        <li><strong>Modeling:</strong> Simulate and find optimization opportunities.</li>
-        <li><strong>ROI Analysis:</strong> Determine financial benefits.</li>
-        <li><strong>Monitoring:</strong> Continuous tracking and updates.</li>
-      </ul>
-      <p>Regular audits ensure efficiency and cost savings.</p>
-    `,
-  },
-
-  custom: {
-    title: "Custom Solution Engineering",
-    image: "https://www.powerfrill.com/wp-content/uploads/2018/10/custom-solution-eng-770x500.jpeg",
-    content: `
-      <p>Custom solution engineering delivers tailor-made designs for unique project requirements.</p>
-      <ul>
-        <li><strong>Design Thinking:</strong> Problem-oriented innovation.</li>
-        <li><strong>Prototyping:</strong> Rapid working model creation.</li>
-        <li><strong>System Integration:</strong> Smooth interoperability.</li>
-        <li><strong>Scalability:</strong> Designed for growth and flexibility.</li>
-      </ul>
-      <p>Powerfrill provides precision-built, reliable systems for every project.</p>
-    `,
-  },
-
-  facility: {
-    title: "Energy Farms Facility Management",
-    image: "https://www.powerfrill.com/wp-content/uploads/2018/10/Energy-farms-facility-management-770x500.jpeg",
-    content: `
-      <p>Facility management ensures large-scale renewable operations like solar farms perform at peak efficiency.</p>
-      <ul>
-        <li><strong>Monitoring:</strong> Real-time performance tracking.</li>
-        <li><strong>Maintenance:</strong> Scheduled and predictive upkeep.</li>
-        <li><strong>Optimization:</strong> Resource and yield maximization.</li>
-        <li><strong>Compliance:</strong> Safety and environmental assurance.</li>
-      </ul>
-      <p>Good management ensures performance and long-term ROI.</p>
-    `,
-  },
-
-  efficacy: {
-    title: "Solar Plants Efficacy Management",
-    image: "https://www.powerfrill.com/wp-content/uploads/2018/10/Solar-Plants-Efficacy-Management-1-770x500.jpeg",
-    content: `
-      <p>Solar plant efficacy management focuses on consistent performance and system optimization.</p>
-      <ul>
-        <li><strong>Maintenance:</strong> Cleaning and inverter repairs.</li>
-        <li><strong>Monitoring:</strong> Detecting real-time faults.</li>
-        <li><strong>Optimization:</strong> Adjusting tilt and tracking sunlight.</li>
-        <li><strong>Predictive Analysis:</strong> Prevent breakdowns early.</li>
-      </ul>
-      <p>Ensures long-term productivity and plant reliability.</p>
-    `,
-  },
-};
-
-// ================================
-// === LOAD SERVICE CONTENT ===
-// ================================
-function loadService(serviceKey) {
-  const data = servicesData[serviceKey];
-  if (!data) return;
-
-  // Set Active Button
-  navButtons.forEach((btn) => btn.classList.remove("active"));
-  const activeBtn = document.querySelector(`[data-service="${serviceKey}"]`);
-  if (activeBtn) activeBtn.classList.add("active");
-
-  // Populate Info
-  serviceInfo.innerHTML = `
-    <div class="service-banner">
-      <img src="${data.image}" alt="${data.title}">
-    </div>
-    <h1>${data.title}</h1>
-    ${data.content}
-    <form class="inquiry-form">
-      <h3>Get in Touch</h3>
-      <div class="form-group">
-        <input type="text" placeholder="Name" required>
-        <input type="text" placeholder="Phone" required>
-      </div>
-      <div class="form-group">
-        <input type="email" placeholder="Email" required>
-      </div>
-      <div class="form-group">
-        <select required>
-          <option value="">Select Services</option>
-          <option>Solarification</option>
-          <option>Energy Demand Audit</option>
-          <option>Custom Solution Engineering</option>
-          <option>Energy Farms Facility Management</option>
-          <option>Solar Plants Efficacy Management</option>
-        </select>
-      </div>
-      <button type="submit" class="submit-btn">Submit</button>
-    </form>
-  `;
-
-  // Animate Fade-in
-  serviceInfo.style.opacity = "0";
-  setTimeout(() => {
-    serviceInfo.style.transition = "opacity 0.5s ease";
-    serviceInfo.style.opacity = "1";
-  }, 50);
-}
-
-// ================================
-// === EVENT LISTENERS ===
-// ================================
-
-// Open service overlay
-if (moreBtns && detail) {
-  moreBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const cardTitle = btn.parentElement
-        .querySelector(".card-title")
-        .textContent.trim();
-      const key = Object.keys(servicesData).find(
-        (k) => servicesData[k].title.toLowerCase() === cardTitle.toLowerCase()
-      );
-      loadService(key || "solarification");
-      detail.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    });
-  });
-}
-
-// Switch between service types
-if (navButtons) {
-  navButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const serviceKey = btn.dataset.service;
-      loadService(serviceKey);
-    });
-  });
-}
-
-// Close overlay
-if (closeDetail) {
-  closeDetail.addEventListener("click", () => {
-    detail.style.display = "none";
-    document.body.style.overflow = "";
-  });
-}
-// RIMAC STYLE SIDE NAV SCROLL + ACTIVE STATE
-document.addEventListener("DOMContentLoaded", () => {
-  const navItems = document.querySelectorAll(".nav-item");
-  const sections = document.querySelectorAll("section");
-
-  // Click → smooth scroll
-  navItems.forEach(item => {
-    item.addEventListener("click", () => {
-      const target = document.getElementById(item.dataset.target);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  });
-
-  // Scroll spy → active state
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navItems.forEach(item => item.classList.remove("active"));
-          const activeItem = document.querySelector(
-            `.nav-item[data-target="${entry.target.id}"]`
-          );
-          if (activeItem) activeItem.classList.add("active");
-        }
-      });
+      rootMargin: "-45% 0px -45% 0px",
     },
-    {
-      threshold: 0.55
-    }
-  );
+  )
 
-  sections.forEach(section => observer.observe(section));
-});
+  sections.forEach((section) => observer.observe(section))
 
-window.addEventListener("load", function () {
-  var status = document.querySelector(".status-indicator");
-  var digital = document.querySelector(".animate-text span:first-child");
-  var marketing = document.querySelector(".animate-text .text-hollow");
-  var sub = document.querySelector(".animate-sub");
-  var quote = document.querySelector(".quote-container");
-  var image = document.querySelector(".dashboard-image-content");
-  var nav = document.querySelector(".rimac-nav");
+  // Initialize nav display
+  updateNavDisplay(0)
+})
+
+// ================================
+// === ANIMATION ON PAGE LOAD ===
+// ================================
+window.addEventListener("load", () => {
+  var status = document.querySelector(".status-indicator")
+  var digital = document.querySelector(".animate-text span:first-child")
+  var marketing = document.querySelector(".animate-text .text-hollow")
+  var sub = document.querySelector(".animate-sub")
+  var quote = document.querySelector(".quote-container")
+  var image = document.querySelector(".dashboard-image-content")
+  var nav = document.querySelector(".rimac-nav")
 
   if (status) {
-    status.style.animation = "fadeUp 0.6s ease forwards";
+    status.style.animation = "fadeUp 0.6s ease forwards"
   }
 
-  setTimeout(function () {
+  setTimeout(() => {
     if (digital) {
-      digital.style.animation =
-        "fadeUp 0.8s cubic-bezier(0.215,0.61,0.355,1) forwards";
+      digital.style.animation = "fadeUp 0.8s cubic-bezier(0.215,0.61,0.355,1) forwards"
     }
-  }, 150);
+  }, 150)
 
-  setTimeout(function () {
+  setTimeout(() => {
     if (marketing) {
-      marketing.style.animation =
-        "fadeUp 0.8s cubic-bezier(0.215,0.61,0.355,1) forwards";
+      marketing.style.animation = "fadeUp 0.8s cubic-bezier(0.215,0.61,0.355,1) forwards"
     }
-  }, 300);
+  }, 300)
 
-  setTimeout(function () {
+  setTimeout(() => {
     if (sub) {
-      sub.style.animation = "fadeUp 0.6s ease forwards";
+      sub.style.animation = "fadeUp 0.6s ease forwards"
     }
-  }, 450);
+  }, 450)
 
-  setTimeout(function () {
+  setTimeout(() => {
     if (quote) {
-      quote.style.animation = "fadeRight 0.7s ease forwards";
+      quote.style.animation = "fadeRight 0.7s ease forwards"
     }
-  }, 650);
+  }, 650)
 
-  setTimeout(function () {
+  setTimeout(() => {
     if (image) {
-      image.style.animation = "fadeScale 0.8s ease forwards";
+      image.style.animation = "fadeScale 0.8s ease forwards"
     }
-  }, 800);
+  }, 800)
 
-  setTimeout(function () {
+  setTimeout(() => {
     if (nav) {
-      nav.style.animation = "fadeRight 0.6s ease forwards";
+      nav.style.animation = "fadeRight 0.6s ease forwards"
     }
-  }, 1000);
-});
+  }, 1000)
+})
 
-const serviceSections = document.querySelectorAll(".service-section");
+// ================================
+// === SERVICE SECTIONS REVEAL ===
+// ================================
+const serviceSections = document.querySelectorAll(".service-section")
 
 const serviceObserver = new IntersectionObserver(
   (entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("in-view");
+        entry.target.classList.add("in-view")
       }
-    });
+    })
   },
   {
-    threshold: 0.35
-  }
-);
+    threshold: 0.35,
+  },
+)
 
-serviceSections.forEach(section => {
-  serviceObserver.observe(section);
-});
+serviceSections.forEach((section) => {
+  serviceObserver.observe(section)
+})
+
+// ================================
+// === SERVICE MODAL MANAGEMENT ===
+// ================================
+
+const serviceData = {
+  seo: {
+    title: "Search Engine Optimization",
+    subtitle: "Sustainable Visibility & Long-Term Rankings",
+    image: "images/Search Engine Optimization1.webp",
+    overview:
+      "Drive organic traffic and establish authority through comprehensive SEO strategies. We combine technical optimization, content excellence, and link building to improve your search engine rankings and visibility.",
+    features: [
+      "On-Page SEO Optimization",
+      "Technical SEO Audits",
+      "Keyword Research & Strategy",
+      "Local SEO Management",
+      "Link Building & Authority",
+      "Content Optimization",
+    ],
+    benefits: [
+      "Increased organic traffic",
+      "Higher search rankings",
+      "Long-term sustainable growth",
+      "Reduced customer acquisition cost",
+      "Improved brand authority",
+      "Better user experience",
+    ],
+    process: [
+      "Comprehensive site audit and competitor analysis",
+      "Keyword research and strategy development",
+      "On-page optimization implementation",
+      "Technical SEO fixes and improvements",
+      "Content creation and optimization",
+      "Link building and outreach",
+      "Monthly reporting and optimization",
+    ],
+  },
+  sem: {
+    title: "Search Engine Marketing",
+    subtitle: "Strategic Paid Ads for Maximum ROI",
+    image: "images/Search Engine Marketing1.jpg",
+    overview:
+      "Maximize visibility and conversions with strategic SEM campaigns. Our data-driven approach optimizes every dollar spent to deliver measurable results on Google Ads, Bing, and other search platforms.",
+    features: [
+      "Google Ads Management",
+      "Bing Ads Campaigns",
+      "Landing Page Optimization",
+      "Conversion Rate Optimization",
+      "Budget Optimization",
+      "A/B Testing",
+    ],
+    benefits: [
+      "Immediate visibility and traffic",
+      "Highly targeted audience reach",
+      "Measurable ROI tracking",
+      "Flexible budget control",
+      "Quick campaign adjustments",
+      "High-intent customer acquisition",
+    ],
+    process: [
+      "Market research and competitor analysis",
+      "Campaign strategy and setup",
+      "Keyword selection and bidding",
+      "Ad copy creation and testing",
+      "Landing page optimization",
+      "Conversion tracking implementation",
+      "Daily monitoring and optimization",
+    ],
+  },
+  smm: {
+    title: "Social Media Marketing",
+    subtitle: "Platform-Specific Growth & Engagement",
+    image: "images/Social Media Marketing1.webp",
+    overview:
+      "Build authentic connections with your audience through strategic social media marketing. We develop platform-specific content and engagement strategies that strengthen brand presence and drive community growth.",
+    features: [
+      "Content Strategy & Planning",
+      "Community Management",
+      "Platform Optimization",
+      "Influencer Partnerships",
+      "Crisis Management",
+      "Analytics & Reporting",
+    ],
+    benefits: [
+      "Increased brand awareness",
+      "Higher engagement rates",
+      "Loyal community building",
+      "Word-of-mouth marketing",
+      "Direct customer feedback",
+      "Cost-effective promotion",
+    ],
+    process: [
+      "Audience and competitor research",
+      "Social media strategy development",
+      "Content calendar creation",
+      "Daily content posting and engagement",
+      "Community interaction and response",
+      "Performance tracking",
+      "Monthly strategy adjustments",
+    ],
+  },
+  "social-ads": {
+    title: "Social Media Advertising",
+    subtitle: "Targeted Campaigns for Ideal Audience",
+    image: "images/Social Media Advertising.1.png",
+    overview:
+      "Reach your ideal customers with precision-targeted ads across Facebook, Instagram, TikTok, and LinkedIn. Our advanced audience segmentation and creative optimization drive conversions and brand awareness.",
+    features: [
+      "Audience Segmentation",
+      "Creative Design & Testing",
+      "Video Ad Production",
+      "Retargeting Campaigns",
+      "Lookalike Audience Building",
+      "Multi-Platform Management",
+    ],
+    benefits: [
+      "Highly targeted reach",
+      "Lower cost per acquisition",
+      "Increased conversion rates",
+      "Brand awareness growth",
+      "Retargeting effectiveness",
+      "Real-time optimization",
+    ],
+    process: [
+      "Audience analysis and targeting setup",
+      "Campaign objective selection",
+      "Creative asset creation",
+      "Ad copy and messaging",
+      "Campaign launch and monitoring",
+      "Daily bid and budget optimization",
+      "Conversion analysis and scaling",
+    ],
+  },
+  content: {
+    title: "Content Marketing",
+    subtitle: "High-Impact Content That Converts",
+    image: "images/Content Marketing1.png",
+    overview:
+      "Create compelling content that attracts, educates, and converts your audience. From blog posts to whitepapers, we craft strategic content that positions your brand as an industry leader.",
+    features: [
+      "Blog Writing & Optimization",
+      "Video Script Writing",
+      "Whitepaper Creation",
+      "Case Study Development",
+      "Infographic Design",
+      "Email Content Strategy",
+    ],
+    benefits: [
+      "Improved SEO rankings",
+      "Increased customer trust",
+      "Better lead generation",
+      "Higher engagement rates",
+      "Thought leadership position",
+      "Content repurposing value",
+    ],
+    process: [
+      "Content strategy and planning",
+      "Keyword and topic research",
+      "Content outline creation",
+      "Writing and copywriting",
+      "Editing and optimization",
+      "Graphics and formatting",
+      "Publishing and promotion",
+    ],
+  },
+  branding: {
+    title: "Branding & Creative",
+    subtitle: "Authentic Brand Identity & Design",
+    image: "images/Branding & Creative1.webp",
+    overview:
+      "Build a distinctive brand identity that resonates with your target audience. Our creative services encompass logo design, brand guidelines, visual identity, and campaigns that tell your unique story.",
+    features: [
+      "Logo Design & Development",
+      "Brand Guidelines Creation",
+      "Visual Identity System",
+      "Brand Messaging",
+      "Design Collateral",
+      "Creative Campaign Development",
+    ],
+    benefits: [
+      "Strong brand recognition",
+      "Consistent messaging",
+      "Professional appearance",
+      "Audience connection",
+      "Competitive differentiation",
+      "Long-term brand value",
+    ],
+    process: [
+      "Brand discovery and research",
+      "Competitive analysis",
+      "Brand positioning statement",
+      "Visual identity development",
+      "Logo and design creation",
+      "Brand guidelines documentation",
+      "Asset delivery and training",
+    ],
+  },
+  "web-dev": {
+    title: "Website & App Development",
+    subtitle: "Conversion-Focused Digital Solutions",
+    image: "images/Website & App Development1.jpg",
+    overview:
+      "Build fast, scalable, and conversion-optimized websites and applications. Our development team creates digital experiences engineered for performance, user engagement, and business growth.",
+    features: [
+      "Responsive Web Design",
+      "Mobile App Development",
+      "E-Commerce Solutions",
+      "Progressive Web Apps",
+      "API Integration",
+      "Performance Optimization",
+    ],
+    benefits: [
+      "Fast loading speeds",
+      "Mobile responsiveness",
+      "Higher conversion rates",
+      "User-friendly interface",
+      "Scalability",
+      "Future-proof technology",
+    ],
+    process: [
+      "Requirements gathering and planning",
+      "Wireframing and prototyping",
+      "Design creation",
+      "Development and coding",
+      "Testing and QA",
+      "Launch and optimization",
+      "Ongoing maintenance",
+    ],
+  },
+  video: {
+    title: "Video Production",
+    subtitle: "Professional Video Content Creation",
+    image: "images/Video Production1.webp",
+    overview:
+      "Engage your audience with professional video content. From promotional videos to product demos, we produce high-quality videos that tell your brand story and drive engagement.",
+    features: [
+      "Script Writing",
+      "Storyboarding",
+      "On-Location Filming",
+      "Animation & Graphics",
+      "Professional Editing",
+      "Color Grading & Sound Design",
+    ],
+    benefits: [
+      "Higher engagement rates",
+      "Better storytelling",
+      "Increased conversions",
+      "Social media virality",
+      "Professional appearance",
+      "Memorable brand messaging",
+    ],
+    process: [
+      "Concept and script development",
+      "Storyboard creation",
+      "Location and talent scouting",
+      "Production filming",
+      "Post-production editing",
+      "Sound design and music",
+      "Final delivery and optimization",
+    ],
+  },
+  ecommerce: {
+    title: "Ecommerce & Marketplace Marketing",
+    subtitle: "Sales Growth Through Marketplace Optimization",
+    image: "images/Ecommerce & Marketplace Marketing1.jpg",
+    overview:
+      "Drive sales on Amazon, Shopify, and other marketplaces with strategic optimization. We specialize in listing optimization, paid advertising, and inventory management for ecommerce success.",
+    features: [
+      "Product Listing Optimization",
+      "Amazon Advertising (PPC)",
+      "Enhanced Content Creation",
+      "Competitor Price Monitoring",
+      "Review Management",
+      "Inventory Strategy",
+    ],
+    benefits: [
+      "Increased sales volume",
+      "Higher product visibility",
+      "Better conversion rates",
+      "Improved rankings",
+      "Reduced advertising spend",
+      "Customer trust building",
+    ],
+    process: [
+      "Market and competitor research",
+      "Keyword research and optimization",
+      "Listing and content creation",
+      "Advertising campaign setup",
+      "Daily monitoring and bidding",
+      "Review and feedback management",
+      "Performance analysis and scaling",
+    ],
+  },
+  performance: {
+    title: "Performance Marketing",
+    subtitle: "ROI-Driven Campaigns & Growth",
+    image: "images/Performance Marketing1.jpg",
+    overview:
+      "Achieve measurable results with ROI-focused marketing campaigns. We optimize every channel for maximum return on investment, from paid search to affiliate marketing.",
+    features: [
+      "Multi-Channel Attribution",
+      "Conversion Rate Optimization",
+      "Funnel Analysis",
+      "Lead Scoring",
+      "Marketing Automation",
+      "Real-Time Dashboarding",
+    ],
+    benefits: [
+      "Clear ROI tracking",
+      "Higher conversion rates",
+      "Optimized customer journey",
+      "Predictable growth",
+      "Efficient budget allocation",
+      "Data-driven decisions",
+    ],
+    process: [
+      "Baseline analysis and goal setting",
+      "Channel strategy development",
+      "Campaign setup and launch",
+      "Conversion tracking",
+      "A/B testing and optimization",
+      "Real-time monitoring",
+      "Monthly performance reviews",
+    ],
+  },
+  crm: {
+    title: "CRM, Automation & AI",
+    subtitle: "Intelligent Customer Relationships",
+    image: "images/CRM, Automation & AI1.webp",
+    overview:
+      "Streamline customer relationships and automate marketing workflows with intelligent CRM systems and AI-powered tools. We implement solutions that personalize customer experiences at scale.",
+    features: [
+      "CRM Implementation",
+      "Marketing Automation",
+      "AI-Powered Personalization",
+      "Lead Nurturing Workflows",
+      "Customer Segmentation",
+      "Predictive Analytics",
+    ],
+    benefits: [
+      "Improved customer retention",
+      "Faster sales cycles",
+      "Automated lead nurturing",
+      "Personalized experiences",
+      "Better team efficiency",
+      "Predictive insights",
+    ],
+    process: [
+      "Needs assessment and planning",
+      "System selection and setup",
+      "Data migration",
+      "Workflow automation creation",
+      "Team training",
+      "Performance monitoring",
+      "Continuous optimization",
+    ],
+  },
+  analytics: {
+    title: "Analytics & Optimization & Reporting",
+    subtitle: "Data-Driven Decision Making",
+    image: "images/an.png",
+    overview:
+      "Track, analyze, and optimize every aspect of your digital marketing. Our comprehensive analytics and reporting provide actionable insights for continuous improvement and growth.",
+    features: [
+      "Google Analytics Setup",
+      "Custom Dashboard Creation",
+      "A/B Testing Framework",
+      "Heat Map Analysis",
+      "User Journey Tracking",
+      "Advanced Reporting",
+    ],
+    benefits: [
+      "Clear performance visibility",
+      "Data-driven optimizations",
+      "Improved conversion rates",
+      "Better resource allocation",
+      "Actionable insights",
+      "Competitive advantage",
+    ],
+    process: [
+      "Analytics setup and configuration",
+      "Tracking implementation",
+      "Baseline data collection",
+      "Dashboard creation",
+      "Testing and experimentation",
+      "Analysis and reporting",
+      "Recommendation development",
+    ],
+  },
+  reputation: {
+    title: "Reputation & PR",
+    subtitle: "Brand Authority & Credibility",
+    image: "images/Reputation & PR1.webp",
+    overview:
+      "Manage your brand reputation and build credibility through strategic PR. We handle online reviews, press releases, crisis management, and media relations to protect and enhance your brand image.",
+    features: [
+      "Review Management",
+      "Press Release Distribution",
+      "Media Relations",
+      "Crisis Management",
+      "Sentiment Monitoring",
+      "Influencer Partnerships",
+    ],
+    benefits: [
+      "Improved online reputation",
+      "Increased customer trust",
+      "Media coverage",
+      "Crisis prevention",
+      "Brand authority",
+      "Customer confidence",
+    ],
+    process: [
+      "Reputation audit and monitoring",
+      "Review response strategy",
+      "Content creation and outreach",
+      "Media relations management",
+      "Crisis communication planning",
+      "Sentiment monitoring",
+      "Monthly reporting",
+    ],
+  },
+  "app-growth": {
+    title: "App Growth",
+    subtitle: "User Acquisition & Monetization",
+    image: "images/App Growth1.webp",
+    overview:
+      "Drive user acquisition, retention, and monetization for mobile and web applications. Our app marketing strategies focus on growth loops, retention optimization, and revenue maximization.",
+    features: [
+      "App Store Optimization",
+      "User Acquisition Campaigns",
+      "Retention Optimization",
+      "Push Notification Strategy",
+      "In-App Marketing",
+      "Monetization Strategy",
+    ],
+    benefits: [
+      "Higher download rates",
+      "Improved user retention",
+      "Increased revenue",
+      "Better app ratings",
+      "Viral growth potential",
+      "Sustainable user base",
+    ],
+    process: [
+      "Market and competitor analysis",
+      "App store listing optimization",
+      "User acquisition channel planning",
+      "Campaign setup and launch",
+      "Retention testing and optimization",
+      "Engagement and push strategies",
+      "Revenue analysis and scaling",
+    ],
+  },
+  genai: {
+    title: "Advanced Generative Marketing",
+    subtitle: "AI-Powered Personalization & Automation",
+    image: "images/Advanced Generative Marketing1.avif",
+    overview:
+      "Leverage cutting-edge AI and generative technologies for next-level marketing. From personalized content generation to predictive customer behavior, we harness AI to drive innovation and growth.",
+    features: [
+      "AI Content Generation",
+      "Personalization Engines",
+      "Predictive Analytics",
+      "Chatbot & Conversational AI",
+      "Dynamic Content Optimization",
+      "Automated Customer Insights",
+    ],
+    benefits: [
+      "Faster content creation",
+      "Hyper-personalized experiences",
+      "Predictive customer needs",
+      "24/7 customer engagement",
+      "Improved conversion rates",
+      "Competitive differentiation",
+    ],
+    process: [
+      "AI capability assessment",
+      "Technology selection",
+      "Data preparation and integration",
+      "Model training and setup",
+      "Personalization implementation",
+      "Testing and optimization",
+      "Scaling and expansion",
+    ],
+  },
+}
+
+const modal = document.getElementById("serviceModal")
+const modalBackdrop = document.getElementById("modalBackdrop")
+const modalClose = document.getElementById("modalClose")
+const exploreButtons = document.querySelectorAll(".explore-btn")
+
+// Open modal with service data
+function openServiceModal(serviceId) {
+  const data = serviceData[serviceId]
+  if (!data) return
+
+  // Populate modal content
+  document.querySelector(".modal-title").textContent = data.title
+  document.querySelector(".modal-subtitle").textContent = data.subtitle
+  document.querySelector(".modal-img").src = data.image
+  document.querySelector(".modal-img").alt = data.title
+  document.querySelector(".modal-overview").textContent = data.overview
+
+  // Populate features
+  const featuresList = document.querySelector(".modal-features")
+  featuresList.innerHTML = data.features.map((f) => `<li>${f}</li>`).join("")
+
+  // Populate benefits
+  const benefitsList = document.querySelector(".modal-benefits")
+  benefitsList.innerHTML = data.benefits.map((b) => `<li>${b}</li>`).join("")
+
+  // Populate process
+  const processList = document.querySelector(".modal-process")
+  processList.innerHTML = data.process.map((p) => `<li>${p}</li>`).join("")
+
+  // Show modal with animation
+  modal.classList.add("visible")
+  document.body.style.overflow = "hidden"
+}
+
+// Close modal
+function closeServiceModal() {
+  modal.classList.remove("visible")
+  document.body.style.overflow = "auto"
+}
+
+// Event listeners for explore buttons
+exploreButtons.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault()
+    const serviceId = btn.dataset.service
+    openServiceModal(serviceId)
+  })
+})
+
+// Close button
+modalClose.addEventListener("click", closeServiceModal)
+
+// Backdrop click to close
+modalBackdrop.addEventListener("click", closeServiceModal)
+
+// Escape key to close
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeServiceModal()
+  }
+})

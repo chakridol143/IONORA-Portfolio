@@ -919,3 +919,461 @@ body {
     transform: translateY(0);
   }
 }
+/* ===============================
+   RIMAC PREMIUM SIDE NAV with CAROUSEL
+================================ */
+
+.rimac-nav {
+  position: fixed;
+  left: 32px;
+  top: 35%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  font-family: "Rajdhani", sans-serif;
+
+  opacity: 0;
+  animation: navFadeIn 1s ease forwards 1.2s;
+
+  /* Added max-height for carousel overflow control */
+  max-height: 600px;
+  overflow: hidden;
+}
+
+@keyframes navFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.nav-list {
+  list-style: none;
+  padding-top: 6px;
+  padding-left: 30px;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+
+  /* Smooth transition for carousel effect */
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  cursor: pointer;
+
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.55);
+  opacity: 0.75;
+  font-weight: 500;
+  transition: all 0.35s ease;
+
+  /* Added display property for carousel visibility */
+  display: flex;
+}
+
+/* Hover */
+.nav-item:hover {
+  color: #ffffff;
+  opacity: 1;
+  transform: translateX(6px);
+}
+
+/* Active */
+.nav-item.active {
+  color: #00d1c1;
+  opacity: 1;
+  transform: translateX(10px);
+}
+
+/* Active glow dot */
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: -19px;
+  width: 7px;
+  height: 7px;
+  background: #00d1c1;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0, 209, 193, 0.9);
+}
+
+.nav-num {
+  font-size: 10px;
+  min-width: 24px;
+  /* Updated numbering for carousel display */
+  font-weight: 600;
+}
+
+.nav-text {
+  white-space: nowrap;
+}
+
+/* =====================================================
+   EXPLORE BUTTON STYLING
+===================================================== */
+
+.explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 12px 28px;
+
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  color: var(--accent);
+  font-family: var(--font-tech);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+}
+
+/* added button hover effect */
+.explore-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  z-index: -1;
+  transition: left 0.4s ease;
+}
+
+.explore-btn:hover::before {
+  left: 0;
+}
+
+.explore-btn:hover {
+  color: var(--bg-dark);
+  box-shadow: 0 0 20px rgba(0, 209, 193, 0.4);
+}
+
+.explore-btn i {
+  font-size: 14px;
+  transition: transform 0.4s ease;
+}
+
+.explore-btn:hover i {
+  transform: translateX(4px);
+}
+
+/* =====================================================
+   SERVICE MODAL STYLING
+===================================================== */
+
+/* added modal overlay and backdrop */
+.service-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.service-modal.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 11, 14, 0.95);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* added modal content container */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 90%;
+  max-width: 900px;
+  max-height: 85vh;
+  background: linear-gradient(135deg, rgba(12, 28, 34, 0.98) 0%, rgba(15, 36, 43, 0.98) 100%);
+  border: 1px solid rgba(0, 209, 193, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(0, 209, 193, 0.2);
+  z-index: 2;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.service-modal.visible .modal-content {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* added modal close button */
+.modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(0, 209, 193, 0.1);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* added scrollable modal body */
+.modal-scroll-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 60px 48px;
+}
+
+.modal-scroll-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-scroll-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+.modal-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 209, 193, 0.8);
+}
+
+/* added modal header with animation */
+.modal-header {
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.service-modal.visible .modal-header {
+  animation: fadeUp 0.6s ease forwards 0.2s;
+  opacity: 1;
+}
+
+.modal-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  color: white;
+  letter-spacing: -1px;
+}
+
+.modal-subtitle {
+  font-size: 16px;
+  color: var(--accent);
+  font-family: var(--font-tech);
+  letter-spacing: 2px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* added modal body layout */
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  animation: fadeUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.service-modal.visible .modal-body {
+  animation: fadeUp 0.6s ease forwards 0.3s;
+  opacity: 1;
+}
+
+/* added modal image styling */
+.modal-image {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 209, 193, 0.1);
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.service-modal.visible .modal-img {
+  animation: zoomIn 0.8s ease forwards 0.4s;
+  animation-fill-mode: both;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* added modal details content */
+.modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.modal-details h3 {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  font-family: var(--font-tech);
+  margin: 0 0 12px;
+}
+
+.modal-overview,
+.modal-details p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* added modal lists styling */
+.modal-features,
+.modal-benefits,
+.modal-process {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-features li,
+.modal-benefits li,
+.modal-process li {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding-left: 20px;
+  position: relative;
+}
+
+.modal-features li::before,
+.modal-benefits li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.modal-process li {
+  padding-left: 28px;
+}
+
+.modal-process li::before {
+  content: counter(item);
+  counter-increment: item;
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 209, 193, 0.15);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.modal-process {
+  counter-reset: item;
+}
+
+/* added responsive modal styling */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 95%;
+  }
+
+  .modal-scroll-wrapper {
+    padding: 40px 24px;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .modal-image {
+    height: 280px;
+  }
+
+  .modal-title {
+    font-size: 28px;
+  }
+
+  .modal-details {
+    gap: 24px;
+  }
+}
+
+/* added fade animations for modal elements */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

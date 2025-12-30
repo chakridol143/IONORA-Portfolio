@@ -24,17 +24,26 @@
   </div>
 </header>
 
-<!-- SIDE NAV -->
+<!-- SIDE NAV with CAROUSEL (Shows 8 items at a time) -->
 <nav class="rimac-nav">
   <ul class="nav-list">
-    <li class="nav-item active" data-target="hero"><span class="nav-num">01</span><span class="nav-text">INTRO</span></li>
-    <li class="nav-item" data-target="strategy"><span class="nav-num">02</span><span class="nav-text">STRATEGY</span></li>
-    <li class="nav-item" data-target="seo"><span class="nav-num">03</span><span class="nav-text">SEO</span></li>
-    <li class="nav-item" data-target="paid"><span class="nav-num">04</span><span class="nav-text">PAID ADS</span></li>
-    <li class="nav-item" data-target="smm"><span class="nav-num">05</span><span class="nav-text">SMM</span></li>
-    <li class="nav-item" data-target="content"><span class="nav-num">06</span><span class="nav-text">CONTENT</span></li>
-    <li class="nav-item" data-target="web"><span class="nav-num">07</span><span class="nav-text">WEB</span></li>
-    <li class="nav-item" data-target="analytics"><span class="nav-num">08</span><span class="nav-text">ANALYTICS</span></li>
+    <li class="nav-item active" data-target="hero" data-index="0"><span class="nav-num">01</span><span class="nav-text">INTRO</span></li>
+    <li class="nav-item" data-target="seo" data-index="1"><span class="nav-num">02</span><span class="nav-text">SEO</span></li>
+    <li class="nav-item" data-target="sem" data-index="2"><span class="nav-num">03</span><span class="nav-text">SEM</span></li>
+    <li class="nav-item" data-target="smm" data-index="3"><span class="nav-num">04</span><span class="nav-text">SMM</span></li>
+    <li class="nav-item" data-target="social-ads" data-index="4"><span class="nav-num">05</span><span class="nav-text">SOCIAL ADS</span></li>
+    <li class="nav-item" data-target="content" data-index="5"><span class="nav-num">06</span><span class="nav-text">CONTENT</span></li>
+    <li class="nav-item" data-target="branding" data-index="6"><span class="nav-num">07</span><span class="nav-text">BRANDING</span></li>
+    <li class="nav-item" data-target="web-dev" data-index="7"><span class="nav-num">08</span><span class="nav-text">WEB DEV</span></li>
+    <!-- Hidden items (shown when scrolled) -->
+    <li class="nav-item" data-target="video" data-index="8" style="display: none;"><span class="nav-num">09</span><span class="nav-text">VIDEO</span></li>
+    <li class="nav-item" data-target="ecommerce" data-index="9" style="display: none;"><span class="nav-num">10</span><span class="nav-text">ECOMMERCE</span></li>
+    <li class="nav-item" data-target="performance" data-index="10" style="display: none;"><span class="nav-num">11</span><span class="nav-text">PERFORMANCE</span></li>
+    <li class="nav-item" data-target="crm" data-index="11" style="display: none;"><span class="nav-num">12</span><span class="nav-text">CRM & AI</span></li>
+    <li class="nav-item" data-target="analytics" data-index="12" style="display: none;"><span class="nav-num">13</span><span class="nav-text">ANALYTICS</span></li>
+    <li class="nav-item" data-target="reputation" data-index="13" style="display: none;"><span class="nav-num">14</span><span class="nav-text">REPUTATION</span></li>
+    <li class="nav-item" data-target="app-growth" data-index="14" style="display: none;"><span class="nav-num">15</span><span class="nav-text">APP GROWTH</span></li>
+    <li class="nav-item" data-target="genai" data-index="15" style="display: none;"><span class="nav-num">16</span><span class="nav-text">GEN AI</span></li>
   </ul>
 </nav>
 
@@ -69,100 +78,316 @@
   </div>
 </section>
 
-<!-- ================= SERVICES ================= -->
-
-<!-- STRATEGY -->
-<section class="service-section" id="strategy">
-  <div class="service-inner">
-    <div class="service-text">
-      <h2>Digital Marketing Strategy</h2>
-      <p>Data-driven digital strategies designed to align business goals, audience intent, and scalable growth.</p>
-    </div>
-    <div class="service-media">
-      <img src="images/Digital Marketing Strategy.jpg" alt="">
-    </div>
-  </div>
-</section>
+<!-- ================= SERVICES (15 TOTAL) ================= -->
 
 <!-- SEO -->
-<section class="service-section" id="seo">
+<section class="service-section" id="seo" data-service-id="seo">
   <div class="service-inner">
     <div class="service-text">
       <h2>Search Engine Optimization</h2>
       <p>On-page, Off-page, Technical & Local SEO focused on sustainable visibility and long-term rankings.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="seo">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
     </div>
     <div class="service-media">
-      <img src="images/Search Engine Optimization.webp" alt="">
+      <img src="images/Search Engine Optimization.webp" alt="SEO Service">
     </div>
   </div>
 </section>
 
-<!-- PAID ADS -->
-<section class="service-section" id="paid">
+<!-- SEM / PAID ADS -->
+<section class="service-section" id="sem" data-service-id="sem">
   <div class="service-inner">
     <div class="service-text">
-      <h2>Performance Marketing</h2>
-      <p>ROI-driven Google Ads and Social Media Advertising campaigns built for measurable growth.</p>
+      <h2>Search Engine Marketing</h2>
+      <p>Strategic SEM & Paid Ads campaigns on Google, Bing, and other search engines for maximum ROI.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="sem">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
     </div>
     <div class="service-media">
-      <img src="images/Performance-Marketing-Banner.jpg" alt="">
+      <img src="images/Search Engine Marketing.jpg" alt="SEM Service">
     </div>
   </div>
 </section>
 
 <!-- SMM -->
-<section class="service-section" id="smm">
+<section class="service-section" id="smm" data-service-id="smm">
   <div class="service-inner">
     <div class="service-text">
       <h2>Social Media Marketing</h2>
       <p>Platform-specific content and engagement strategies that strengthen brand presence.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="smm">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
     </div>
     <div class="service-media">
-      <img src="images/Social-Media-Marketing.jpeg" alt="">
+      <img src="images/Social-Media-Marketing.jpeg" alt="SMM Service">
     </div>
   </div>
 </section>
 
-<!-- CONTENT -->
-<section class="service-section" id="content">
+<!-- SOCIAL MEDIA ADVERTISING -->
+<section class="service-section" id="social-ads" data-service-id="social-ads">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>Social Media Advertising</h2>
+      <p>Targeted ad campaigns on Facebook, Instagram, TikTok, and LinkedIn to reach your ideal audience.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="social-ads">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/Social Media Advertising.jpg" alt="Social Ads Service">
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT MARKETING -->
+<section class="service-section" id="content" data-service-id="content">
   <div class="service-inner">
     <div class="service-text">
       <h2>Content Marketing</h2>
       <p>High-impact content crafted to attract, educate, and convert your audience.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="content">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
     </div>
     <div class="service-media">
-      <img src="images/content-marketing-.png" alt="">
+      <img src="images/content-marketing-.png" alt="Content Marketing Service">
     </div>
   </div>
 </section>
 
-<!-- WEB -->
-<section class="service-section" id="web">
+<!-- BRANDING & CREATIVE -->
+<section class="service-section" id="branding" data-service-id="branding">
   <div class="service-inner">
     <div class="service-text">
-      <h2>Website Design & Development</h2>
-      <p>Conversion-focused websites engineered for speed, scalability, and performance.</p>
+      <h2>Branding & Creative</h2>
+      <p>Build authentic brand identities through strategic design, messaging, and creative campaigns.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="branding">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
     </div>
     <div class="service-media">
-      <img src="images/Web-Development.jpg" alt="">
+      <img src="images/Branding & Creative.jpg" alt="Branding Service">
     </div>
   </div>
 </section>
 
-<!-- ANALYTICS -->
-<section class="service-section" id="analytics">
+<!-- WEBSITE & APP DEVELOPMENT -->
+<section class="service-section" id="web-dev" data-service-id="web-dev">
   <div class="service-inner">
     <div class="service-text">
-      <h2>Analytics & CRO</h2>
-      <p>Advanced tracking and conversion optimization to maximize business outcomes.</p>
+      <h2>Website & App Development</h2>
+      <p>Conversion-focused websites and applications engineered for speed, scalability, and performance.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="web-dev">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
     </div>
     <div class="service-media">
-      <img src="images/CRO.jpg" alt="">
+      <img src="images/Website & App Development.jpg" alt="Web Dev Service">
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO PRODUCTION -->
+<section class="service-section" id="video" data-service-id="video">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>Video Production</h2>
+      <p>Professional video content creation for marketing, branding, and audience engagement.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="video">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/Video Production.jpg" alt="Video Production Service">
+    </div>
+  </div>
+</section>
+
+<!-- ECOMMERCE & MARKETPLACE MARKETING -->
+<section class="service-section" id="ecommerce" data-service-id="ecommerce">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>Ecommerce & Marketplace Marketing</h2>
+      <p>Drive sales through Amazon, Shopify, and marketplace optimization with conversion-focused strategies.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="ecommerce">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/Ecommerce & Marketplace Marketing.jpg" alt="Ecommerce Service">
+    </div>
+  </div>
+</section>
+
+<!-- PERFORMANCE MARKETING -->
+<section class="service-section" id="performance" data-service-id="performance">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>Performance Marketing</h2>
+      <p>ROI-driven campaigns built for measurable growth with real-time optimization and analytics.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="performance">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/Performance-Marketing-Banner.jpg" alt="Performance Marketing Service">
+    </div>
+  </div>
+</section>
+
+<!-- CRM, AUTOMATION & AI -->
+<section class="service-section" id="crm" data-service-id="crm">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>CRM, Automation & AI</h2>
+      <p>Streamline customer relationships with intelligent automation and AI-powered insights.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="crm">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/CRM, Automation & AI.webp" alt="CRM Service">
+    </div>
+  </div>
+</section>
+
+<!-- ANALYTICS & OPTIMIZATION & REPORTING -->
+<section class="service-section" id="analytics" data-service-id="analytics">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>Analytics & Optimization & Reporting</h2>
+      <p>Advanced tracking, A/B testing, and comprehensive reporting for continuous improvement.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="analytics">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/Analytics & Optimization & Reporting.jpg" alt="Analytics Service">
+    </div>
+  </div>
+</section>
+
+<!-- REPUTATION & PR -->
+<section class="service-section" id="reputation" data-service-id="reputation">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>Reputation & PR</h2>
+      <p>Manage brand reputation, public relations, and online presence for maximum credibility.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="reputation">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/Reputation & PR.webp" alt="Reputation & PR Service">
+    </div>
+  </div>
+</section>
+
+<!-- APP GROWTH -->
+<section class="service-section" id="app-growth" data-service-id="app-growth">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>App Growth</h2>
+      <p>Drive user acquisition, retention, and monetization for mobile and web applications.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="app-growth">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/App Growth.png" alt="App Growth Service">
+    </div>
+  </div>
+</section>
+
+<!-- ADVANCED GENERATIVE MARKETING -->
+<section class="service-section" id="genai" data-service-id="genai">
+  <div class="service-inner">
+    <div class="service-text">
+      <h2>Advanced Generative Marketing</h2>
+      <p>Leverage AI and generative technologies for personalized content, automation, and predictive marketing.</p>
+      <!-- Added explore button -->
+      <button class="explore-btn" data-service="genai">
+        <span>EXPLORE</span>
+        <i class='bx bx-right-arrow-alt'></i>
+      </button>
+    </div>
+    <div class="service-media">
+      <img src="images/Advanced Generative Marketing.avif" alt="Generative AI Service">
     </div>
   </div>
 </section>
 
 </main>
+
+<!-- Added service details modal overlay -->
+<div class="service-modal" id="serviceModal">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">
+      <i class='bx bx-x'></i>
+    </button>
+    
+    <div class="modal-scroll-wrapper">
+      <div class="modal-header">
+        <h1 class="modal-title"></h1>
+        <p class="modal-subtitle"></p>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-image">
+          <img src="/placeholder.svg" alt="" class="modal-img">
+        </div>
+        
+        <div class="modal-details">
+          <h3>Overview</h3>
+          <p class="modal-overview"></p>
+          
+          <h3>Key Features</h3>
+          <ul class="modal-features"></ul>
+          
+          <h3>Benefits</h3>
+          <ul class="modal-benefits"></ul>
+          
+          <h3>Process</h3>
+          <ol class="modal-process"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="dgmarketing.js"></script>
 </body>
