@@ -922,6 +922,9 @@ body {
 /* ===============================
    RIMAC PREMIUM SIDE NAV with CAROUSEL
 ================================ */
+/* ===============================
+   RIMAC PREMIUM SIDE NAV with CAROUSEL
+================================ */
 
 .rimac-nav {
   position: fixed;
@@ -1114,7 +1117,7 @@ body {
   transform: translate(-50%, -50%) scale(0.95);
   width: 90%;
   max-width: 900px;
-  max-height: 85vh;
+  max-height: 90vh;
   background: linear-gradient(135deg, rgba(12, 28, 34, 0.98) 0%, rgba(15, 36, 43, 0.98) 100%);
   border: 1px solid rgba(0, 209, 193, 0.3);
   border-radius: 12px;
@@ -1122,6 +1125,8 @@ body {
   box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(0, 209, 193, 0.2);
   z-index: 2;
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
 }
 
 .service-modal.visible .modal-content {
@@ -1156,10 +1161,10 @@ body {
 
 /* added scrollable modal body */
 .modal-scroll-wrapper {
-  height: 100%;
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 60px 48px;
+  padding: 60px 48px 48px 48px;
 }
 
 .modal-scroll-wrapper::-webkit-scrollbar {
@@ -1339,13 +1344,20 @@ body {
 }
 
 /* added responsive modal styling */
+@media (max-width: 1024px) {
+  .modal-content {
+    max-height: 85vh;
+  }
+}
+
 @media (max-width: 768px) {
   .modal-content {
+    max-height: 80vh;
     max-width: 95%;
   }
 
   .modal-scroll-wrapper {
-    padding: 40px 24px;
+    padding: 40px 24px 24px 24px;
   }
 
   .modal-body {
