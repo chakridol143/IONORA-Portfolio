@@ -212,8 +212,7 @@ const overlayFadeInDuration = isFarJump ? 1.1 : 0.8
         yPercent: (i) => getState((i - next + len) % len).yPercent,
         scale: 0.4,
         opacity: (i) => Math.max(0.5, getState((i - next + len) % len).opacity),
-        rotateX: (i) =>
-  i === target ? 45 : getState((i - next + len) % len).rotateX,
+        rotateX: (i) => i === target ? 45 : getState((i - next + len) % len).rotateX,
 
         rotateZ: (i) => getState((i - next + len) % len).rotateZ,
         z: (i) => getState((i - next + len) % len).z,
