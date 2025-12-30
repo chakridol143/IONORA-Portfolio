@@ -9,11 +9,12 @@
 
   <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="header.css" />
   <link rel="stylesheet" href="about.css">
 </head>
 <body>
-
+<div id="global-header"></div>
 <!-- HERO -->
 <section class="hero">
   <div class="hero-overlay"></div>
@@ -140,7 +141,7 @@
 
 <!-- FUTURE -->
 <section class="section image-section">
-  <div class="overlay"></div>
+  <div class="image-overlay"></div>
   <div class="container narrow">
     <h2 class="section-title light reveal">Our Vision</h2>
     <p class="section-text light reveal delay">
@@ -159,65 +160,8 @@
 </section>
 
 
-<footer class="site-footer">
-  <div class="footer-container">
-
-    <!-- LEFT CONTENT -->
-    <div class="footer-info">
-      <p class="footer-label">CONTACT US</p>
-
-      <h2>Better yet, see us in person!</h2>
-
-      <p class="footer-desc">
-        We love our customers, so feel free to visit during normal business hours.
-      </p>
-
-      <h3>IONORA IT Solutions Pvt Ltd</h3>
-
-      <p class="footer-address">
-        2nd Floor, Surabhi Venkat Plaza, Surya Enclave, HITEC City,<br />
-        Hyderabad, Telangana 500081
-      </p>
-
-      <h4>Hours</h4>
-
-      <p class="footer-hours">
-        Open today <strong>09:30 am – 08:30 pm</strong>
-      </p>
-
-      <!-- SOCIAL ICONS -->
-      <div class="footer-socials">
-        <a href="#" aria-label="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="#" aria-label="Facebook">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#" aria-label="LinkedIn">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- RIGHT MAP -->
-    <div class="footer-map">
-      <iframe
-        src="https://www.google.com/maps?q=F93M%2BJ6J%2C%20Hitech%20City%20Main%20Rd%2C%20Surya%20Enclave%2C%20HITEC%20City%2C%20Hyderabad%2C%20Telangana%20500081&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
-
-  </div>
-
-  <!-- COPYRIGHT -->
-  <div class="footer-bottom">
-    COPYRIGHT © 2025 IONORA IT SOLUTIONS PVT LTD - ALL RIGHTS RESERVED.
-  </div>
-</footer>
-
-
-
+<div id="global-footer"></div>
+<script src="footer.js"></script>
 <script src="about.js"></script>
 </body>
 </html>

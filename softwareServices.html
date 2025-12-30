@@ -1,287 +1,235 @@
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Our Services</title>
+
+  <!-- STYLES -->
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="softwareServices.css">
- <script src="script.js"></script>
+  <link rel="stylesheet" href="header.css" />
+  <link rel="stylesheet" href="softwareServices.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- THIS WILL WAIT FOR DOM BEFORE RUNNING -->
+  <script src="script.js" defer></script>
 </head>
-  <header class="header">
-      <div class="header-left">
-        <img src="images/ionora-logo.avif" style="cursor: pointer;" onclick="window.location.reload()" class="logo">
+
+<body>
+
+  <!-- HEADER GOES HERE -->
+  <div id="global-header"></div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <section class="zigzag-section">
+
+    <!-- SOFTWARE DEV -->
+    <h1 class="service-heading">Enterprise Software Development</h1>
+
+    <div class="zigzag-row">
+      <div class="zigzag-text">
+        <h2>Software Consulting & Strategy</h2>
+        <p>
+          We help businesses define clear software strategies aligned with
+          long-term goals and operational needs. Our consulting services
+          focus on requirement analysis, feasibility studies, system
+          architecture planning, and technology stack selection. This
+          approach reduces risks, controls costs, and accelerates delivery.
+        </p>
+
+        <h4>Includes</h4>
+        <ul class="includes">
+          <li>Requirement Analysis & Documentation</li>
+          <li>System Architecture Design</li>
+          <li>Technology Stack Selection</li>
+          <li>MVP & Product Roadmap Planning</li>
+          <li>Feasibility & Risk Assessment</li>
+        </ul>
       </div>
 
-      <div class="header-right">
-        <div class="menu-icon" id="menu-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      <div class="zigzag-image">
+        <img src="images/modern-equipped-computer-lab.jpg" alt="">
       </div>
-    </header>
-<section class="zigzag-section">
-
-  <!-- ================= SOFTWARE DEVELOPMENT ================= -->
-  <h1 class="service-heading">Enterprise Software Development</h1>
-
-  <div class="zigzag-row">
-    <div class="zigzag-text">
-      <h2>Software Consulting & Strategy</h2>
-      <p>
-        We help businesses define clear software strategies aligned with
-        long-term goals and operational needs. Our consulting services
-        focus on requirement analysis, feasibility studies, system
-        architecture planning, and technology stack selection. This
-        approach reduces risks, controls costs, and accelerates delivery.
-      </p>
-
-      <h4>Includes</h4>
-      <ul class="includes">
-        <li>Requirement Analysis & Documentation</li>
-        <li>System Architecture Design</li>
-        <li>Technology Stack Selection</li>
-        <li>MVP & Product Roadmap Planning</li>
-        <li>Feasibility & Risk Assessment</li>
-      </ul>
     </div>
 
-    <div class="zigzag-image">
-      <img src="images/modern-equipped-computer-lab.jpg" alt="">
-    </div>
-  </div>
+    <div class="zigzag-row reverse">
+      <div class="zigzag-text">
+        <h2>Custom & Enterprise Software</h2>
+        <p>
+          We design and develop enterprise-grade software tailored to
+          complex business workflows. Our solutions are scalable, secure,
+          and optimized for performance, ensuring seamless integrations
+          and long-term adaptability for growing organizations.
+        </p>
 
-  <div class="zigzag-row reverse">
-    <div class="zigzag-text">
-      <h2>Custom & Enterprise Software</h2>
-      <p>
-        We design and develop enterprise-grade software tailored to
-        complex business workflows. Our solutions are scalable, secure,
-        and optimized for performance, ensuring seamless integrations
-        and long-term adaptability for growing organizations.
-      </p>
+        <h4>Includes</h4>
+        <ul class="includes">
+          <li>Custom Business Applications</li>
+          <li>Enterprise Software Solutions</li>
+          <li>Workflow Automation Systems</li>
+          <li>Legacy System Modernization</li>
+          <li>Industry-Specific Solutions</li>
+        </ul>
+      </div>
 
-      <h4>Includes</h4>
-      <ul class="includes">
-        <li>Custom Business Applications</li>
-        <li>Enterprise Software Solutions</li>
-        <li>Workflow Automation Systems</li>
-        <li>Legacy System Modernization</li>
-        <li>Industry-Specific Solutions</li>
-      </ul>
-    </div>
-
-    <div class="zigzag-image">
-      <img src="images/Custom & Enterprise Software.jpg" alt="">
-    </div>
-  </div>
-
-  <div class="zigzag-row">
-    <div class="zigzag-text">
-      <h2>Web, Mobile & SaaS Development</h2>
-      <p>
-        Our team builds modern web and mobile applications using
-        industry-leading technologies. We also develop scalable,
-        cloud-native SaaS platforms with secure APIs and high availability.
-      </p>
-
-      <h4>Includes</h4>
-      <ul class="includes">
-        <li>Web Applications (React, Angular, Vue)</li>
-        <li>Backend Systems (Node.js, Java, Python)</li>
-        <li>Android & iOS Mobile Apps</li>
-        <li>SaaS & Multi-Tenant Platforms</li>
-        <li>API & Third-Party Integrations</li>
-      </ul>
+      <div class="zigzag-image">
+        <img src="images/Custom & Enterprise Software.jpg" alt="">
+      </div>
     </div>
 
-    <div class="zigzag-image">
-      <img src="images/Web, Mobile & SaaS Development.webp" alt="">
-    </div>
-  </div>
+    <div class="zigzag-row">
+      <div class="zigzag-text">
+        <h2>Web, Mobile & SaaS Development</h2>
+        <p>
+          Our team builds modern web and mobile applications using
+          industry-leading technologies. We also develop scalable,
+          cloud-native SaaS platforms with secure APIs and high availability.
+        </p>
 
-  <!-- ================= AI DEVELOPMENT ================= -->
-  <h1 class="service-heading" id="ai">AI & Machine Learning Solutions</h1>
+        <h4>Includes</h4>
+        <ul class="includes">
+          <li>Web Applications (React, Angular, Vue)</li>
+          <li>Backend Systems (Node.js, Java, Python)</li>
+          <li>Android & iOS Mobile Apps</li>
+          <li>SaaS & Multi-Tenant Platforms</li>
+          <li>API & Third-Party Integrations</li>
+        </ul>
+      </div>
 
-  <div class="zigzag-row reverse">
-    <div class="zigzag-text">
-      <h2>AI-Powered Applications</h2>
-      <p>
-        We build intelligent AI-driven applications that automate
-        operations, improve decision-making, and enhance user experiences
-        using modern AI frameworks and APIs.
-      </p>
-
-      <h4>Includes</h4>
-      <ul class="includes">
-        <li>AI Web & Mobile Applications</li>
-        <li>Recommendation Engines</li>
-        <li>Predictive Analytics</li>
-        <li>Intelligent Automation</li>
-        <li>AI Dashboards</li>
-      </ul>
+      <div class="zigzag-image">
+        <img src="images/Web, Mobile & SaaS Development.webp" alt="">
+      </div>
     </div>
 
-    <div class="zigzag-image">
-      <img src="images/ai-technology-human-interaction_23-2151977843.avif" alt="">
-    </div>
-  </div>
+    <!-- AI -->
+    <h1 class="service-heading" id="ai">AI & Machine Learning Solutions</h1>
 
-  <div class="zigzag-row">
-    <div class="zigzag-text">
-      <h2>Machine Learning & Data Analytics</h2>
-      <p>
-        Our ML and analytics solutions help organizations extract
-        actionable insights from data and build predictive intelligence
-        for informed business decisions.
-      </p>
+    <div class="zigzag-row reverse">
+      <div class="zigzag-text">
+        <h2>AI-Powered Applications</h2>
+        <p>
+          We build intelligent AI-driven applications that automate
+          operations, improve decision-making, and enhance user experiences
+          using modern AI frameworks and APIs.
+        </p>
 
-      <h4>Includes</h4>
-      <ul class="includes">
-        <li>Machine Learning Models</li>
-        <li>Data Analytics & Visualization</li>
-        <li>Forecasting & Prediction Systems</li>
-        <li>Business Intelligence Dashboards</li>
-        <li>Data Warehousing</li>
-      </ul>
-    </div>
+        <h4>Includes</h4>
+        <ul class="includes">
+          <li>AI Web & Mobile Applications</li>
+          <li>Recommendation Engines</li>
+          <li>Predictive Analytics</li>
+          <li>Intelligent Automation</li>
+          <li>AI Dashboards</li>
+        </ul>
+      </div>
 
-    <div class="zigzag-image">
-      <img src="images/dataanalytics2.jpg.webp" alt="">
-    </div>
-  </div>
-
-  <!-- ================= CLOUD & DEVOPS ================= -->
-  <h1 class="service-heading">Cloud & DevOps Services</h1>
-
-  <div class="zigzag-row reverse">
-    <div class="zigzag-text">
-      <h2>Cloud Architecture & Migration</h2>
-      <p>
-        We help organizations migrate to cloud platforms with secure,
-        scalable architectures that support high availability and
-        optimized performance.
-      </p>
-
-      <h4>Includes</h4>
-      <ul class="includes">
-        <li>AWS, Azure & Google Cloud</li>
-        <li>Cloud Migration & Modernization</li>
-        <li>Infrastructure Design</li>
-        <li>Cost Optimization</li>
-        <li>Cloud Security Best Practices</li>
-      </ul>
+      <div class="zigzag-image">
+        <img src="images/ai-technology-human-interaction_23-2151977843.avif" alt="">
+      </div>
     </div>
 
-    <div class="zigzag-image">
-      <img src="images/digital-marketing-hero..jpg" alt="">
+    <div class="zigzag-row">
+      <div class="zigzag-text">
+        <h2>Machine Learning & Data Analytics</h2>
+        <p>
+          Our ML and analytics solutions help organizations extract
+          actionable insights from data and build predictive intelligence
+          for informed business decisions.
+        </p>
+
+        <h4>Includes</h4>
+        <ul class="includes">
+          <li>Machine Learning Models</li>
+          <li>Data Analytics & Visualization</li>
+          <li>Forecasting & Prediction Systems</li>
+          <li>Business Intelligence Dashboards</li>
+          <li>Data Warehousing</li>
+        </ul>
+      </div>
+
+      <div class="zigzag-image">
+        <img src="images/dataanalytics2.jpg.webp" alt="">
+      </div>
     </div>
-  </div>
 
-  <div class="zigzag-row">
-    <div class="zigzag-text">
-      <h2>DevOps Automation & Monitoring</h2>
-      <p>
-        Our DevOps solutions accelerate development cycles and ensure
-        system reliability through automation, monitoring, and
-        continuous optimization.
-      </p>
+    <!-- CLOUD -->
+    <h1 class="service-heading">Cloud & DevOps Services</h1>
 
-      <h4>Includes</h4>
-      <ul class="includes">
-        <li>CI/CD Pipeline Implementation</li>
-        <li>Docker & Kubernetes</li>
-        <li>Infrastructure as Code</li>
-        <li>Monitoring & Alerts</li>
-        <li>Performance Optimization</li>
-      </ul>
+    <div class="zigzag-row reverse">
+      <div class="zigzag-text">
+        <h2>Cloud Architecture & Migration</h2>
+        <p>
+          We help organizations migrate to cloud platforms with secure,
+          scalable architectures that support high availability and
+          optimized performance.
+        </p>
+
+        <h4>Includes</h4>
+        <ul class="includes">
+          <li>AWS, Azure & Google Cloud</li>
+          <li>Cloud Migration & Modernization</li>
+          <li>Infrastructure Design</li>
+          <li>Cost Optimization</li>
+          <li>Cloud Security Best Practices</li>
+        </ul>
+      </div>
+
+      <div class="zigzag-image">
+        <img src="images/digital-marketing-hero..jpg" alt="">
+      </div>
     </div>
 
-    <div class="zigzag-image">
-      <img src="images/DevOps Automation & Monitoring.jpg" alt="">
+    <div class="zigzag-row">
+      <div class="zigzag-text">
+        <h2>DevOps Automation & Monitoring</h2>
+        <p>
+          Our DevOps solutions accelerate development cycles and ensure
+          system reliability through automation, monitoring, and
+          continuous optimization.
+        </p>
+
+        <h4>Includes</h4>
+        <ul class="includes">
+          <li>CI/CD Pipeline Implementation</li>
+          <li>Docker & Kubernetes</li>
+          <li>Infrastructure as Code</li>
+          <li>Monitoring & Alerts</li>
+          <li>Performance Optimization</li>
+        </ul>
+      </div>
+
+      <div class="zigzag-image">
+        <img src="images/DevOps Automation & Monitoring.jpg" alt="">
+      </div>
     </div>
-  </div>
 
-</section>
+  </section>
 
-  <div class="sidebar" id="sidebar">
-<div class="menu-bg">
-  <img src="images/menu-home.png" class="bg-img home">
-  <img src="images/menu-software.png" class="bg-img software">
-  <img src="images/menu-dg.png" class="bg-img dg">
-  <img src="images/menu-about.png" class="bg-img about">
-</div>
-
-    <div class="sidebar-header">
-    </div>
-    <ul class="sidebar-links">
-      <li><a href="index.html">IONORA</a></li>
-      <li><a href="software.html">Software Solutions</a></li>
-      <li><a href="dgmarketing.html">Digital Marketing</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="c.html">Contact Us</a></li>
-    </ul>
-  </div>
+  <!-- SIDEBAR OVERLAY -->
   <div class="overlay-bg" id="overlay-bg"></div>
 
-  <footer class="site-footer">
-  <div class="footer-container">
+  <!-- FOOTER -->
+  <div id="global-footer"></div>
+  <script src="footer.js"></script>
 
-    <!-- LEFT CONTENT -->
-    <div class="footer-info">
-      <p class="footer-label">CONTACT US</p>
-
-      <h2>Better yet, see us in person!</h2>
-
-      <p class="footer-desc">
-        We love our customers, so feel free to visit during normal business hours.
-      </p>
-
-      <h3>IONORA IT Solutions Pvt Ltd</h3>
-
-      <p class="footer-address">
-        2nd Floor, Surabhi Venkat Plaza, Surya Enclave, HITEC City,<br />
-        Hyderabad, Telangana 500081
-      </p>
-
-      <h4>Hours</h4>
-
-      <p class="footer-hours">
-        Open today <strong>09:30 am – 08:30 pm</strong>
-      </p>
-
-      <!-- SOCIAL ICONS -->
-      <div class="footer-socials">
-        <a href="#" aria-label="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="#" aria-label="Facebook">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#" aria-label="LinkedIn">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- RIGHT MAP -->
-    <div class="footer-map">
-      <iframe
-        src="https://www.google.com/maps?q=F93M%2BJ6J%2C%20Hitech%20City%20Main%20Rd%2C%20Surya%20Enclave%2C%20HITEC%20City%2C%20Hyderabad%2C%20Telangana%20500081&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
-
-  </div>
-
-  <!-- COPYRIGHT -->
-  <div class="footer-bottom">
-    COPYRIGHT © 2025 IONORA IT SOLUTIONS PVT LTD - ALL RIGHTS RESERVED.
-  </div>
-</footer>
-</body>
+  <!-- PAGE SCRIPTS -->
   <script src="softwareServices.js"></script>
+
+  <!-- LOAD HEADER -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("header.html")
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("global-header").innerHTML = html;
+
+          const s = document.createElement("script");
+          s.src = "header.js";
+          s.onload = () => initHeaderMenu();
+          document.body.appendChild(s);
+        });
+    });
+  </script>
+
+</body>
 </html>

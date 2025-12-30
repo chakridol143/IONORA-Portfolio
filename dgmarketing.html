@@ -7,23 +7,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="dgmarketing.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
 <body class="rimac-theme">
-
-<header class="header">
-  <div class="header-left">
-   <a href="index.html"><img src="images/ionora-logo.avif" alt="Logo" class="logo"></a> 
-  </div>
-  <div class="header-right">
-    <i class='bx bx-menu bx-md' id="menu-toggle"></i>
-  </div>
-</header>
-
+ <div id="global-header"></div>
 <!-- SIDE NAV with CAROUSEL (Shows 8 items at a time) -->
 <nav class="rimac-nav">
   <ul class="nav-list">
@@ -388,7 +379,23 @@
     </div>
   </div>
 </div>
+<div id="global-footer"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("header.html")
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("global-header").innerHTML = html;
 
+          // load menu behaviour AFTER header is injected
+          const s = document.createElement("script");
+          s.src = "header.js";
+          s.onload = () => initHeaderMenu();
+          document.body.appendChild(s);
+        });
+    });
+  </script>
 <script src="dgmarketing.js"></script>
+<script src="footer.js"></script>
 </body>
 </html>

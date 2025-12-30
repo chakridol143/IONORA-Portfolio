@@ -25,3 +25,16 @@ gsap.utils.toArray(".parallax img").forEach(img => {
     }
   });
 });
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("header.html")
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("global-header").innerHTML = html;
+
+          // load menu behaviour AFTER header is injected
+          const s = document.createElement("script");
+          s.src = "header.js";
+          s.onload = () => initHeaderMenu();
+          document.body.appendChild(s);
+        });
+    });

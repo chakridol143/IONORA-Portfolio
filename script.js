@@ -33,72 +33,66 @@ if (slots.length > 0) {
   })
 }
 
-/* POSITION STATES */
 function getState(rel) {
-  // rel 0 = active (center, large but not fullscreen)
-  // rel 1 = above (smaller thumbnail)
-  // rel 2 = far above (smaller thumbnail)
-  // rel 3 = below (smaller thumbnail)
+  // rel 0 = active
+  // rel 1 = next
+  // rel 2 = opposite
+  // rel 3 = previous
 
   if (rel === 0) {
-    // Active video - FULLSCREEN
     return {
       xPercent: 0,
       yPercent: 0,
-      scale: 1, // Full size
+      scale: 1,
       opacity: 1,
       zIndex: 40,
       rotateX: 0,
-      rotateY: 0,
-      rotateZ: 0,
       z: 50,
     }
   }
+
   if (rel === 1) {
-    // Next video - positioned above active, small thumbnail
+    // NEXT video — place it BELOW so it slides UP
     return {
       xPercent: 0,
-      yPercent: -120,
-      scale: 0.25, // Small thumbnail
+      yPercent: 120,   // ⬆️ changed (was -120)
+      scale: 0.25,
       opacity: 0.6,
       zIndex: 30,
-      rotateX: 15,
-      rotateY: 0,
-      rotateZ: 0,
+      rotateX: -15,    // ⬆️ flipped tilt
       z: -350,
     }
   }
+
   if (rel === 2) {
-    // Opposite video - far above, small thumbnail
+    // OPPOSITE — also down, further away
     return {
       xPercent: 0,
-      yPercent: -220,
-      scale: 0.2, // Smallest thumbnail
+      yPercent: 220,   // ⬆️ changed (was -220)
+      scale: 0.2,
       opacity: 0.4,
       zIndex: 20,
-      rotateX: 20,
-      rotateY: 0,
-      rotateZ: 0,
+      rotateX: -20,    // ⬆️ flipped tilt
       z: -550,
     }
   }
+
   if (rel === 3) {
-    // Previous video - positioned below active, small thumbnail
+    // PREVIOUS video — place ABOVE so it slides DOWN
     return {
       xPercent: 0,
-      yPercent: 120,
-      scale: 0.25, // Small thumbnail
+      yPercent: -120,  // ⬇️ changed (was 120)
+      scale: 0.25,
       opacity: 0.6,
       zIndex: 30,
-      rotateX: -15,
-      rotateY: 0,
-      rotateZ: 0,
+      rotateX: 15,     // ⬇️ flipped tilt
       z: -350,
     }
   }
 
   return getState(rel % 4)
 }
+
 
 /* INITIAL - only if we have slots */
 function setInitial() {
@@ -151,8 +145,9 @@ function rotateTo(target) {
 
   const isFarJump = steps === 2 // Jumping to opposite video
   // ⛔ keep adjacent speed
-const baseDuration = isFarJump ? 0.8 : 0.8
-const zoomDuration = isFarJump ? 0.45 : 0.45
+const zoomDuration = 0.55;
+const baseDuration = 0.9;
+
 
 // ✅ make only fullscreen expand slower for FAR JUMP
 const expandDuration = isFarJump ? 1.5 : 1.1

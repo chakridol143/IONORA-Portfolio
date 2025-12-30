@@ -134,7 +134,7 @@ body {
   color: rgb(10, 10, 10);
 }
 
-.overlay {
+.image-overlay {
   position: absolute;
   inset: 0;
   background:#f8f7f8;

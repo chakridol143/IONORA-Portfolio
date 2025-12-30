@@ -76,6 +76,7 @@ body {
   width: 90%;
   max-width: 1400px;
   height: 80%;
+  margin-left: 100px;
 }
 
 /* --- LEFT COLUMN: TEXT --- */
@@ -208,7 +209,7 @@ body {
 =========================== */
 
 .scroll-indicator {
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: 32px;
   transform: translateX(-50%);
@@ -217,7 +218,6 @@ body {
   align-items: center;
   gap: 10px;
   z-index: 50;
-
   opacity: 0;
   animation: fadeIn 0.6s ease forwards 1.6s;
 }

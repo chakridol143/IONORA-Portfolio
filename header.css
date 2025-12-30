@@ -1,0 +1,17 @@
+.header{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;justify-content:space-between;align-items:center;padding:20px;margin: 12px;}
+.logo{height:48px}
+.menu-icon{width:37px;height:23px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;z-index:300}
+.menu-icon span{height:1.2px;width:100%;background:#fff;border-radius:6px;transition:.45s}
+.menu-icon.active span:nth-child(2){opacity:0;transform:translateX(10px)}
+.menu-icon.active span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+.menu-icon.active span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+
+.sidebar{position:fixed;inset:0;background:var(--bg);z-index:200;clip-path:circle(0% at 98% 20px);pointer-events:none}
+.sidebar.open{clip-path:circle(150% at 98% 20px);pointer-events:auto}
+
+.overlay-bg{position:fixed;inset:0;background:#0008;opacity:0;pointer-events:none;z-index:150}
+.overlay-bg.active{opacity:1;pointer-events:auto}
+
+.sidebar-links{list-style:none;margin-top:100px;display:flex;flex-direction:column;gap:24px}
+.sidebar-links a{text-decoration:none;color:#fff;font-size:1.8rem;opacity:0;transform:translateY(25px);transition:.3s}
+.sidebar-links a.active-link{color:#19c3c0;border-left:4px solid #19c3c0;padding-left:12px}
