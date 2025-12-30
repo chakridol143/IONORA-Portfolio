@@ -546,13 +546,13 @@ body::before {
   }
 
   .overlay h1{
-    font-size: clamp(18px, 6vw, 35px);
+    font-size: clamp(18px, 6vw, 30px);
     letter-spacing: 2px;
     line-height: 1.2;
   }
 
   .overlay p{
-    font-size: clamp(12px, 3.6vw, 20px);
+    font-size: clamp(12px, 3.6vw, 18px);
     line-height: 1.45;
     margin-top: 8px;
   }
@@ -561,14 +561,12 @@ body::before {
   .glow-btn{
     width: 92%;
     max-width: 360px;
-    padding: 12px 0;
+    padding: 10px 20px;
     margin-top: 16px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     letter-spacing: 2px;
     border-width: 1px;
   }
-
-  /* --- Header --- */
   .header{
     padding: 14px;
   }
@@ -578,14 +576,13 @@ body::before {
   }
 
   .menu-icon{
-    width: 32px;
-    height: 20px;
+    width: 35px;
+    height: 22.5px;
   }
 
   /* --- Side navigation (bottom list like Rimac) --- */
   .side-nav{
-    left: 0;
-    right: 0;
+    left: 10px;
     bottom: 18px;
     top: auto;
     transform: none;
