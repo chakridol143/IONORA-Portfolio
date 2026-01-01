@@ -1,70 +1,104 @@
 function initHeaderMenu() {
+  const menuToggle = document.getElementById("menu-toggle")
+  const sidebar = document.getElementById("sidebar")
+  const overlayBg = document.getElementById("overlay-bg")
+  const links = document.querySelectorAll(".sidebar-links a")
 
-  const menuToggle = document.getElementById("menu-toggle");
-  const sidebar = document.getElementById("sidebar");
-  const overlayBg = document.getElementById("overlay-bg");
-  const links = document.querySelectorAll(".sidebar-links a");
+  if (!menuToggle || !sidebar || !overlayBg) return
 
-  if (!menuToggle || !sidebar || !overlayBg) return;
-
-  let open = false;
+  let open = false
 
   function openMenu() {
-    open = true;
-    menuToggle.classList.add("active");
-    sidebar.classList.add("open");
-    overlayBg.classList.add("active");
+    open = true
+    menuToggle.classList.add("active")
+    sidebar.classList.add("open")
+    overlayBg.classList.add("active")
 
-    gsap.fromTo(
-      sidebar,
-      { clipPath: "circle(0% at 95% 40px)" },
-      { clipPath: "circle(150% at 95% 40px)", duration: 0.8, ease: "power4.inOut" }
-    );
-
-    gsap.to(links, { opacity: 1, y: 0, stagger: 0.08, duration: 0.5 });
+    links.forEach((link, index) => {
+      /* Reduced stagger from 80ms to 50ms for faster link cascading */
+      setTimeout(() => {
+        link.style.opacity = "1"
+        link.style.transform = "translateY(0)"
+      }, index * 50)
+    })
   }
 
   function closeMenu() {
-    open = false;
-    menuToggle.classList.remove("active");
-    overlayBg.classList.remove("active");
+    open = false
+    menuToggle.classList.remove("active")
+    overlayBg.classList.remove("active")
 
-    gsap.to(links, { opacity: 0, y: 25, duration: 0.35 });
+    links.forEach((link) => {
+      link.style.opacity = "0"
+      link.style.transform = "translateY(25px)"
+    })
 
-    gsap.to(sidebar, {
-      clipPath: "circle(0% at 95% 40px)",
-      duration: 0.7,
-      ease: "power4.inOut",
-      onComplete: () => sidebar.classList.remove("open")
-    });
+    /* Reduced timeout from 600ms to 350ms to match faster 0.4s closing animation */
+    setTimeout(() => sidebar.classList.remove("open"), 350)
   }
 
-  menuToggle.onclick = () => (open ? closeMenu() : openMenu());
-  overlayBg.onclick = closeMenu;
+  menuToggle.addEventListener("mouseenter", () => {
+    menuToggle.classList.add("icon-hover")
+  })
 
-  const page = location.pathname.split("/").pop() || "index.html";
-  links.forEach(a =>
-    a.classList.toggle("active-link", a.getAttribute("href") === page)
-  );
+  menuToggle.addEventListener("mouseleave", () => {
+    menuToggle.classList.remove("icon-hover")
+  })
+
+  menuToggle.onclick = () => (open ? closeMenu() : openMenu())
+  overlayBg.onclick = closeMenu
+
+  const page = location.pathname.split("/").pop() || "index.html"
+  links.forEach((a) => a.classList.toggle("active-link", a.getAttribute("href") === page))
 
   const menuImages = {
-    "IONORA": document.querySelector(".bg-img.home"),
+    IONORA: document.querySelector(".bg-img.home"),
     "Software Solutions": document.querySelector(".bg-img.software"),
     "Digital Marketing": document.querySelector(".bg-img.dg"),
     "About Us": document.querySelector(".bg-img.about"),
-    "Contact Us": document.querySelector(".bg-img.about")
-  };
+    "Contact Us": document.querySelector(".bg-img.about"),
+  }
 
-  links.forEach(link => {
+  links.forEach((link) => {
     link.addEventListener("mouseenter", () => {
-      document.querySelectorAll(".bg-img").forEach(img => img.classList.remove("active"));
-      const key = link.textContent.trim();
-      if (menuImages[key]) menuImages[key].classList.add("active");
-    });
+      document.querySelectorAll(".bg-img").forEach((img) => img.classList.remove("active"))
+      const key = link.textContent.trim()
+      if (menuImages[key]) {
+        menuImages[key].classList.add("active")
+      }
+
+      links.forEach((otherLink) => {
+        if (otherLink !== link) {
+          otherLink.classList.add("dimmed")
+        }
+      })
+
+      link.classList.add("text-hover")
+    })
+
+    link.addEventListener("mousemove", (e) => {
+      const key = link.textContent.trim()
+      const bgImg = menuImages[key]
+      if (bgImg && bgImg.classList.contains("active")) {
+        const rect = bgImg.parentElement.getBoundingClientRect()
+        const x = e.clientX - rect.left - rect.width / 2
+        const y = e.clientY - rect.top - rect.height / 2
+
+        bgImg.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.05)`
+      }
+    })
 
     link.addEventListener("mouseleave", () => {
-      document.querySelectorAll(".bg-img").forEach(img => img.classList.remove("active"));
-    });
-  });
+      document.querySelectorAll(".bg-img").forEach((img) => {
+        img.classList.remove("active")
+        img.style.transform = "translate(0, 0) scale(1)"
+      })
 
+      links.forEach((otherLink) => {
+        otherLink.classList.remove("dimmed")
+      })
+
+      link.classList.remove("text-hover")
+    })
+  })
 }

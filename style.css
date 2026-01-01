@@ -1,6 +1,5 @@
 :root {
   --bg: linear-gradient(120deg, #07161d, #0b2a33, #102f3a, #07161d);
-  /* Added accent color variable for menu highlights and hover effects */
   --accent-color: #19c3c0;
 }
 
@@ -33,10 +32,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Increased perspective for better 3D depth during transitions */
   perspective: 2800px;
   perspective-origin: 50% 50%;
 }
+
 body.menu-open .viewer {
   filter: blur(3px) brightness(0.7);
   transition: .4s ease;
@@ -47,12 +46,11 @@ body.menu-open .viewer {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  transform-style: preserve-3d; /* Enable 3D transforms for child elements */
+  transform-style: preserve-3d;
 }
 
 .slot {
   position: absolute;
-  /* Full dimensions for proper fullscreen active video */
   top: 0;
   left: 0;
   bottom: 0;
@@ -65,9 +63,7 @@ body.menu-open .viewer {
   will-change: transform, opacity;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  /* Simplified shadows for better rendering performance */
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 10px 30px rgba(0, 0, 0, 0.5);
-  /* Updated border for consistency */
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -75,7 +71,6 @@ body.menu-open .viewer {
   opacity: 1;
   transform: scale(1);
   z-index: 50;
-  /* Removed animation for performance */
 }
 
 .slot.behind {
@@ -99,10 +94,7 @@ body.menu-open .viewer {
 .overlay::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: -1;
   border-radius: inherit;
   pointer-events: none;
@@ -168,6 +160,7 @@ body.menu-open .viewer {
   color: white;
   text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.35);
 }
+
 .overlay p {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-weight: 400;
@@ -198,7 +191,6 @@ body.menu-open .viewer {
   gap: 14px;
   cursor: pointer;
   opacity: 0.45;
-  /* Simplified transition for better performance */
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -210,7 +202,6 @@ body.menu-open .viewer {
 .side-nav-item.active {
   opacity: 1;
   transform: scale(1.05);
-  /* Removed animation for performance */
 }
 
 .side-nav-item .num {
@@ -239,40 +230,6 @@ body.menu-open .viewer {
   .side-nav {
     left: 20px;
   }
-}
-
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  z-index: 600;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  height: 48px;
-}
-
-.title {
-  font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.header-right i {
-  color: #ffffff;
-  cursor: pointer;
 }
 
 .nav {
@@ -305,133 +262,6 @@ body.menu-open .viewer {
   background: rgba(25, 195, 192, 0.15);
   border-color: var(--accent-color);
   color: var(--accent-color);
-}
-
-.sidebar {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  background-size: 300% 300%;
-  animation: rimacFlow 18s ease-in-out infinite;
-  backdrop-filter: blur(14px);
-  z-index: 200;
-  padding: 40px 20rem;
-  padding-top: 0;
-  color: #fff;
-  clip-path: circle(0% at 98% 20px);
-  pointer-events: none;
-}
-
-.sidebar.open {
-  clip-path: circle(150% at 98% 20px);
-  pointer-events: auto;
-}
-
-.sidebar-header {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.sidebar-links {
-  list-style: none;
-  margin-top: 100px; /* Adjusted top margin for better positioning */
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-.sidebar-links a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 2rem;
-  letter-spacing: 2px;
-  opacity: 0;
-  transform: translateY(25px);
-  transition: all 0.3s ease;
-}
-
-.sidebar-links a:hover {
-  color: var(--accent-color);
-  transform: translateX(8px);
-}
-
-.sidebar-links a.active-link {
-  color: var(--accent-color);
-  font-weight: bold;
-  border-left: 4px solid var(--accent-color);
-  background: rgba(255, 255, 255, 0.15);
-  padding-left: 12px;
-  transition: all 0.3s ease;
-}
-
-.menu-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-}
-
-/* Enhanced menu background image animations */
-.bg-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.15) translateY(20px);
-  filter: brightness(0.7) blur(8px);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.8s
-    cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.bg-img.active {
-  opacity: 1;
-  transform: scale(1.05) translateY(0);
-  filter: brightness(1) blur(0px);
-}
-
-.menu-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.45));
-  pointer-events: none;
-}
-
-.overlay-bg {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 150;
-}
-
-.overlay-bg.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-@media (max-width: 900px) {
-  .sidebar {
-    width: 70%;
-    right: -70%;
-  }
-  .sidebar.open {
-    right: 0;
-  }
-}
-
-@media (max-width: 900px) {
-  .overlay h1 {
-    font-size: 42px;
-  }
-  .overlay p {
-    font-size: 18px;
-  }
-  .nav {
-    bottom: 16px;
-  }
 }
 
 .rimac-light {
@@ -485,80 +315,145 @@ body::before {
   }
 }
 
-.menu-icon {
-  width: 40px;
-  height: 24px;
+/* Simplified scroll indicator with just text */
+.scroll-indicator {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 70;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  z-index: 300;
+  align-items: center;
+  gap: 16px;
+  animation: fadeInUp 1.2s ease-out 0.8s both;
 }
 
-.menu-icon span {
-  height: 1.2px;
-  width: 100%;
-  background: #fff;
-  border-radius: 6px;
-  transition: transform .45s ease, opacity .3s ease;
-  transform-origin: center;
+.scroll-text {
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  font-weight: 500;
+  animation: textGlow 3s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(25, 195, 192, 0.4);
 }
 
-.menu-icon.active span:nth-child(2) {
+.scroll-indicator.hidden {
   opacity: 0;
-  transform: translateX(10px);
+  pointer-events: none;
+  transition: opacity 0.6s ease;
 }
 
-.menu-icon.active span:nth-child(1) {
-  transform: translateY(11px) rotate(45deg);
+/* Custom scroll indicator cursor - clean Rimac style with no animation */
+.custom-scroll-cursor {
+  position: fixed;
+  width: 65px;
+  height: 65px;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: none;
+  z-index: 999;
+  display: none;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255,1);
+  letter-spacing: 1.2px;
 }
 
-.menu-icon.active span:nth-child(3) {
-  transform: translateY(-11px) rotate(-45deg);
+.custom-scroll-cursor::before {
+  content: "SCROLL";
+  text-transform: uppercase;
 }
 
-.menu-logo {
-  height: 42px;
+.custom-scroll-cursor.active {
+  display: flex;
 }
+
+/* Hide custom cursor on mobile and tablet devices */
+@media (max-width: 800px) {
+  .custom-scroll-cursor {
+    display: none !important;
+  }
+
+  .custom-scroll-cursor.active {
+    display: none !important;
+  }
+}
+
+/* Hide default cursor when custom cursor is active */
+body {
+  cursor: auto;
+}
+
+body.show-scroll-cursor {
+  cursor: none;
+}
+
+/* MOBILE SCROLL INDICATOR */
+@media (max-width: 800px) {
+  .scroll-indicator {
+    bottom: 80px;
+    gap: 12px;
+  }
+
+  .scroll-text {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .arrow {
+    width: 1.5px;
+    height: 10px;
+  }
+
+  .arrow::after {
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-top: 3px solid #19c3c0;
+  }
+}
+
 /* -------- MOBILE EXPERIENCE (300px – 800px) -------- */
-@media (min-width:300px) and (max-width:800px) {
-
-  .viewer{
-    height:100vh;
-    padding:0;
-    perspective:2400px;
+@media (min-width: 300px) and (max-width: 800px) {
+  .viewer {
+    height: 100vh;
+    padding: 0;
+    perspective: 2400px;
   }
 
-  /* Video should always fill screen */
-  .slot{
-    border-radius:0;
-    box-shadow:none;
+  .slot {
+    border-radius: 0;
+    box-shadow: none;
   }
 
-  /* --- Overlay text like Rimac site --- */
-  .overlay{
+  .overlay {
     top: 54%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    text-align:center;
+    transform: translate(-50%, -50%);
+    text-align: center;
     max-width: 92%;
     padding: 8px 6px;
   }
 
-  .overlay h1{
+  .overlay h1 {
     font-size: clamp(18px, 6vw, 30px);
     letter-spacing: 2px;
     line-height: 1.2;
   }
 
-  .overlay p{
+  .overlay p {
     font-size: clamp(12px, 3.6vw, 18px);
     line-height: 1.45;
     margin-top: 8px;
   }
 
-  /* --- Button centred & wide --- */
-  .glow-btn{
+  .glow-btn {
     width: 92%;
     max-width: 360px;
     padding: 10px 20px;
@@ -567,61 +462,60 @@ body::before {
     letter-spacing: 2px;
     border-width: 1px;
   }
-  .header{
-    padding: 14px;
-  }
 
-  .logo{
-    height: 36px;
-  }
-
-  .menu-icon{
-    width: 35px;
-    height: 22.5px;
-  }
-
-  /* --- Side navigation (bottom list like Rimac) --- */
-  .side-nav{
+  .side-nav {
     left: 10px;
     bottom: 18px;
     top: auto;
     transform: none;
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
   }
 
-  .side-nav ul{
+  .side-nav ul {
     flex-direction: column;
     gap: 8px;
     padding: 12px 16px;
-    border-radius:18px;
+    border-radius: 18px;
     backdrop-filter: blur(10px);
   }
 
-  .side-nav-item{
+  .side-nav-item {
     opacity: 0.7;
-    transform:none !important;
+    transform: none !important;
   }
 
-  .side-nav-item.active{
-    opacity:1;
+  .side-nav-item.active {
+    opacity: 1;
   }
 
-  .side-nav-item .label{
+  .side-nav-item .label {
     font-size: 12px;
     letter-spacing: 1.2px;
   }
 
-  .side-nav-item .num{
+  .side-nav-item .num {
     font-size: 11px;
   }
 
-  /* --- Fullscreen menu spacing --- */
-  .sidebar{
-    padding: 90px 40px;
-  }
-  /* Reduce dramatic perspective for smoother scroll */
-  .stack{
+  .stack {
     transform-style: preserve-3d;
+  }
+}
+
+/* MOBILE SCROLL INDICATOR */
+@media (max-width: 800px) {
+  .scroll-indicator {
+    bottom: 80px;
+  }
+
+  .scroll-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .scroll-animation span {
+    width: 1.5px;
+    height: 6px;
   }
 }

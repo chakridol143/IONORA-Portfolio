@@ -1,43 +1,13 @@
 .rimac-bg {
-   position: relative;
+  position: relative;
   height: 100vh;
   overflow: hidden;
 
-  background:
-    linear-gradient(
-      135deg,
-      #07161d,
-      #0e2a33,
-      #1f3f4a,
-      #07161d
-    );
+  background: linear-gradient(135deg, #07161d, #0e2a33, #1f3f4a, #07161d);
 
   background-size: 400% 400%;
   animation: rimacFlow 10s linear infinite;
 }
-
-/* .rimac-light {
-  position: absolute;
-  inset: -20%;
-
-  background:
-    radial-gradient(
-      600px 400px at 0% 0%,
-      rgba(255,255,255,0.12),
-      transparent 60%
-    ),
-    radial-gradient(
-      800px 500px at 100% 100%,
-      rgba(0,255,200,0.08),
-      transparent 65%
-    );
-
-  animation: rimacLightFlow 15s linear infinite;
-  pointer-events: none;
-} */
-
-
-
 
 @keyframes rimacFlow {
   0% {
@@ -72,8 +42,6 @@
   }
 }
 
-
-
 .hero-content {
   position: absolute;
   left: 8%;
@@ -81,29 +49,41 @@
   transform: translateY(-50%);
   z-index: 3;
   color: white;
+  backdrop-filter: blur(12px);
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+  border-radius: 16px;
+  padding: 80px;
 }
 
 .hero-title {
-  font-size: 56px;
+  font-size: 60px;
+  line-height: 1.1;
   font-weight: 700;
-  line-height: 1.2;
+  position: relative;
   opacity: 0;
   animation: textSlide 1.2s ease forwards;
 }
 
-.highlight {
-  color: #6cc24a;
+.hero-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #35ff7a, #4fd1ff);
+  mix-blend-mode: overlay;
+  opacity: 0.08;
+  animation: titleGlow 4s ease-in-out infinite;
 }
 
-.cta-btn {
-  margin-top: 30px;
-  padding: 14px 28px;
-  background: white;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  opacity: 0;
-  animation: fadeUp 1.6s ease forwards;
+@keyframes titleGlow {
+  0% {
+    opacity: 0.04;
+  }
+  50% {
+    opacity: 0.12;
+  }
+  100% {
+    opacity: 0.04;
+  }
 }
 
 @keyframes textSlide {
@@ -117,16 +97,11 @@
   }
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.highlight {
+  color: #6cc24a;
 }
+
+/* HERO CARDS SECTION */
 .hero-cards {
   position: absolute;
   right: 6%;
@@ -135,24 +110,17 @@
   display: flex;
   gap: 40px;
   z-index: 5;
+  flex-direction: row;
 }
 
-/* .card {
-  width: 280px;
-  height: 420px;
-  overflow: hidden;
-  position: relative;
-} */
-
+/* Reduced desktop baseline to match 75% zoom appearance */
 .card {
-  width: 300px;
-  height: 420px;
+  width: 240px;
+  height: 340px;
   border-radius: 160px;
   overflow: hidden;
   background: #000;
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 rgba(255,255,255,0.1);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), inset 0 0 0 rgba(255, 255, 255, 0.1);
   transform-style: preserve-3d;
   animation: floatCard 6s ease-in-out infinite;
 }
@@ -162,25 +130,29 @@
 }
 
 @keyframes floatCard {
-  0%   { transform: translateY(0) rotateX(0deg); }
-  50%  { transform: translateY(-12px) rotateX(2deg); }
-  100% { transform: translateY(0) rotateX(0deg); }
+  0% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotateX(2deg);
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+  }
 }
 
 .card:hover {
   transform: scale(1.03) translateY(-8px);
 }
 
-
-
 .card-left {
   margin-top: 30px;
-  border-radius:  110px 110px  110px 0;
+  border-radius: 110px 110px 110px 0;
 }
 
 .card-right {
-  border-radius:  110px 0 110px 110px;
-    margin-bottom: 30px;
+  border-radius: 110px 0 110px 110px;
+  margin-bottom: 30px;
 }
 
 .card img {
@@ -233,9 +205,6 @@
   }
 }
 
-
-
-
 .white-border::before {
   content: "";
   position: absolute;
@@ -266,78 +235,10 @@
   pointer-events: none;
 }
 
-
-@keyframes cardReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-}
-
-/* .hero-title {
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: white;
-} */
-
 .hero-title span.highlight {
-  color: #6cc24a ;
+  color: #6cc24a;
   font-weight: 700;
 }
-
-
-/* .hero-title::after {
-  content: "|";
-  margin-left: 6px;
-  animation: blink 1s infinite;
-} */
-
-.hero-title {
-  font-size: 60px;
-  line-height: 1.1;
-  font-weight: 700;
-  position: relative;
-}
-
-.hero-title::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, #35ff7a, #4fd1ff);
-  mix-blend-mode: overlay;
-  opacity: 0.08;
-  animation: titleGlow 4s ease-in-out infinite;
-}
-
-@keyframes titleGlow {
-  0% { opacity: 0.04; }
-  50% { opacity: 0.12; }
-  100% { opacity: 0.04; }
-}
-
-
-/* @keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
-} */
-
-.hero-content {
-  backdrop-filter: blur(12px);
-  background: linear-gradient(
-    to bottom right,
-    rgba(255,255,255,0.05),
-    rgba(255,255,255,0.01)
-  );
-  border-radius: 16px;
-  padding: 80px;
-}
-
 
 /* MAIN CONTAINER */
 .split-hero {
@@ -383,11 +284,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.2),
-    rgba(0,0,0,0.5)
-  );
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
 }
 
 /* TEXT OVERLAY */
@@ -425,6 +322,7 @@
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.4s ease;
+  pointer-events: auto;
 }
 
 /* SHOW BUTTON ON HOVER */
@@ -465,13 +363,13 @@
   font-size: 16px;
   line-height: 1.75;
   max-width: 560px;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 /* IMAGE – SAME SIZE FOR ALL */
 .zigzag-image {
   flex: 1;
-  height: 380px;              /* REAL-WORLD CONSISTENT HEIGHT */
+  height: 380px;
   border-radius: 18px;
   overflow: hidden;
 }
@@ -481,7 +379,6 @@
   height: 100%;
   object-fit: cover;
 }
-
 
 .glow-btn1 {
   margin-top: 25px;
@@ -498,7 +395,7 @@
   cursor: pointer;
   overflow: hidden;
   letter-spacing: 2px;
-  transition: color 0.4s ease,border-color 0.2s ease;
+  transition: color 0.4s ease, border-color 0.2s ease;
   z-index: 1;
 }
 
@@ -517,7 +414,7 @@
 
 .glow-btn1:hover {
   color: #000;
-  border-color:  rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
   border-left: none;
   border-right: none;
 }
@@ -534,21 +431,453 @@
   color: #fff;
 }
 
+/* Added comprehensive mobile responsive design for tablets and phones */
+/* Desktop (1263px+): Full title on left, two side-by-side cards */
+@media (min-width: 1024px) {
+  .hero-content {
+    padding: 60px;
+  }
+  .hero-title {
+    font-size: 56px;
+  }
+  .card {
+    width: 240px;
+    height: 340px;
+  }
+  .hero-cards {
+    gap: 35px;
+  }
+}
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+/* Tablet 900-1023px - decrease to 230px */
+@media (max-width: 1023px) and (min-width: 900px) {
+  .hero-title {
+    font-size: 52px;
+  }
+  .card {
+    width: 230px;
+    height: 330px;
+  }
+  .hero-cards {
+    gap: 33px;
+  }
+}
+
+/* Tablet 800-899px - decrease to 220px */
+@media (max-width: 899px) and (min-width: 800px) {
+  .hero-title {
+    font-size: 48px;
+  }
+  .card {
+    width: 220px;
+    height: 320px;
+  }
+  .hero-cards {
+    gap: 30px;
+  }
+}
+
+/* Tablet 700-799px - decrease to 200px */
+@media (max-width: 799px) and (min-width: 700px) {
+  .hero-title {
+    font-size: 44px;
+  }
+  .card {
+    width: 200px;
+    height: 300px;
+  }
+  .hero-cards {
+    gap: 28px;
+  }
+}
+
+/* Tablet 600-699px - decrease to 180px, change layout to column */
+@media (max-width: 699px) and (min-width: 600px) {
+  .rimac-bg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 30px;
+  }
+  .hero-content {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    padding: 0;
+    margin-bottom: 40px;
+    background: none;
+    backdrop-filter: none;
+    text-align: center;
+  }
+  .hero-title {
+    font-size: 40px;
+    text-align: center;
+  }
+  .hero-cards {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    flex-direction: row;
+    gap: 20px;
+  }
+  .card {
+    width: 180px;
+    height: 280px;
+  }
+}
+
+/* Mobile 500-599px - decrease to 160px, side-by-side cards */
+@media (max-width: 599px) and (min-width: 500px) {
+  .hero-title {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  .card {
+    width: 160px;
+    height: 260px;
+  }
+  .hero-cards {
+    gap: 16px;
+  }
+}
+
+/* Mobile 400-499px - decrease to 140px, side-by-side cards */
+@media (max-width: 499px) and (min-width: 400px) {
+  .hero-title {
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+  .card {
+    width: 140px;
+    height: 240px;
+  }
+  .hero-cards {
+    gap: 14px;
+  }
+}
+
+/* Ultra-mobile 340-399px - decrease to 120px, side-by-side cards */
+@media (max-width: 399px) and (min-width: 340px) {
+  .hero-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .card {
+    width: 120px;
+    height: 220px;
+  }
+  .hero-cards {
+    gap: 12px;
+  }
+}
+
+/* Tablet (882px): Abbreviated heading on left, side-by-side cards, shorter height */
+@media (max-width: 1023px) and (min-width: 769px) {
+  .rimac-bg {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+  }
+
+  .hero-content {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    padding: 60px 40px;
+    width: auto;
+    margin: 0;
+    backdrop-filter: none;
+    background: none;
+    border-radius: 0;
+  }
+
+  .hero-title {
+    font-size: 48px;
+    line-height: 1.1;
+    max-width: 400px;
+    text-align: left;
+  }
+
+  .hero-cards {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    flex-direction: row;
+    gap: 30px;
+    margin: 0;
+  }
+
+  .card {
+    width: 220px;
+    height: 320px;
+  }
+
+  .card-left {
+    margin-top: 0;
+    border-radius: 100px 100px 100px 0;
+  }
+
+  .card-right {
+    margin-bottom: 0;
+    border-radius: 100px 0 100px 100px;
+  }
+}
+
+/* Mobile (725px): Stacked layout with full heading, vertical card stack */
+@media (max-width: 768px) {
+  .rimac-bg {
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+  }
+
+  .hero-content {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+    width: 100%;
+    background: none;
+    backdrop-filter: none;
+    border-radius: 0;
+  }
+
+  .hero-title {
+    font-size: 42px;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .hero-cards {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    width: 280px;
+    height: 380px;
+  }
+
+  .card-left {
+    margin-top: 0;
+    border-radius: 120px 120px 120px 0;
+  }
+
+  .card-right {
+    margin-bottom: 0;
+    border-radius: 120px 0 120px 120px;
+  }
+
+  .split-hero:hover .panel {
+    flex: 1;
+  }
+
+  .split-hero .panel:hover {
+    flex: 1;
+  }
+
+  .panel {
+    height: 280px;
+    margin-bottom: 15px;
+  }
+
+  .overlay h2 {
+    font-size: 26px;
+  }
+
+  .zigzag-section {
+    padding: 60px 20px;
+  }
+
   .zigzag-row,
   .zigzag-row.reverse {
     flex-direction: column;
+    gap: 25px;
+    margin-bottom: 60px;
   }
 
   .zigzag-image {
-    height: 260px;
+    height: 280px;
+  }
+
+  .zigzag-text h2 {
+    font-size: 24px;
+  }
+
+  .zigzag-text p {
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile (480px): Reduced sizing and spacing */
+@media (max-width: 480px) {
+  .rimac-bg {
+    padding: 40px 15px;
+  }
+
+  .hero-title {
+    font-size: 32px;
+    line-height: 1.15;
+    margin-bottom: 30px;
+  }
+
+  .hero-cards {
+    gap: 20px;
+  }
+
+  .card {
+    width: 220px;
+    height: 300px;
+  }
+
+  .card-left {
+    border-radius: 90px 90px 90px 0;
+    margin-top: 0;
+  }
+
+  .card-right {
+    border-radius: 90px 0 90px 90px;
+    margin-bottom: 0;
+  }
+
+  .panel {
+    height: 240px;
+  }
+
+  .overlay h2 {
+    font-size: 22px;
+  }
+
+  .overlay button {
+    padding: 9px 22px;
+    font-size: 11px;
+  }
+
+  .zigzag-section {
+    padding: 40px 12px;
   }
 
   .zigzag-row {
-    gap: 40px;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
+    gap: 18px;
+  }
+
+  .zigzag-image {
+    height: 240px;
+  }
+
+  .zigzag-text h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .zigzag-text p {
+    font-size: 13px;
+  }
+
+  .glow-btn1 {
+    padding: 7px 24px;
+    font-size: 10px;
   }
 }
-/* FOOTER */
+
+/* Extra Small Mobile (340px): Ultra-compact layout */
+@media (max-width: 340px) {
+  .rimac-bg {
+    padding: 30px 10px;
+    min-height: auto;
+  }
+
+  .hero-title {
+    font-size: 26px;
+    line-height: 1.1;
+    margin-bottom: 25px;
+  }
+
+  .hero-cards {
+    gap: 15px;
+  }
+
+  .card {
+    width: 180px;
+    height: 250px;
+  }
+
+  .card-left {
+    border-radius: 75px 75px 75px 0;
+  }
+
+  .card-right {
+    border-radius: 75px 0 75px 75px;
+  }
+
+  .card:hover {
+    transform: scale(1.02) translateY(-4px);
+  }
+
+  .panel {
+    height: 200px;
+  }
+
+  .overlay h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .overlay button {
+    padding: 8px 18px;
+    font-size: 10px;
+  }
+
+  .zigzag-section {
+    padding: 30px 10px;
+  }
+
+  .zigzag-row {
+    margin-bottom: 35px;
+    gap: 15px;
+  }
+
+  .zigzag-image {
+    height: 200px;
+  }
+
+  .zigzag-text h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .zigzag-text p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .glow-btn1 {
+    margin-top: 12px;
+    padding: 6px 20px;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+  }
+}

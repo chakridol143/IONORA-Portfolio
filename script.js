@@ -17,12 +17,88 @@ const subtitleEl = document.getElementById("subtitle")
 const btnExp = document.getElementById("btnExp")
 const overlay = document.getElementById("overlay")
 const sideNavItems = document.querySelectorAll(".side-nav-item")
+const scrollIndicator = document.querySelector(".scroll-indicator")
+const viewer = document.getElementById("viewer")
 
 const len = slots.length
 let active = 0
 let isAnimating = false
+let hasScrolled = false
 
-/* LOAD VIDEOS - only if slots exist (for index.html) */
+// Create custom cursor element
+const customCursor = document.createElement("div")
+customCursor.className = "custom-scroll-cursor"
+document.body.appendChild(customCursor)
+
+const isMobileDevice = () => window.innerWidth <= 800
+let isOverVideo = false
+
+// Interactive elements that should hide custom cursor and show pointer
+const interactiveSelectors = [
+  ".glow-btn",
+  ".side-nav-item",
+  ".nav-btn",
+  "#logo",
+  "header",
+  ".header",
+  ".menu-icon",
+  "a",
+  "button",
+]
+
+// Track mouse position
+document.addEventListener("mousemove", (e) => {
+  if (isOverVideo && !isMobileDevice()) {
+    customCursor.style.left = e.clientX + "px"
+    customCursor.style.top = e.clientY + "px"
+  }
+})
+
+document.addEventListener("mouseover", (e) => {
+  if (isMobileDevice()) return
+
+  const isInteractive = interactiveSelectors.some((selector) => e.target.closest(selector))
+
+  if (isInteractive) {
+    customCursor.classList.remove("active")
+    document.body.style.cursor = "pointer"
+    console.log("[v0] Hovering over interactive element")
+  }
+})
+
+// Show custom cursor when leaving interactive elements
+document.addEventListener("mouseout", (e) => {
+  if (isMobileDevice()) return
+
+  const isInteractive = interactiveSelectors.some((selector) => e.target.closest(selector))
+
+  if (isInteractive && isOverVideo) {
+    customCursor.classList.add("active")
+    document.body.style.cursor = "none"
+    console.log("[v0] Back to video area")
+  }
+})
+
+// Show custom cursor only when over video container
+if (viewer) {
+  viewer.addEventListener("mouseenter", () => {
+    if (!isMobileDevice()) {
+      isOverVideo = true
+      customCursor.classList.add("active")
+      document.body.style.cursor = "none"
+      console.log("[v0] Entered video area - show custom cursor")
+    }
+  })
+
+  viewer.addEventListener("mouseleave", () => {
+    isOverVideo = false
+    customCursor.classList.remove("active")
+    document.body.style.cursor = "auto"
+    console.log("[v0] Left video area - hide custom cursor")
+  })
+}
+
+/* LOAD VIDEOS */
 if (slots.length > 0) {
   slots.forEach((video, i) => {
     video.src = sections[i].src
@@ -34,87 +110,30 @@ if (slots.length > 0) {
 }
 
 function getState(rel) {
-  // rel 0 = active
-  // rel 1 = next
-  // rel 2 = opposite
-  // rel 3 = previous
-
-  if (rel === 0) {
-    return {
-      xPercent: 0,
-      yPercent: 0,
-      scale: 1,
-      opacity: 1,
-      zIndex: 40,
-      rotateX: 0,
-      z: 50,
-    }
-  }
-
-  if (rel === 1) {
-    // NEXT video — place it BELOW so it slides UP
-    return {
-      xPercent: 0,
-      yPercent: 120,   // ⬆️ changed (was -120)
-      scale: 0.25,
-      opacity: 0.6,
-      zIndex: 30,
-      rotateX: -15,    // ⬆️ flipped tilt
-      z: -350,
-    }
-  }
-
-  if (rel === 2) {
-    // OPPOSITE — also down, further away
-    return {
-      xPercent: 0,
-      yPercent: 220,   // ⬆️ changed (was -220)
-      scale: 0.2,
-      opacity: 0.4,
-      zIndex: 20,
-      rotateX: -20,    // ⬆️ flipped tilt
-      z: -550,
-    }
-  }
-
-  if (rel === 3) {
-    // PREVIOUS video — place ABOVE so it slides DOWN
-    return {
-      xPercent: 0,
-      yPercent: -120,  // ⬇️ changed (was 120)
-      scale: 0.25,
-      opacity: 0.6,
-      zIndex: 30,
-      rotateX: 15,     // ⬇️ flipped tilt
-      z: -350,
-    }
-  }
-
+  if (rel === 0) return { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, zIndex: 40, rotateX: 0, z: 50 }
+  if (rel === 1) return { xPercent: 0, yPercent: 120, scale: 0.25, opacity: 0.6, zIndex: 30, rotateX: -15, z: -350 }
+  if (rel === 2) return { xPercent: 0, yPercent: 220, scale: 0.2, opacity: 0.4, zIndex: 20, rotateX: -20, z: -550 }
+  if (rel === 3) return { xPercent: 0, yPercent: -120, scale: 0.25, opacity: 0.6, zIndex: 30, rotateX: 15, z: -350 }
   return getState(rel % 4)
 }
 
-
-/* INITIAL - only if we have slots */
+/* INITIAL SETUP */
 function setInitial() {
   if (slots.length > 0) {
-    slots.forEach((s, i) => {
-      const state = getState((i - active + len) % len)
-      window.gsap.set(s, state)
-    })
+    slots.forEach((s, i) => window.gsap.set(s, getState((i - active + len) % len)))
     updateOverlay()
     updateSideNav()
   }
 }
 
-const gsap = window.gsap // Declare the gsap variable here
-if (gsap && slots.length > 0) {
-  setInitial()
-}
+const gsap = window.gsap
+if (gsap && slots.length > 0) setInitial()
 
-/* UPDATE TEXT */
+/* OVERLAY TEXT */
 function updateOverlay() {
   if (titleEl) titleEl.textContent = sections[active].title
   if (subtitleEl) subtitleEl.textContent = sections[active].subtitle
+
   if (btnExp) {
     btnExp.textContent = sections[active].btnExp
     btnExp.onclick = () => {
@@ -128,9 +147,7 @@ function updateOverlay() {
 
 /* NAV ACTIVE */
 function updateSideNav() {
-  if (sideNavItems.length > 0) {
-    sideNavItems.forEach((el, i) => el.classList.toggle("active", i === active))
-  }
+  if (sideNavItems.length > 0) sideNavItems.forEach((el, i) => el.classList.toggle("active", i === active))
 }
 
 /* ROTATE */
@@ -142,27 +159,17 @@ function rotateTo(target) {
   const b = (active - target + len) % len
   const dir = f <= b ? 1 : -1
   const steps = dir === 1 ? f : b
+  const isFarJump = steps === 2
 
-  const isFarJump = steps === 2 // Jumping to opposite video
-  // ⛔ keep adjacent speed
-const zoomDuration = 0.55;
-const baseDuration = 0.9;
-
-
-// ✅ make only fullscreen expand slower for FAR JUMP
-const expandDuration = isFarJump ? 1.5 : 1.1
-
-const overlayFadeInDuration = isFarJump ? 1.1 : 0.8
+  const zoomDuration = 0.55
+  const baseDuration = 0.9
+  const expandDuration = isFarJump ? 1.5 : 1.1
+  const overlayFadeInDuration = isFarJump ? 1.1 : 0.8
 
   isAnimating = true
 
   if (overlay) {
-    window.gsap.to(overlay, {
-      opacity: 0,
-      scale: 0.95,
-      duration: 0.5,
-      ease: "power1.in",
-    })
+    window.gsap.to(overlay, { opacity: 0, scale: 0.95, duration: 0.5, ease: "power1.in" })
   }
 
   const tl = window.gsap.timeline({
@@ -175,26 +182,14 @@ const overlayFadeInDuration = isFarJump ? 1.1 : 0.8
         window.gsap.fromTo(
           overlay,
           { opacity: 0, scale: 0.9 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: overlayFadeInDuration,
-            ease: "power1.out",
-          },
+          { opacity: 1, scale: 1, duration: overlayFadeInDuration, ease: "power1.out" },
         )
       }
       isAnimating = false
     },
   })
 
-  window.gsap.set(slots[target], { rotateX: 45 })
-
-  tl.to(slots, {
-    scale: 0.4,
-    opacity: 0.8,
-    duration: zoomDuration,
-    ease: "power1.out",
-  })
+  tl.to(slots, { scale: 0.4, opacity: 0.8, duration: zoomDuration, ease: "power1.out" })
 
   for (let s = 1; s <= steps; s++) {
     const next = (active + dir * s + len) % len
@@ -207,16 +202,10 @@ const overlayFadeInDuration = isFarJump ? 1.1 : 0.8
         yPercent: (i) => getState((i - next + len) % len).yPercent,
         scale: 0.4,
         opacity: (i) => Math.max(0.5, getState((i - next + len) % len).opacity),
-        rotateX: (i) => i === target ? 45 : getState((i - next + len) % len).rotateX,
-
-        rotateZ: (i) => getState((i - next + len) % len).rotateZ,
+        rotateX: (i) => getState((i - next + len) % len).rotateX,
         z: (i) => getState((i - next + len) % len).z,
         zIndex: (i) => getState((i - next + len) % len).zIndex,
-        ease: "power1.inOut",
-        stagger: {
-          each: 0.08,
-          ease: "power1.out",
-        },
+        stagger: { each: 0.08, ease: "power1.out" },
       },
       "-=0.4",
     )
@@ -226,32 +215,29 @@ const overlayFadeInDuration = isFarJump ? 1.1 : 0.8
     slots,
     {
       duration: expandDuration,
-      scale: (i) => {
-        const relPos = (i - target + len) % len
-        return getState(relPos).scale
-      },
-      opacity: (i) => {
-        const relPos = (i - target + len) % len
-        return getState(relPos).opacity
-      },
-      rotateX: (i) => {
-        const relPos = (i - target + len) % len
-        return getState(relPos).rotateX
-      },
-      ease: isFarJump ? "power1.inOut" : "power1.out", // Gentler easing for adjacent
+      scale: (i) => getState((i - target + len) % len).scale,
+      opacity: (i) => getState((i - target + len) % len).opacity,
+      rotateX: (i) => getState((i - target + len) % len).rotateX,
+      ease: isFarJump ? "power1.inOut" : "power1.out",
     },
     "-=0.5",
   )
 }
 
-/* SIDE NAV CLICK - only if side nav exists */
-if (sideNavItems.length > 0) {
-  sideNavItems.forEach((item) => {
-    item.addEventListener("click", () => rotateTo(Number(item.dataset.index)))
-  })
+/* SCROLL INDICATOR FADE OUT */
+function hideScrollIndicator() {
+  if (!hasScrolled && scrollIndicator) {
+    hasScrolled = true
+    scrollIndicator.classList.add("hidden")
+  }
 }
 
-/* SCROLL - only if we have video slots */
+/* SIDE NAV CLICK */
+if (sideNavItems.length > 0) {
+  sideNavItems.forEach((item) => item.addEventListener("click", () => rotateTo(Number(item.dataset.index))))
+}
+
+/* SCROLL */
 if (slots.length > 0) {
   let wheelLock = false
   window.addEventListener(
@@ -262,6 +248,7 @@ if (slots.length > 0) {
       wheelLock = true
       setTimeout(() => (wheelLock = false), 1000)
       e.deltaY > 0 ? rotateTo(active + 1) : rotateTo(active - 1)
+      hideScrollIndicator()
     },
     { passive: false },
   )
@@ -271,121 +258,9 @@ if (slots.length > 0) {
   window.addEventListener("touchstart", (e) => (startY = e.touches[0].clientY))
   window.addEventListener("touchend", (e) => {
     const dy = e.changedTouches[0].clientY - startY
-    if (Math.abs(dy) > 50) dy < 0 ? rotateTo(active + 1) : rotateTo(active - 1)
+    if (Math.abs(dy) > 50) {
+      dy < 0 ? rotateTo(active + 1) : rotateTo(active - 1)
+      hideScrollIndicator()
+    }
   })
 }
-
-/* MENU - Works on all pages */
-document.addEventListener("DOMContentLoaded", () => {
-  const menuToggle = document.getElementById("menu-toggle")
-  const sidebar = document.getElementById("sidebar")
-  const overlayBg = document.getElementById("overlay-bg")
-  const links = document.querySelectorAll(".sidebar-links a")
-
-  if (!menuToggle || !sidebar || !overlayBg) return
-
-  let open = false
-
-  function openMenu() {
-    open = true
-    menuToggle.classList.add("active")
-    sidebar.classList.add("open")
-    overlayBg.classList.add("active")
-
-    if (typeof window.gsap !== "undefined") {
-      window.gsap.fromTo(
-        sidebar,
-        { clipPath: "circle(0% at 95% 40px)" },
-        { clipPath: "circle(150% at 95% 40px)", duration: 0.8, ease: "power4.inOut" },
-      )
-
-      window.gsap.to(links, { opacity: 1, y: 0, stagger: 0.08, duration: 0.5, ease: "power3.out" })
-    }
-  }
-
-  function closeMenu() {
-    open = false
-    menuToggle.classList.remove("active")
-    overlayBg.classList.remove("active")
-
-    if (typeof window.gsap !== "undefined") {
-      window.gsap.to(links, { opacity: 0, y: 25, duration: 0.35 })
-
-      window.gsap.to(sidebar, {
-        clipPath: "circle(0% at 95% 40px)",
-        duration: 0.7,
-        ease: "power4.inOut",
-        onComplete: () => sidebar.classList.remove("open"),
-      })
-    } else {
-      sidebar.classList.remove("open")
-    }
-  }
-
-  menuToggle.onclick = () => (open ? closeMenu() : openMenu())
-  overlayBg.onclick = closeMenu
-
-  /* ACTIVE LINK - improved to highlight correct menu items */
-  const page = location.pathname.split("/").pop() || "index.html"
-
-  links.forEach((a) => {
-    const href = a.getAttribute("href")
-    let isActive = false
-
-    if (href === "index.html" && (page === "index.html" || page === "")) {
-      isActive = true
-    } else if (a.textContent.trim() === "Software Solutions" && page === "software.html") {
-      isActive = true
-    } else if (href === page) {
-      isActive = true
-    }
-
-    a.classList.toggle("active-link", isActive)
-  })
-
-  /* Menu hover background images */
-  const menuImages = {
-    IONORA: document.querySelector(".bg-img.home"),
-    "Software Solutions": document.querySelector(".bg-img.software"),
-    "Digital Marketing": document.querySelector(".bg-img.dg"),
-    "About Us": document.querySelector(".bg-img.about"),
-    "Contact Us": document.querySelector(".bg-img.about"),
-  }
-
-  links.forEach((link) => {
-    link.addEventListener("mouseenter", () => {
-      document.querySelectorAll(".bg-img").forEach((img) => img.classList.remove("active"))
-
-      const text = link.textContent.trim()
-
-      if (menuImages[text]) {
-        menuImages[text].classList.add("active")
-      }
-    })
-
-    link.addEventListener("mousemove", (e) => {
-      const text = link.textContent.trim()
-      const activeImg = menuImages[text]
-
-      if (!activeImg || !activeImg.classList.contains("active")) return
-
-      const rect = link.getBoundingClientRect()
-      const x = e.clientX - rect.left // Mouse X position relative to link
-      const y = e.clientY - rect.top // Mouse Y position relative to link
-
-      // Calculate movement as percentage (-20 to +20 for smooth parallax)
-      const moveX = (x / rect.width - 0.5) * 40 // -20 to +20 range
-      const moveY = (y / rect.height - 0.5) * 40 // -20 to +20 range
-
-      // Apply transform to move background image
-      activeImg.style.transform = `scale(1.05) translate(${moveX}px, ${moveY}px)`
-    })
-
-    link.addEventListener("mouseleave", () => {
-      document.querySelectorAll(".bg-img").forEach((img) => {
-        img.classList.remove("active")
-        img.style.transform = "scale(1.15) translateY(20px)"
-      })
-    })
-  })
-})
