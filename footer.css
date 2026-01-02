@@ -134,3 +134,159 @@
     height: 240px;
   }
 }
+
+/* Better box model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling & rendering */
+html {
+  scroll-behavior: smooth;
+}
+
+.site-footer {
+  overflow: hidden;
+}
+
+/* Initial hidden state */
+.footer-info,
+.footer-map {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: footerFadeUp 1s ease forwards;
+}
+
+/* Delay map slightly */
+.footer-map {
+  animation-delay: 0.25s;
+}
+
+/* Animation keyframes */
+@keyframes footerFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1199px) {
+  .footer-info {
+    margin-left: 100px;
+    padding: 60px;
+  }
+
+  .footer-map iframe {
+    width: 520px;
+    height: 400px;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-info {
+    margin-left: 0;
+    padding: 50px 40px;
+    text-align: left;
+  }
+
+  .footer-map iframe {
+    width: 100%;
+    height: 360px;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-info {
+    padding: 40px 22px;
+  }
+
+  .footer-info h2 {
+    font-size: 22px;
+  }
+
+  .footer-desc,
+  .footer-address,
+  .footer-hours {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .footer-socials {
+    gap: 14px;
+  }
+
+  .footer-socials a {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .footer-map {
+    padding: 20px;
+  }
+
+  .footer-map iframe {
+    height: 260px;
+  }
+}
+
+@media (max-width: 479px) {
+  .footer-info {
+    padding: 30px 18px;
+  }
+
+  .footer-label {
+    font-size: 11px;
+  }
+
+  .footer-info h2 {
+    font-size: 20px;
+  }
+
+  .footer-info h3,
+  .footer-info h4 {
+    font-size: 15px;
+  }
+
+  .footer-desc {
+    max-width: 100%;
+  }
+
+  .footer-map iframe {
+    height: 220px;
+    border-radius: 10px;
+  }
+
+  .footer-bottom {
+    font-size: 11px;
+  }
+}
+
+.footer-socials a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.footer-socials a:active {
+  transform: scale(0.92);
+}
+
+.footer-info h2,
+.footer-info h3 {
+  position: relative;
+}
+
+.footer-info h2::after {
+  content: "";
+  width: 60px;
+  height: 2px;
+  background: #0bbcd6;
+  display: block;
+  margin-top: 10px;
+}
