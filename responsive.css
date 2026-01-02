@@ -1,0 +1,296 @@
+/* =====================================================
+   RESPONSIVE ENHANCEMENTS
+   Add this file to your HTML AFTER your main CSS
+   <link rel="stylesheet" href="responsive.css">
+   ===================================================== */
+
+/* Hide side nav on mobile and tablet */
+@media (max-width: 1199px) {
+  .rimac-nav {
+    display: none !important;
+  }
+}
+
+/* Mobile first - Stack layout, remove side nav */
+@media (max-width: 767px) {
+  .dashboard-hero {
+    min-height: auto;
+    padding: 80px 16px 60px;
+  }
+
+  .dashboard-content-wrapper {
+    grid-template-columns: 1fr;
+    padding-inline: 16px;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .dashboard-text-content {
+    text-align: center;
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .dashboard-image-content {
+    order: -1;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+  }
+
+  .image-frame-wrapper {
+    max-width: 90%;
+    margin-inline: auto;
+  }
+
+  .image-frame-wrapper::after {
+    display: none;
+  }
+
+  .hero-image {
+    max-height: 250px;
+    -webkit-mask-image: none;
+    mask-image: none;
+    filter: none;
+    opacity: 1;
+  }
+
+  .animate-text span {
+    font-size: clamp(28px, 8vw, 44px);
+  }
+
+  .animate-sub {
+    font-size: 13px;
+  }
+
+  .quote-container {
+    justify-content: center;
+  }
+
+  .quote-box {
+    padding: 16px 20px;
+    font-size: 14px;
+  }
+
+  .status-indicator {
+    justify-content: center;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  .rimac-nav {
+    display: none;
+  }
+
+  .services-page {
+    padding: 60px 16px;
+  }
+
+  .section-header h2 {
+    font-size: 28px;
+  }
+
+  .services-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-card {
+    height: 320px;
+  }
+
+  .service-inner {
+    flex-direction: column;
+    margin-left: 0;
+    padding: 0 16px;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .service-media {
+    width: 100%;
+    height: 240px;
+  }
+
+  .service-text {
+    max-width: 100%;
+  }
+
+  .service-section {
+    padding-left: 0;
+    padding-right: 0;
+    min-height: auto;
+  }
+
+  /* Modal responsive */
+  .modal-content {
+    max-width: 95%;
+    max-height: 85vh;
+  }
+
+  .modal-scroll-wrapper {
+    padding: 40px 20px 20px 20px;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .modal-image {
+    height: 250px;
+  }
+
+  .modal-title {
+    font-size: 24px;
+  }
+}
+
+/* Tablet optimization - 2 column layouts */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dashboard-content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-inline: 32px;
+  }
+
+  .dashboard-image-content {
+    order: -1;
+    justify-content: center;
+  }
+
+  .dashboard-text-content {
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .image-frame-wrapper {
+    max-width: 420px;
+  }
+
+  .hero-image {
+    max-height: 340px;
+  }
+
+  .services-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .service-inner {
+    flex-direction: column;
+    margin-left: 0;
+    padding: 0 32px;
+    gap: 40px;
+  }
+
+  .service-media {
+    width: 100%;
+    height: 280px;
+  }
+
+  .rimac-nav {
+    display: none;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small desktop - 3 column layouts, nav still hidden */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .dashboard-content-wrapper {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    padding-inline: 40px;
+  }
+
+  .dashboard-image-content {
+    justify-content: center;
+  }
+
+  .hero-image {
+    max-height: 420px;
+  }
+
+  .services-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-inner {
+    gap: 60px;
+  }
+
+  .service-media {
+    width: 480px;
+    height: 300px;
+  }
+
+  .rimac-nav {
+    display: none;
+  }
+}
+
+/* Large desktop - full layout with side nav visible */
+@media (min-width: 1200px) {
+  .dashboard-content-wrapper {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  .rimac-nav {
+    display: block;
+    position: fixed;
+    left: 32px;
+    top: 35%;
+  }
+
+  .services-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .service-inner {
+    gap: 80px;
+    margin-left: 100px;
+  }
+}
+
+/* Touch devices - remove hover effects */
+@media (hover: none) and (pointer: coarse) {
+  .service-card:hover .hover-bg,
+  .image-frame-wrapper:hover::after,
+  .image-frame-wrapper:hover .hero-image {
+    transform: none;
+    opacity: 1;
+  }
+
+  .nav-item:hover {
+    color: inherit;
+    opacity: 0.75;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Ultra-wide screens - optimize spacing */
+@media (min-width: 1600px) {
+  .dashboard-content-wrapper {
+    max-width: 1400px;
+    margin-inline: auto;
+  }
+
+  .services-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
