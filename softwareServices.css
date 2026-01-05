@@ -1,4 +1,275 @@
+.rimac-bg {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+
+  background: linear-gradient(135deg, #07161d, #0e2a33, #1f3f4a, #07161d);
+
+  background-size: 400% 400%;
+  animation: rimacFlow 10s linear infinite;
+}
+
+@keyframes rimacFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes rimacLightFlow {
+  0% {
+    transform: translate(-30%, -30%);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(30%, 30%);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-30%, -30%);
+    opacity: 0.4;
+  }
+}
+
+.hero-content {
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  color: white;
+  backdrop-filter: blur(12px);
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+  border-radius: 16px;
+  padding: 80px;
+}
+
+.hero-title {
+  font-size: 60px;
+  line-height: 1.1;
+  font-weight: 700;
+  position: relative;
+  opacity: 0;
+  animation: textSlide 1.2s ease forwards;
+}
+
+.hero-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #35ff7a, #4fd1ff);
+  mix-blend-mode: overlay;
+  opacity: 0.08;
+  animation: titleGlow 4s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0% {
+    opacity: 0.04;
+  }
+  50% {
+    opacity: 0.12;
+  }
+  100% {
+    opacity: 0.04;
+  }
+}
+
+@keyframes textSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.highlight {
+  color: #6cc24a;
+}
+
+/* HERO CARDS SECTION */
+.hero-cards {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 40px;
+  z-index: 5;
+  flex-direction: row;
+}
+
+/* Reduced desktop baseline to match 75% zoom appearance */
+.card {
+  width: 240px;
+  height: 340px;
+  border-radius: 160px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), inset 0 0 0 rgba(255, 255, 255, 0.1);
+  transform-style: preserve-3d;
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+.card-right {
+  animation-delay: 2s;
+}
+
+@keyframes floatCard {
+  0% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotateX(2deg);
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+.card:hover {
+  transform: scale(1.03) translateY(-8px);
+}
+
+.card-left {
+  margin-top: 30px;
+  border-radius: 110px 110px 110px 0;
+}
+
+.card-right {
+  border-radius: 110px 0 110px 110px;
+  margin-bottom: 30px;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-left img {
+  animation: flowLeft 6s ease-in-out infinite;
+}
+
+.card-right img {
+  animation: flowRight 6s ease-in-out infinite;
+}
+
+@keyframes flowLeft {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-12px, -10px) scale(1.02);
+  }
+  50% {
+    transform: translate(10px, 8px) scale(1.04);
+  }
+  75% {
+    transform: translate(-8px, 6px) scale(1.02);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes flowRight {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(12px, 10px) scale(1.02);
+  }
+  50% {
+    transform: translate(-10px, -8px) scale(1.04);
+  }
+  75% {
+    transform: translate(8px, -6px) scale(1.02);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.white-border::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.green-border::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  box-shadow: 0 0 25px rgba(108, 194, 74, 0.35);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.white-border::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-title span.highlight {
+  color: #6cc24a;
+  font-weight: 700;
+}
+
+/* MAIN CONTAINER */
+.split-hero {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* PANELS */
+.panel {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  transition: flex 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* EXPAND ON HOVER */
+.split-hero:hover .panel {
+  flex: 0.35;
+}
+
+.split-hero .panel:hover {
+  flex: 0.65;
+}
+
+
+
+
 /* ===== GLOBAL ===== */
+
 body {
   margin: 0;
   font-family: "Georgia", serif;
