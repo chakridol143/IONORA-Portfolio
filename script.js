@@ -264,3 +264,12 @@ if (slots.length > 0) {
     }
   })
 }
+fetch("loader.html")
+.then(res => res.text())
+.then(html => {
+  document.getElementById("loader-root").innerHTML = html;
+
+  const s = document.createElement("script");
+  s.src = "loader.js";
+  document.body.appendChild(s);
+});
