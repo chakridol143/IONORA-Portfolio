@@ -5,22 +5,52 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>IONORA - Portfolio</title>
 
+  <!-- ✅ LOADER CSS MUST LOAD FIRST -->
+  <link rel="stylesheet" href="loader.css" />
+
+  <!-- EXISTING STYLES (UNCHANGED) -->
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="header.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
+  <!-- EXISTING LIBS (UNCHANGED) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
-<body class="hero">
-  <div id="loader-root"></div>
- 
+<body class="hero loading">
+
+  <!-- =========================
+       INLINE LOADER (NO FETCH)
+  ========================== -->
+  <div id="page-loader">
+    <div class="loader-glow"></div>
+
+    <div class="loader-content">
+
+      <!-- BRAND -->
+      <div class="brand-name">
+        <span>I</span><span>O</span><span>N</span>
+        <span>O</span><span>R</span><span>A</span>
+      </div>
+
+      <!-- UNDERLINES -->
+      <div class="nevera-lines">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+
+    </div>
+  </div>
+  <!-- ========================= -->
+
+  <!-- EXISTING CONTENT (UNCHANGED) -->
   <div id="global-header"></div>
+
   <main class="app">
 
     <section class="viewer" id="viewer">
-      <!-- Enhanced scroll indicator with animated arrows and glowing effects -->
       <div class="scroll-indicator">
         <div class="scroll-text">Scroll to explore</div>
       </div>
@@ -50,6 +80,7 @@
 
   </main>
 
+  <!-- HEADER INJECTION (UNCHANGED) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       fetch("header.html")
@@ -57,7 +88,6 @@
         .then(html => {
           document.getElementById("global-header").innerHTML = html;
 
-          // load menu behaviour AFTER header is injected
           const s = document.createElement("script");
           s.src = "header.js";
           s.onload = () => initHeaderMenu();
@@ -65,11 +95,10 @@
         });
     });
   </script>
-  <script>
 
-  </script>
-  <!-- your GSAP homepage script -->
+  <!-- EXISTING SCRIPTS (ORDER MATTERS) -->
   <script src="script.js"></script>
   <script src="loader.js"></script>
+
 </body>
 </html>
